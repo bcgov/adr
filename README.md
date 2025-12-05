@@ -1,2 +1,1 @@
-# adr
-Authoritative Data Registry repository
+# Authoritative Data Registry
