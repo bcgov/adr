@@ -2,6 +2,7 @@ namespace Adr.PublicBodies
 {
     using System.Diagnostics.CodeAnalysis;
     using Adr.PublicBodies.Configuration;
+    using Adr.PublicBodies.Services;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -34,6 +35,9 @@ namespace Adr.PublicBodies
             this.startupConfig.ConfigureHttpServices(services);
             this.startupConfig.ConfigureSwaggerServices(services);
             this.startupConfig.ConfigureTracing(services);
+
+            // Configure the public bodies services
+            services.AddTransient<IMinistryService, HardcodedMinistryService>();
 
             // Add auto mapper
             services.AddAutoMapper(typeof(Startup));
