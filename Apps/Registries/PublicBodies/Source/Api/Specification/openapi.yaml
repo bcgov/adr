@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Ministries API (example)
+  version: "1.0.0"
+paths:
+  /ministries/{id}:
+    get:
+      summary: Get a single ministry by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: A ministry object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ministry"
+              examples:
+                ministry:
+                  $ref: "#/components/examples/MinistryExample"
+
+components:
+  schemas:
+    Ministry:
+      type: object
+      description: Representation of a government ministry
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier (UUID) for the ministry
+        name:
+          type: string
+          description: Full ministry name
+        acronym:
+          type: string
+          description: Short acronym for the ministry (may be empty)
+        effectiveDate:
+          type: string
+          format: date
+          nullable: true
+          description: Date ministry became effective (nullable)
+        retirementDate:
+          type: string
+          format: date
+          nullable: true
+          description: Date ministry was retired (nullable)
+      required:
+        - id
+        - name
+        - acronym
+
+  examples:
+    MinistryExample:
+      summary: Example ministry object
+      value:
+        id: "019b2cf6-2e87-7e85-9a05-1b466815fafb"
+        name: "Energy and Climate Solutions"
+        acronym: "ECS"
+        effectiveDate: "2024-11-18"
+        retirementDate: null
+ 
