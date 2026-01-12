@@ -77,6 +77,9 @@ namespace Adr.PublicBodies.Configuration
                     Array.ForEach(xmlDocs, d => options.IncludeXmlComments(d));
                     options.UseAllOfForInheritance();
                     options.UseOneOfForPolymorphism();
+                    options.SchemaFilter<SwaggerExcludeModelFilter>();
+                    options.SchemaFilter<SwaggerGenericFilter>();
+                    options.DocumentFilter<SwaggerExcludeModelFilter>();
                 });
         }
 
