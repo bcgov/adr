@@ -1,5 +1,7 @@
 namespace Adr.PublicBodies.Models
 {
+    using Adr.PublicBodies.Configuration.Addons.Swagger;
+
     /// <summary>
     /// Represents a base model with information that can be audited.
     /// </summary>
