@@ -12,5 +12,18 @@ To generate a schema with OpenAPI typescript:
 npx openapi-typescript ./Apps/Registries/PublicBodies/Source/Api/Specification/openapi.yaml -o ./Apps/Registries/PublicBodies/Source/Api/Specification/schema.d.ts
 ```
 
+# Orval
 
+A tool to convert OpenAPI Specification to Zod
 
+## Usage
+
+```bash
+orval --input ./Apps/Registries/PublicBodies/Source/Api/Specification/openapi.yaml --output ./zod
+```
+
+Or you can create an `orval.config.ts` file and use the following:
+
+```bash
+npx orval
+```
