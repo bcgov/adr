@@ -4,6 +4,23 @@ Our deployed API: https://publicbodies-c474bb-dev.apps.silver.devops.gov.bc.ca/p
 
 We used Copilot to write a yaml specification for openAPI to consume.
 
+## Installation
+
+```bash
+npm i -D openapi-typescript typescript
+```
+
+After installation edit the `tsconfig.json` file to have the following:
+
+```json
+{
+  "compilerOptions": {
+    "module": "ESNext", // or "NodeNext"
+    "moduleResolution": "Bundler" // or "NodeNext"
+  }
+}
+```
+
 ## Usage
 
 To generate a schema with OpenAPI typescript:
@@ -14,7 +31,28 @@ npx openapi-typescript ./Apps/Registries/PublicBodies/Source/Api/Specification/o
 
 # Orval
 
-A tool to convert OpenAPI Specification to Zod
+A tool to convert OpenAPI Specification to Zod.
+
+## Installation
+
+Since we want to use Zod for type safety we also install it:
+
+```bash
+npm i orval -D
+npm install zod
+```
+
+After installation edit the `tsconfig.json` file to have the following:
+
+```json
+{
+  // ...
+  "compilerOptions": {
+    // ...
+    "strict": true
+  }
+}
+```
 
 ## Usage
 
