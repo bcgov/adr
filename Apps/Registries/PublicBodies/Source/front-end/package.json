@@ -9,7 +9,10 @@
     "format": "npx prettier . --write",
     "format:check": "npx prettier . --check",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:unit": "vitest --config=vitest.config.ts --project=unit",
+    "test:browser": "vitest --config=vitest.config.ts --project=browser",
+    "test:browser-headless": "vitest --config=vitest.config.ts --project=browser --browser.headless"
   },
   "dependencies": {
     "@bcgov/design-system-react-components": "0.5.2",
