@@ -14,8 +14,8 @@
   "dependencies": {
     "@bcgov/design-system-react-components": "0.5.2",
     "@bcgov/design-tokens": "3.2.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
