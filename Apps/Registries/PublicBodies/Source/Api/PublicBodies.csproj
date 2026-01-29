@@ -44,6 +44,14 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
 
+</ItemGroup>
+<ItemGroup>
+  <Folder Include="$(SolutionDir)Assets\" CopyToOutputDirectory="Always" />
+</ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
   </ItemGroup>
 
   <ItemGroup>

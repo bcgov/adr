@@ -18,7 +18,7 @@ namespace Adr.PublicBodies.Controllers
     {
         private readonly ILogger<PublicBodiesController> _logger;
 
-        private readonly IMinistryService _ministryService;
+        private readonly IPublicBodyService _publicBodyService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PublicBodiesController"/> class.
@@ -27,11 +27,11 @@ namespace Adr.PublicBodies.Controllers
         /// <param name="ministryService">Injected Ministry Service.</param>
         public PublicBodiesController(
             ILogger<PublicBodiesController> logger,
-            IMinistryService ministryService
+            IPublicBodyService publicBodyService
         )
         {
             _logger = logger;
-            _ministryService = ministryService;
+            _publicBodyService = publicBodyService;
         }
 
         [HttpGet]
@@ -45,14 +45,28 @@ namespace Adr.PublicBodies.Controllers
             };
         }
 
-        [HttpGet("ministries")]
+        [HttpGet("names")]
         [Produces("application/json")]
-        public BaseResponseModel<IEnumerable<MinistryModel>> GetMinistries()
+        public BaseResponseModel<IEnumerable<PublicBodyNameModel>> GetNames()
         {
-            var ministries = _ministryService.GetAll();
-            var requestResponse = new BaseResponseModel<IEnumerable<MinistryModel>>()
+            var names = _publicBodyService.GetAllNames();
+            var requestResponse = new BaseResponseModel<IEnumerable<PublicBodyNameModel>>()
             {
-                Payload = ministries,
+                Payload = names,
+                DatetimeRequested = DateTime.Now,
+            };
+
+            return requestResponse;
+        }
+
+        [HttpGet("types")]
+        [Produces("application/json")]
+        public BaseResponseModel<IEnumerable<PublicBodyTypeModel>> GetTypes()
+        {
+            var types = _publicBodyService.GetAllTypes();
+            var requestResponse = new BaseResponseModel<IEnumerable<PublicBodyTypeModel>>()
+            {
+                Payload = types,
                 DatetimeRequested = DateTime.Now,
             };
 
