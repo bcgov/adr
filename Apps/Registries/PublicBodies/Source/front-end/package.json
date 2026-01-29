@@ -17,11 +17,13 @@
   "dependencies": {
     "@bcgov/design-system-react-components": "0.5.2",
     "@bcgov/design-tokens": "3.2.0",
+    "@tanstack/react-query": "5.90.20",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
+    "@tanstack/eslint-plugin-query": "5.91.3",
     "@types/node": "25.0.10",
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
