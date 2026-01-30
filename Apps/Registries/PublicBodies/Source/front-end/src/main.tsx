@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import App from "./App.tsx";
 import "./index.css";
+import "@bcgov/bc-sans/css/BC_Sans.css";
 
 const queryClient = new QueryClient();
 
