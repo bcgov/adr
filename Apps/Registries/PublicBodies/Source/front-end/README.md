@@ -1,3 +1,33 @@
+# B.C. Public Bodies Register Front-end
+
+This directory contains an example front-end application for ingesting the B.C. Public Bodies Register API. It is a Node.js/Vite/React app.
+
+## Developer setup
+
+- Install [Node.js](https://nodejs.org) using a method of your choosing. `.nvmrc` contains the Node.js major version number you should select.
+- In this directory, run `npm install` to install dependencies.
+- `npm run dev` runs the `dev` script in `package.json` to start the development server with hot reloading.
+
+### Environment setup
+
+- Make a local copy of `.env.sample` called `.env.local` and populate it with values.
+
+### Formatting
+
+- `.prettierrc` contains [Prettier](https://prettier.io) formatting rules which can be used automatically through your choice of IDE.
+- Prettier `format` commands contained in `package.json` can be used run formatting rules locally or in CI.
+
+### Linting
+
+- ESLint configuration is described in `eslint.config.js` and can be used automatically through your choice of IDE.
+- ESLint `lint` command contained in `package.json` can be used to run linting rules locally or in CI.
+
+---
+
+Original Vite-generated README contents are below:
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
