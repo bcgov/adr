@@ -79,9 +79,9 @@ namespace Adr.PublicBodies.Providers
             var records = LoadAsset<PublicBodyTypeModel>(typesFileName, mapper);
 
             // For now generate the ID on the fly
-            foreach (var typeRecord in records)
+            foreach (var recordEntry in records)
             {
-                typeRecord.Id = Guid.NewGuid().ToString();
+                recordEntry.Id = Guid.NewGuid().ToString();
             }
             return records;
         }
