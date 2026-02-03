@@ -91,10 +91,6 @@ namespace Adr.PublicBodies.Providers
             string resourceName = $"PublicBodies.Assets.{assetName}";
 
             Assembly? assembly = Assembly.GetAssembly(typeof(StaticFileProvider));
-            var names = assembly?.GetManifestResourceNames();
-            System.Console.WriteLine("NAMES HERE");
-            System.Console.WriteLine("[{0}]", string.Join(", ", names ?? []));
-            System.Console.WriteLine("-----------------------------------");
 
             Stream resourceStream =
                 assembly!.GetManifestResourceStream(resourceName)
