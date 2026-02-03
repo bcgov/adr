@@ -5,6 +5,7 @@ namespace Adr.PublicBodies.Providers
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using Adr.PublicBodies.Mappers;
     using Adr.PublicBodies.Models;
     using CsvHelper;
@@ -57,20 +58,13 @@ namespace Adr.PublicBodies.Providers
 
             var namesFileName = "public body names 2026-01-21v2.csv";
 
-            using StreamReader reader = new("Assets/" + namesFileName);
-            CsvConfiguration csvConfig = new(CultureInfo.InvariantCulture);
-            csvConfig.Delimiter = "\t";
-            using CsvReader csv = new(reader, csvConfig);
-            csv.Context.TypeConverterCache.AddConverter<bool>(new BooleanConverter());
-            PublicBodyNameMapper mapper = new();
-            csv.Context.RegisterClassMap(mapper);
-            IEnumerable<PublicBodyNameModel> records = csv.GetRecords<PublicBodyNameModel>()
-                .ToList();
+            var mapper = new PublicBodyNameMapper();
+            var records = LoadAsset<PublicBodyNameModel>(namesFileName, mapper);
 
             // For now generate the ID on the fly
-            foreach (var nameRecord in records)
+            foreach (var typeRecord in records)
             {
-                nameRecord.Id = Guid.NewGuid().ToString();
+                typeRecord.Id = Guid.NewGuid().ToString();
             }
             return records;
         }
@@ -81,21 +75,39 @@ namespace Adr.PublicBodies.Providers
 
             var typesFileName = "public body types 2026-01-21v2.csv";
 
-            using StreamReader reader = new("Assets/" + typesFileName);
-            CsvConfiguration csvConfig = new(CultureInfo.InvariantCulture);
-            csvConfig.Delimiter = "\t";
-            using CsvReader csv = new(reader, csvConfig);
-            csv.Context.TypeConverterCache.AddConverter<bool>(new BooleanConverter());
-            PublicBodyTypeMapper mapper = new();
-            csv.Context.RegisterClassMap(mapper);
-            IEnumerable<PublicBodyTypeModel> records = csv.GetRecords<PublicBodyTypeModel>()
-                .ToList();
+            var mapper = new PublicBodyTypeMapper();
+            var records = LoadAsset<PublicBodyTypeModel>(typesFileName, mapper);
 
             // For now generate the ID on the fly
             foreach (var typeRecord in records)
             {
                 typeRecord.Id = Guid.NewGuid().ToString();
             }
+            return records;
+        }
+
+        private IEnumerable<T> LoadAsset<T>(string assetName, ClassMap mapper)
+        {
+            string resourceName = $"PublicBodies.Assets.{assetName}";
+
+            Assembly? assembly = Assembly.GetAssembly(typeof(StaticFileProvider));
+            var names = assembly?.GetManifestResourceNames();
+            System.Console.WriteLine("NAMES HERE");
+            System.Console.WriteLine("[{0}]", string.Join(", ", names ?? []));
+            System.Console.WriteLine("-----------------------------------");
+
+            Stream resourceStream =
+                assembly!.GetManifestResourceStream(resourceName)
+                ?? throw new FileNotFoundException($"File {resourceName} not found.");
+            using var reader = new StreamReader(resourceStream);
+
+            CsvConfiguration csvConfig = new(CultureInfo.InvariantCulture);
+            csvConfig.Delimiter = "\t";
+            using CsvReader csv = new(reader, csvConfig);
+            csv.Context.TypeConverterCache.AddConverter<bool>(new BooleanConverter());
+            csv.Context.RegisterClassMap(mapper);
+            IEnumerable<T> records = csv.GetRecords<T>().ToList();
+
             return records;
         }
     }

@@ -43,12 +43,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
 
-</ItemGroup>
-<ItemGroup>
-  <Folder Include="$(SolutionDir)Assets\" CopyToOutputDirectory="Always" />
-</ItemGroup>
-
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\public body types 2026-01-21v2.csv" />
+    <EmbeddedResource Include="Assets\public body names 2026-01-21v2.csv" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="33.1.0" />
