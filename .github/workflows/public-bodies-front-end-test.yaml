@@ -38,6 +38,10 @@ jobs:
         run: npm ci
         working-directory: ${{env.working-directory}}
 
+      - name: Install Playwright Chromium for browser test suite
+        run: npx playwright install chromium
+        working-directory: ${{env.working-directory}}
+
       # Errors in lint process will cause this job to fail.
       - name: Lint
         run: npm run lint
