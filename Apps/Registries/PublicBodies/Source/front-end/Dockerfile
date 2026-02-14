@@ -18,8 +18,11 @@ RUN npm ci
 # Copy required files
 COPY . .
 
+# Build arguments required by the Vite build
+ARG VITE_PUBLIC_BODIES_API_URL
+
 # Run Vite build script, which places built files in /app/dist
-RUN npm run build
+RUN VITE_PUBLIC_BODIES_API_URL=${VITE_PUBLIC_BODIES_API_URL} npm run build
 
 # -----------
 # Serve stage
