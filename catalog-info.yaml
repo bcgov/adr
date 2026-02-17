@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: authoritative-data-registers
+  title: Authoritative Data Registers
+  description: Standards, dictionaries, and glossaries for authoritative data registers.
+  annotations:
+    github.com/project-slug: bcgov/adr
+    backstage.io/techdocs-ref: dir:.
+    bcgovpubcode.gov.bc.ca/ministry: CITZ
+    bcgovpubcode.gov.bc.ca/product_name: Authoritative Data Registers
+    bcgovpubcode.gov.bc.ca/product_description: Standards, dictionaries, and glossaries for authoritative data registers.
+    bcgovpubcode.gov.bc.ca/product_acronym: ADR
+    bcgovpubcode.gov.bc.ca/product_owner: Colin Newall
+    bcgovpubcode.gov.bc.ca/hosting_platform: Private-Cloud-Openshift
+    backstage.io/source-template: template:default/docs-template-pr
+spec:
+  type: other
+  lifecycle: experimental
+  owner: group:default/databc-admin
