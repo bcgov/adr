@@ -12,6 +12,8 @@ export default function PublicBodiesList() {
 
   if (error) return "An error has occurred: " + error.message;
 
+  console.log(data);
+
   return (
     <div>
       {isFetching && <span>Fetching data...</span>}
@@ -23,6 +25,7 @@ export default function PublicBodiesList() {
                 id={publicBody.id}
                 name={publicBody.name}
                 acronym={publicBody.acronym}
+                publicBodyType={publicBody.publicBodyType.name}
                 effectiveDate={publicBody.effectiveDate}
                 retirementDate={publicBody.effectiveDate}
               />
