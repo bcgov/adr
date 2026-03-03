@@ -1,21 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import type { PublicBody } from "../../models/public-body";
+import usePublicBodies from "../../hooks/usePublicBodies";
 
-import { API_URL } from "../../constants";
-
-import PublicBodyCard, {
-  type PublicBodyCardProps,
-} from "../PublicBodyCard/PublicBodyCard";
+import PublicBodyCard from "../PublicBodyCard/PublicBodyCard";
 
 import "./PublicBodiesList.css";
 
 export default function PublicBodiesList() {
-  const { data, error, isFetching, isPending } = useQuery({
-    queryKey: ["publicBodiesData"],
-    queryFn: async () => {
-      const response = await fetch(API_URL);
-      return await response.json();
-    },
-  });
+  const { data, error, isFetching, isPending } = usePublicBodies();
 
   if (isPending) return "Loading...";
 
@@ -25,15 +16,15 @@ export default function PublicBodiesList() {
     <div>
       {isFetching && <span>Fetching data...</span>}
       <ul className="list-public-bodies">
-        {data.payload.map((card: PublicBodyCardProps, index: number) => {
+        {data.map((publicBody: PublicBody, index: number) => {
           return (
-            <li key={`${card.id}-${index}`}>
+            <li key={index}>
               <PublicBodyCard
-                id={card.id}
-                name={card.name}
-                acronym={card.acronym}
-                effectiveDate={card.effectiveDate}
-                retirementDate={card.effectiveDate}
+                id={publicBody.id}
+                name={publicBody.name}
+                acronym={publicBody.acronym}
+                effectiveDate={publicBody.effectiveDate}
+                retirementDate={publicBody.effectiveDate}
               />
             </li>
           );
