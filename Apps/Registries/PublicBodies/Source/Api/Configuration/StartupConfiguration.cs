@@ -79,6 +79,7 @@ namespace Adr.PublicBodies.Configuration
                     options.UseOneOfForPolymorphism();
                     options.SchemaFilter<SwaggerExcludeModelFilter>();
                     options.SchemaFilter<SwaggerGenericFilter>();
+                    options.SchemaFilter<SwaggerSemanticRefFilter>();
                     options.DocumentFilter<SwaggerExcludeModelFilter>();
                 });
         }
