@@ -48,6 +48,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\public body types 2026-01-21v2.csv" />
     <EmbeddedResource Include="Assets\public body names 2026-01-21v2.csv" />
+    <EmbeddedResource Include="Assets\public bodies_ministry_plus_public_bodies.csv" />
+    <EmbeddedResource Include="Assets\public bodies_ministry_plus_public_body_types.csv" />
   </ItemGroup>
 
   <ItemGroup>

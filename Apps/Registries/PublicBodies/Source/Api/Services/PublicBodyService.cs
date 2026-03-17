@@ -25,19 +25,33 @@ namespace Adr.PublicBodies.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<PublicBodyNameModel> GetAllNames()
+        public IEnumerable<PublicBodyModel> GetAll()
         {
-            var names = _publicBodyProvider.GetAllNames();
+            var publicBodies = _publicBodyProvider.GetAllPublicBodies();
             var types = _publicBodyProvider.GetAllTypes().ToList();
 
             // load the types for each name
-            foreach (var nameRecord in names)
+            foreach (var publicBody in publicBodies)
             {
-                nameRecord.PublicBodyType = types.Find(t =>
-                    t.StaticId == nameRecord.PublicBodyTypeId
-                );
+                publicBody.PublicBodyType = types.Find(t => t.StaticId == publicBody.TypeId);
             }
-            return _publicBodyProvider.GetAllNames();
+            return _publicBodyProvider.GetAllPublicBodies();
+        }
+
+        /// <inheritdoc/>
+        public PublicBodyModel GetPublicBody(string id)
+        {
+            var publicBodies = _publicBodyProvider.GetAllPublicBodies();
+            var types = _publicBodyProvider.GetAllTypes().ToList();
+
+            var publicBody = publicBodies.FirstOrDefault(x => x.StaticId == id);
+            if (publicBody == null)
+            {
+                return null;
+            }
+
+            publicBody?.PublicBodyType = types.Find(t => t.PublicBodyTypeId == publicBody.TypeId);
+            return publicBody;
         }
 
         /// <inheritdoc/>

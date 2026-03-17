@@ -17,7 +17,7 @@ namespace Adr.PublicBodies.Providers
     {
         private readonly ILogger<StaticFileProvider> _logger;
 
-        private IEnumerable<PublicBodyNameModel>? _publicBodyNames;
+        private IEnumerable<PublicBodyModel>? _publicBodies;
         private IEnumerable<PublicBodyTypeModel>? _publicBodyTypes;
 
         /// <summary>
@@ -27,19 +27,19 @@ namespace Adr.PublicBodies.Providers
         public StaticFileProvider(ILogger<StaticFileProvider> logger)
         {
             _logger = logger;
-            _publicBodyNames = null;
+            _publicBodies = null;
             _publicBodyTypes = null;
         }
 
         /// <inheritdoc/>
-        public IEnumerable<PublicBodyNameModel> GetAllNames()
+        public IEnumerable<PublicBodyModel> GetAllPublicBodies()
         {
-            if (_publicBodyNames is null)
+            if (_publicBodies is null)
             {
-                _publicBodyNames = LoadNamesFromFile();
+                _publicBodies = LoadPublicBodiesFromFile();
             }
 
-            return _publicBodyNames;
+            return _publicBodies;
         }
 
         public IEnumerable<PublicBodyTypeModel> GetAllTypes()
@@ -52,14 +52,14 @@ namespace Adr.PublicBodies.Providers
             return _publicBodyTypes;
         }
 
-        private IEnumerable<PublicBodyNameModel> LoadNamesFromFile()
+        private IEnumerable<PublicBodyModel> LoadPublicBodiesFromFile()
         {
             _logger.LogInformation("Parsing Names file");
 
-            var namesFileName = "public body names 2026-01-21v2.csv";
+            var publicBodiesFile = "public bodies_ministry_plus_public_bodies.csv";
 
-            var mapper = new PublicBodyNameMapper();
-            var records = LoadAsset<PublicBodyNameModel>(namesFileName, mapper);
+            var mapper = new PublicBodyMapper();
+            var records = LoadAsset<PublicBodyModel>(publicBodiesFile, mapper);
 
             // For now generate the ID on the fly
             foreach (var nameRecord in records)
@@ -73,7 +73,7 @@ namespace Adr.PublicBodies.Providers
         {
             _logger.LogInformation("Parsing Types file");
 
-            var typesFileName = "public body types 2026-01-21v2.csv";
+            var typesFileName = "public bodies_ministry_plus_public_body_types.csv";
 
             var mapper = new PublicBodyTypeMapper();
             var records = LoadAsset<PublicBodyTypeModel>(typesFileName, mapper);
@@ -98,7 +98,7 @@ namespace Adr.PublicBodies.Providers
             using var reader = new StreamReader(resourceStream);
 
             CsvConfiguration csvConfig = new(CultureInfo.InvariantCulture);
-            csvConfig.Delimiter = "\t";
+            csvConfig.Delimiter = ",";
             using CsvReader csv = new(reader, csvConfig);
             csv.Context.TypeConverterCache.AddConverter<bool>(new BooleanConverter());
             csv.Context.RegisterClassMap(mapper);

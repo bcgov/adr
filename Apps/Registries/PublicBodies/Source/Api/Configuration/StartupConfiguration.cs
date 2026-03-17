@@ -81,6 +81,13 @@ namespace Adr.PublicBodies.Configuration
                     options.SchemaFilter<SwaggerGenericFilter>();
                     options.SchemaFilter<SwaggerSemanticRefFilter>();
                     options.DocumentFilter<SwaggerExcludeModelFilter>();
+                    options.CustomSchemaIds(type =>
+                        type.ToString()
+                            .Replace("`1", "")
+                            .Replace("IEnumerable", "List")
+                            .Replace("[", "")
+                            .Replace("]", "")
+                    );
                 });
         }
 

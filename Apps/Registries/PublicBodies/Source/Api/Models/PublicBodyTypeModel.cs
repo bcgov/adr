@@ -32,6 +32,15 @@ namespace Adr.PublicBodies.Models
         public required string StaticId { get; set; }
 
         /// <summary>
+        /// Gets or sets the public body type identifier
+        /// </summary>
+        [FieldName("PublicBodyTypeId")]
+        [FieldDescription("Identifier for the public body type.")]
+        [SchemaAndTableName("dbo.PublicBodyType")]
+        [DataType("string")]
+        public string PublicBodyTypeId { get; set; } = "";
+
+        /// <summary>
         /// Gets or sets the public body type code
         /// </summary>
         [FieldName("Code")]
@@ -66,5 +75,24 @@ namespace Adr.PublicBodies.Models
         [SystemOfRecord("Internal Database")]
         [Required("false")]
         public string Description { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets the type effective datetime
+        /// </summary>
+        [FieldName("TypeEffectiveDatetime")]
+        [FieldDescription("The date and time the public body type became effective.")]
+        [SchemaAndTableName("dbo.PublicBodyType")]
+        [DataType("string")]
+        public string TypeEffectiveDatetime { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets the type retired datetime
+        /// </summary>
+        [FieldName("TypeRetiredDatetime")]
+        [FieldDescription("The date and time the public body type was retired.")]
+        [SchemaAndTableName("dbo.PublicBodyType")]
+        [DataType("string")]
+        public string TypeRetiredDatetime { get; set; } = "";
+
     }
 }

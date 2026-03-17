@@ -9,10 +9,16 @@ namespace Adr.PublicBodies.Services
     public interface IPublicBodyService
     {
         /// <summary>
-        /// Gets the information for all public body names.
+        /// Gets the information for all public bodies.
         /// </summary>
-        /// <returns>A list public body names.</returns>
-        IEnumerable<PublicBodyNameModel> GetAllNames();
+        /// <returns>A list public bodies.</returns>
+        IEnumerable<PublicBodyModel> GetAll();
+
+        /// <summary>
+        /// Gets the information for public body with a given id.
+        /// </summary>
+        /// <returns>The matching public body.</returns>
+        PublicBodyModel? GetPublicBody(string id);
 
         /// <summary>
         /// Gets the information for all public body types.
