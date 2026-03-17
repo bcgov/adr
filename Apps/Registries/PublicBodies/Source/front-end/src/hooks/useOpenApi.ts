@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getPublicBodiesOpenApiSchema } from "../api/public-bodies";
 
-export default function UseOpenApi() {
+export default function useOpenApi() {
   return useQuery({
-    queryKey: ["pulbliBoodiesSpec"],
+    queryKey: ["publicBodiesSpec"],
     queryFn: getPublicBodiesOpenApiSchema,
   });
 }

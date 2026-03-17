@@ -25,3 +25,6 @@ dist-ssr
 
 # Vite cache files
 .vite
+
+# Local environment variables
+.env

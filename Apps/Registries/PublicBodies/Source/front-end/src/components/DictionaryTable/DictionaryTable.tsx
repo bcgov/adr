@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import UseOpenApi from "../../hooks/useOpenApi";
+import useOpenApi from "../../hooks/useOpenApi";
 import "./DictionaryTable.css";
 import {
   flexRender,
@@ -10,7 +10,7 @@ import {
 import { extractDictionary, type DictionaryField } from "./util";
 
 export default function DictionaryTable() {
-  const { data, error, isFetching, isPending } = UseOpenApi();
+  const { data, error, isFetching, isPending } = useOpenApi();
 
   const bcDictionary: DictionaryField[] = useMemo(() => {
     return extractDictionary(data) || [];
