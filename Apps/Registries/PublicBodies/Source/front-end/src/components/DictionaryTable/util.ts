@@ -9,28 +9,28 @@ export interface DictionaryField {
   designatedAsRequired: string;
 }
 
-function extractField(name, field): DictionaryField | undefined {
+function extractField(name: string, field: Record<string, unknown>): DictionaryField | undefined {
   if (field["x-bc-field"] === undefined) {
     console.log("probably a ref...", name);
     return undefined;
   }
   const dictionaryField: DictionaryField = {
-    fieldName: field["x-bc-field"],
-    fieldDescription: field["x-bc-desc"],
-    schemaNameTableName: field["x-bc-schema-table"],
-    dataSource: field["x-bc-source"],
-    dataType: field["x-bc-type"],
-    keyRelationships: field["x-bc-key"],
-    systemOfRecord: field["x-bc-sor"],
-    designatedAsRequired: field["x-bc-req"],
+    fieldName: field["x-bc-field"] as string,
+    fieldDescription: field["x-bc-desc"] as string,
+    schemaNameTableName: field["x-bc-schema-table"] as string,
+    dataSource: field["x-bc-source"] as string,
+    dataType: field["x-bc-type"] as string,
+    keyRelationships: field["x-bc-key"] as string,
+    systemOfRecord: field["x-bc-sor"] as string,
+    designatedAsRequired: field["x-bc-req"] as string,
   };
   return dictionaryField;
 }
 
-function extractProperties(properties): DictionaryField[] {
+function extractProperties(properties: Record<string, unknown>): DictionaryField[] {
   const dictionaryFields = [];
   for (const [key, value] of Object.entries(properties)) {
-    const field = extractField(key, value);
+    const field = extractField(key, value as Record<string, unknown>);
     if (field) {
       dictionaryFields.push(field);
     }
@@ -38,15 +38,17 @@ function extractProperties(properties): DictionaryField[] {
   return dictionaryFields;
 }
 
-function extractSchema(name: string, schema): DictionaryField[] | undefined {
-  if (schema.allOf && schema.allOf.length === 2 && schema.allOf[1].properties) {
-    const properties = schema.allOf[1].properties;
+function extractSchema(name: string, schema: Record<string, unknown>): DictionaryField[] | undefined {
+  const allOf = schema.allOf as Record<string, unknown>[] | undefined;
+  if (allOf && allOf.length === 2 && allOf[1].properties) {
+    const properties = allOf[1].properties as Record<string, unknown>;
     return extractProperties(properties);
   }
 }
 
-export function extractDictionary(openApiSpec): DictionaryField[] {
-  const schemas: any[] = openApiSpec?.components?.schemas;
+export function extractDictionary(openApiSpec: unknown): DictionaryField[] {
+  const spec = openApiSpec as { components?: { schemas?: Record<string, unknown> } };
+  const schemas = spec?.components?.schemas;
   let dictionary: DictionaryField[] = [];
 
   if (schemas === undefined) {
@@ -54,7 +56,7 @@ export function extractDictionary(openApiSpec): DictionaryField[] {
   }
 
   for (const [key, value] of Object.entries(schemas)) {
-    const fields = extractSchema(key, value);
+    const fields = extractSchema(key, value as Record<string, unknown>);
     if (fields) {
       dictionary = dictionary.concat(fields);
     }
