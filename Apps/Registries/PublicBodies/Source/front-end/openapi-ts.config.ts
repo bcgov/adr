@@ -1,7 +1,4 @@
 import { defineConfig } from "@hey-api/openapi-ts";
-import { config } from "dotenv";
-
-config();
 
 const apiUrl = process.env.VITE_PUBLIC_BODIES_API_URL;
 if (!apiUrl) {

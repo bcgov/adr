@@ -1,11 +1,11 @@
 import { Route, Switch } from "wouter";
-import PublicBodiesList from "./components/PublicBodiesList/PublicBodiesList";
-import DictionaryTable from "./components/DictionaryTable/DictionaryTable";
+import PublicBodiesList from "@/components/PublicBodiesList/PublicBodiesList";
+import DictionaryTable from "@/components/DictionaryTable/DictionaryTable";
 
 export default function PageRouter() {
   return (
     <Switch>
-      <Route path="/publicbodies" component={PublicBodiesList} />
+      <Route path="/public-bodies" component={PublicBodiesList} />
 
       <Route path="/dictionary" component={DictionaryTable} />
 

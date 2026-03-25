@@ -9,7 +9,10 @@ export interface DictionaryField {
   designatedAsRequired: string;
 }
 
-function extractField(name: string, field: Record<string, unknown>): DictionaryField | undefined {
+function extractField(
+  name: string,
+  field: Record<string, unknown>,
+): DictionaryField | undefined {
   if (field["x-bc-field"] === undefined) {
     console.log("probably a ref...", name);
     return undefined;
@@ -27,7 +30,9 @@ function extractField(name: string, field: Record<string, unknown>): DictionaryF
   return dictionaryField;
 }
 
-function extractProperties(properties: Record<string, unknown>): DictionaryField[] {
+function extractProperties(
+  properties: Record<string, unknown>,
+): DictionaryField[] {
   const dictionaryFields = [];
   for (const [key, value] of Object.entries(properties)) {
     const field = extractField(key, value as Record<string, unknown>);
@@ -38,7 +43,9 @@ function extractProperties(properties: Record<string, unknown>): DictionaryField
   return dictionaryFields;
 }
 
-function extractSchema(name: string, schema: Record<string, unknown>): DictionaryField[] | undefined {
+function extractSchema(
+  schema: Record<string, unknown>,
+): DictionaryField[] | undefined {
   const allOf = schema.allOf as Record<string, unknown>[] | undefined;
   if (allOf && allOf.length === 2 && allOf[1].properties) {
     const properties = allOf[1].properties as Record<string, unknown>;
@@ -47,7 +54,9 @@ function extractSchema(name: string, schema: Record<string, unknown>): Dictionar
 }
 
 export function extractDictionary(openApiSpec: unknown): DictionaryField[] {
-  const spec = openApiSpec as { components?: { schemas?: Record<string, unknown> } };
+  const spec = openApiSpec as {
+    components?: { schemas?: Record<string, unknown> };
+  };
   const schemas = spec?.components?.schemas;
   let dictionary: DictionaryField[] = [];
 
@@ -55,8 +64,8 @@ export function extractDictionary(openApiSpec: unknown): DictionaryField[] {
     return dictionary;
   }
 
-  for (const [key, value] of Object.entries(schemas)) {
-    const fields = extractSchema(key, value as Record<string, unknown>);
+  for (const value of Object.values(schemas)) {
+    const fields = extractSchema(value as Record<string, unknown>);
     if (fields) {
       dictionary = dictionary.concat(fields);
     }

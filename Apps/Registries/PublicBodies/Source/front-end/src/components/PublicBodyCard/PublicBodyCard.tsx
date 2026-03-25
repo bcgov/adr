@@ -6,9 +6,9 @@ interface PublicBodyCardProps {
   /** Display name */
   name: string | null;
   /** Acronym */
-  acronym: string | null;
+  acronym?: string | null | undefined;
   /** Public Body Type */
-  publicBodyType: string | null;
+  publicBodyType?: string | null;
   /** (optional) Effective date */
   effectiveDate?: string | null;
   /** (optional) Retirement date */
