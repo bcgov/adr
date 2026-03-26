@@ -1,0 +1,135 @@
+pb_unique_id,public_body_id,business_id_source,business_id_value,name,acronym,sector,type_id,public_body_effective_datetime,public_body_retired_datetime,record_created_datetime,record_ended_datetime,record_created_user,record_ended_user
+019cb570-3590-7586-b5c3-09380faaa830,019cb573-8d43-7154-9efa-63aaae4c4c63,,,Forests,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1976,1/1/1986,1/1/1976,1/1/1986,mdwilkie,mdwilkie
+019cb570-3590-793b-b6e1-dada97efd830,019cb573-8d43-7d87-8db5-14251b5a4696,,,"Lands, Parks, and Housing",,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1978,1/1/1986,1/1/1978,1/1/1986,mdwilkie,mdwilkie
+019cb570-3590-72c5-998b-feae6b91f44a,019cb573-8d43-7195-8c6d-4ed9e87bf318,,,Environment,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1979,1/1/1986,1/1/1979,1/1/1986,mdwilkie,mdwilkie
+019cb570-3590-7bc7-98e2-159c248cdf15,019cb573-8d43-7154-9efa-63aaae4c4c63,,,Forests and Lands,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1986,1/1/1988,1/1/1986,1/1/1988,mdwilkie,mdwilkie
+019cb570-3590-74ee-ba03-6089a2475ad7,019cb573-8d43-7f54-beee-20592ef565e4,,,Environment and Parks,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1986,1/1/1988,1/1/1986,1/1/1988,mdwilkie,mdwilkie
+019cb570-3590-7d3e-81b6-c85861cb72c7,019cb573-8d43-7c5a-b6e8-1267809ba13f,,,Forests,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1988,1/1/2005,1/1/1988,1/1/2005,mdwilkie,mdwilkie
+019cb570-3590-798b-9da7-1d4fb5acaca1,019cb573-8d43-788a-bbdf-2d7b4a8f90e3,,,Crown Lands,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1988,1/1/1991,1/1/1988,1/1/1991,mdwilkie,mdwilkie
+019cb570-3590-7e04-93fd-89cb5d732053,019cb573-8d43-7f54-beee-20592ef565e4,,,Environment ,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1988,7/1/1991,1/1/1988,7/1/1991,mdwilkie,mdwilkie
+019cb570-3590-7980-bdd6-6caa2644cfc7,019cb573-8d43-78dd-9b57-73293e68ce22,,,Parks,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1988,1/1/1991,1/1/1988,1/1/1991,mdwilkie,mdwilkie
+019cb570-3590-74f9-b40f-5b20a2bccff4,019cb573-8d43-7c82-bf9c-a4d03c8bd65d,,,Lands and Parks,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/1991,7/1/1991,1/1/1991,7/1/1991,mdwilkie,mdwilkie
+019cb570-3590-7a3c-b4b1-33f4f9cf1353,019cb573-8d43-78a4-957a-ee65f4b93970,,,"Environment, Lands, and Parks",,,019be1ef-d916-726f-ae70-e1e6e37055b2,7/1/1991,1/1/2001,7/1/1991,1/1/2001,mdwilkie,mdwilkie
+019cb570-3590-7e63-bc36-de00d9ca17d6,019cb573-8d43-7de8-be67-4426b962eefb,,,"Agriculture, Food, and Fisheries",,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2000,1/1/2005,1/1/2000,1/1/2005,mdwilkie,mdwilkie
+019cb570-3590-7876-bad8-2cb2bca3347a,019cb573-8d43-78a4-957a-ee65f4b93970,,,Sustainable Resource Management,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2001,1/1/2005,1/1/2001,1/1/2005,mdwilkie,mdwilkie
+019cb570-3590-7876-bad8-2cb2bca3347a,019cb573-8d43-78a4-957a-ee65f4b93970,,,Water Land and Air Protection,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2001,1/1/2005,1/1/2001,1/1/2005,mdwilkie,mdwilkie
+019cba43-f15a-76f6-b84f-4105e8adf516,019cba44-3dc9-75f2-8552-5a7de0688ab1,,,Children and Family Development,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2001,,1/1/2001,,mdwilkie,
+019cba43-f15a-78e6-a763-48126d8e6685,019cba44-3dc9-7c16-89e7-82b78fcba1a5,,,Finance,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2001,,1/1/2001,,mdwilkie,
+019cba43-f15a-72b1-bb0c-b5d1cba0c42b,019cba44-3dc9-773e-b78a-68eeb3a69b71,,,Public Safety and Solicitor General,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2001,,1/1/2001,,mdwilkie,
+019cb570-3590-7581-bc59-08fcfc63308a,019cb573-8d43-7de8-be67-4426b962eefb,,,Agriculture and Lands,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2005,1/1/2010,1/1/2005,1/1/2010,mdwilkie,mdwilkie
+019cb570-3590-7f23-bf4c-1c6b7345bcf6,019cb573-8d43-78a4-957a-ee65f4b93970,,,Environment,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2005,1/1/2017,1/1/2005,1/1/2017,mdwilkie,mdwilkie
+019cb570-3590-73c1-aeb0-5d998519442b,019cb573-8d43-7154-9efa-63aaae4c4c63,,,Forests and Range,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2005,1/1/2010,1/1/2005,1/1/2010,mdwilkie,mdwilkie
+019c72ca-4bd4-70ba-88d6-b97b033fd3c6,019b2cf6-2e87-79b9-9597-b81453687726,,,Transportation and Infrastructure,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2008,11/18/2024,1/1/2008,11/18/2024,mdwilkie,mdwilkie
+019cba41-3b2b-75fe-9e53-54c1e667f708,019cba41-3b2b-7383-9dee-509ff6c23618,,,Health Services,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2008,7/3/1905,1/1/2008,7/3/1905,mdwilkie,mdwilkie
+019cb570-3590-72a0-bae4-1ade7df4c0f5,019cb573-8d43-7de8-be67-4426b962eefb,,,Agriculture,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2010,1/1/2020,1/1/2010,1/1/2020,mdwilkie,mdwilkie
+019cb570-3590-7acf-aec2-46cd62b42eb3,019cb573-8d43-77cf-81ff-ed8c34175fb0,,,Natural Resource Operations,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2010,1/1/2011,1/1/2010,1/1/2011,mdwilkie,mdwilkie
+019cb570-3590-7932-b069-813eff049b42,019cb573-8d43-7c5a-b6e8-1267809ba13f,,,Forests Mines and Lands,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2010,1/1/2011,1/1/2010,1/1/2011,mdwilkie,mdwilkie
+019cb570-3590-7d96-bec3-de9be97bf4ec,019cb573-8d43-77cf-81ff-ed8c34175fb0,,,Forests Lands and Natural Resource Operations,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2011,1/1/2017,1/1/2011,1/1/2017,mdwilkie,
+019cba41-bc68-72ac-bdb4-61cd68d0090d,019cba41-3b2b-7383-9dee-509ff6c23618,,,Health,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2011,,1/1/2011,,mdwilkie,
+019cb570-3590-72a3-8aea-452da2da05dc,019cb573-8d43-77cf-81ff-ed8c34175fb0,,,Forests Lands and Natural Resource Operations and Rural Development,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2017,1/1/2022,1/1/2017,1/1/2022,mdwilkie,mdwilkie
+019cb570-3590-7765-803b-583c9b4a1911,019cb573-8d43-78a4-957a-ee65f4b93970,,,Environment and Climate Change Strategy,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2017,11/18/2024,1/1/2017,11/18/2024,mdwilkie,mdwilkie
+019cba42-7ce7-7f59-949d-798e3462a32d,019cba42-7ce7-7823-bac3-695642bdbf24,,,Mental Health and Addictions,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2017,11/18/2024,1/1/2017,11/18/2024,mdwilkie,mdwilkie
+019cba43-f15a-72a3-b51b-f12b1b327cf8,019cba44-3dc9-7962-9ee5-7ae3646bac45,,,Social Development and Poverty Reduction,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2017,,1/1/2017,,mdwilkie,
+019cba43-f15a-759c-87be-2f77e64a9811,019cba44-3dc9-725b-aa42-601bb5648380,,,Indigenous Relations and Reconciliation,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2017,,1/1/2017,,mdwilkie,
+019cba43-f15a-75f0-ad33-b4d6ad54fde8,019cba44-3dc9-7bf7-90fb-1ffdc5f9ccfa,,,Citizens' Services,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2017,,1/1/2017,,mdwilkie,
+019cba43-f15a-7194-8e9b-0b7a128848a7,019cba44-3dc9-7352-8f90-bb90d9fe986c,,,Labour,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2017,,1/1/2017,,mdwilkie,
+019cba43-f15a-7956-acd8-fe65caefadf7,019cba44-3dc9-7938-990c-130345bcaa71,,,Attorney General,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2017,,1/1/2017,,mdwilkie,
+019cb570-3590-7d12-a997-2dd7f15bebf9,019cb573-8d43-7de8-be67-4426b962eefb,,,"Agriculture, Food, and Fisheries",,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2020,1/1/2022,1/1/2020,1/1/2022,mdwilkie,mdwilkie
+019cb570-3590-7708-a010-1aaa81f13ef6,019cb573-8d43-7d2a-a35a-fca26e9c6cac,,,Energy Mines and Low Carbon Innovation,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2020,11/18/2024,1/1/2020,11/18/2024,mdwilkie,mdwilkie
+019c72ca-4bd4-7d4b-b2a9-c64dc1d9219a,019b2cf6-2e87-78f4-abeb-abd2876abc49,,,Municipal Affairs,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2020,11/18/2024,1/1/2020,11/18/2024,mdwilkie,mdwilkie
+019cba43-f15a-7378-aedc-1a270c833bfd,019cba44-3dc9-7916-8912-555ddae56448,,,"Tourism, Arts, Culture and Sport",,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2020,,1/1/2020,,mdwilkie,
+019cb570-3590-7294-b430-a46e70871d1c,019cb573-8d43-7deb-bf67-b29650f483b7,,,Land Water and Resource Stewardship,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2022,7/1/2022,1/1/2022,7/1/2022,mdwilkie,mdwilkie
+019cb570-3590-74af-bb1f-716768ea99ee,019cb573-8d43-77cf-81ff-ed8c34175fb0,,,Forests,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2022,,1/1/2022,,mdwilkie,
+019cb570-3590-79f8-a2d8-c5f3190e557e,019cb573-8d43-7de8-be67-4426b962eefb,,,Agriculture and Food,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2022,,1/1/2022,,mdwilkie,
+019c72ca-4bd4-7730-9a6f-7db2ef35a413,019b2cf6-2e87-77ee-8eb2-99f9407ef13a,,,"Jobs, Economic Development and Innovation",,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2022,7/1/2025,1/1/2022,7/1/2025,mdwilkie,mdwilkie
+019cba42-db1a-76d0-a2e1-190f5516a316,019cba42-db1a-74b2-97f9-6a5ca0794b2b,,,Housing,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2022,11/18/2024,1/1/2022,11/18/2024,mdwilkie,mdwilkie
+019cba43-f15a-7c41-95ac-13bdd5519f93,019cba44-3dc9-7062-8a19-6c594fa8c9f2,,,Education and Child Care,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2022,,1/1/2022,,mdwilkie,
+019cba43-f15a-702a-b999-f28617fdef4e,019cba44-3dc9-7a3e-b616-1e9a3d4bd977,,,Post-Secondary Education and Future Skills,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2022,,1/1/2022,,mdwilkie,
+019cba43-f15a-75cb-8994-5958b14870bf,019cba44-3dc9-7b44-8eb7-0008a3e2eb89,,,Emergency Management and Climate Readiness,,,019be1ef-d916-726f-ae70-e1e6e37055b2,1/1/2022,,1/1/2022,,mdwilkie,
+019cb570-3590-7574-8eab-0943a09121e4,019cb573-8d43-7deb-bf67-b29650f483b7,,,Water Land and Resource Stewardship,,,019be1ef-d916-726f-ae70-e1e6e37055b2,7/1/2022,,7/1/2022,,mdwilkie,
+019cb570-3590-787c-9b4f-6b4b4e59ca26,019cb573-8d43-78a4-957a-ee65f4b93970,,,Environment and Parks,,,019be1ef-d916-726f-ae70-e1e6e37055b2,11/18/2024,,11/18/2024,,mdwilkie,
+019cb570-3590-71b2-b5b8-7b8690575183,019cb573-8d43-7d2a-a35a-fca26e9c6cac,,,Energy and Climate Solutions,,,019be1ef-d916-726f-ae70-e1e6e37055b2,11/18/2024,,11/18/2024,,mdwilkie,
+019c72ca-4bd4-7912-a0e6-118f65cc91a9,019b2cf6-2e87-79b9-9597-b81453687726,,,Transportation and Transit,,,019be1ef-d916-726f-ae70-e1e6e37055b2,11/18/2024,,11/18/2024,,mdwilkie,
+019c72ca-4bd4-7603-8339-1f99679cee78,019b2cf6-2e87-7b6f-b662-f613158255a2,,,Mining and Critical Minerals,,,019be1ef-d916-726f-ae70-e1e6e37055b2,11/18/2024,,11/18/2024,,mdwilkie,
+019cba43-46d3-7b9e-939a-ab86fc680e88,019cba42-db1a-74b2-97f9-6a5ca0794b2b,,,Housing and Municipal Affairs,,,019be1ef-d916-726f-ae70-e1e6e37055b2,11/18/2024,,11/18/2024,,mdwilkie,
+019cba43-f15a-77f1-b66c-7f259f36944d,019cba44-3dc9-747b-b748-ca20a799ea02,,,Infrastructure,,,019be1ef-d916-726f-ae70-e1e6e37055b2,11/18/2024,,11/18/2024,,mdwilkie,
+019cba43-f15a-77cd-be09-376119099418,019b2cf6-2e87-77ee-8eb2-99f9407ef13a,,,Jobs and Economic Growth,,,019be1ef-d916-726f-ae70-e1e6e37055b2,7/1/2025,,7/1/2025,,mdwilkie,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+019c8c4a-1ecd-7f18-9e0d-ff25347f683a,019c8c4a-1ecd-79ac-a868-83437589c18f,,,Canada Revenue Agency,CRA,finance,019c8c46-a410-7852-bd27-7181d49771e4,,,2/23/2026 15:00,,mdwilkie,
+019cbab6-07d0-70e1-878a-447c0b8a683c,019c298d-6d2e-7b1b-af5e-ebb5cab34140,Applied Science Technologists and Technicians of BC,,Applied Science Technologists and Technicians of BC,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d0-721c-b0b6-e5535c3ba331,019c298d-6d2e-7dae-a59a-ea488b1bba82,Architectural Institute of BC,,Architectural Institute of BC,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7019-8311-c4b6c36abcba,019c298d-6d2e-7630-a11f-2e9a3ded55c7,Association of BC Land Surveyors,,Association of BC Land Surveyors,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7ad8-ade7-43ba135f161b,019c298d-6d2e-74b4-b1d8-e05ec8a3128c,Association of British Columbia Forest Professionals,019be211-596a-7b70-9301-da517ea67f9b,Association of British Columbia Forest Professionals,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-71dd-8477-bdbeff374a3a,019c298d-6d2e-7fbe-872a-a656abdf4329,Association of Professional Engineers and Geoscientists of BC (Engineers and Geoscientists BC),019be211-596a-7b70-9301-da517ea67f9b,Association of Professional Engineers and Geoscientists of BC (Engineers and Geoscientists BC),,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-77fe-ac85-fc98ba8ff775,019c298d-6d2e-77fa-a53f-32e9e162eb25,BC Broiler Hatching Egg Commission,019be211-596a-7b70-9301-da517ea67f9b,BC Broiler Hatching Egg Commission,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7f25-a70a-13358268afda,019c298d-6d2e-7702-9be7-899ca613f709,BC Chicken Marketing Board,019be211-596a-7b70-9301-da517ea67f9b,BC Chicken Marketing Board,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7ce8-9d6d-28ba0724daf1,019c298d-6d2e-79e2-a302-681e6a793a94,BC College of Social Workers,,BC College of Social Workers,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-74da-b1e0-edc4a79ff1a2,019c298d-6d2e-7775-8f66-427c2849b0f6,BC Cranberry Marketing Commission,019be211-596a-7b70-9301-da517ea67f9b,BC Cranberry Marketing Commission,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-766a-964f-92c680a0e8f6,019c298d-6d2e-7e79-befe-ea50e1913b54,BC Egg Marketing Board,019be211-596a-7b70-9301-da517ea67f9b,BC Egg Marketing Board,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7ac5-8cf5-be16edd63afb,019c298d-6d2f-79ab-86db-adefe1d8ff21,BC Ferry Commission,019be211-596a-7b70-9301-da517ea67f9b,BC Ferry Commission,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7afa-bba2-9122f06a56cb,019c298d-6d2f-7110-b0a1-a29c27f7c28c,BC Hog Marketing Commission,019be211-596a-7b70-9301-da517ea67f9b,BC Hog Marketing Commission,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-74bd-bf2b-5115d61a1a2f,019c298d-6d2f-7fc0-8df8-3e2484afd4da,BC Institute of Agrologists,,BC Institute of Agrologists,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7f0a-a340-bee8a70edf66,019c298d-6d2f-7fb6-af10-dc2f5e6ec109,BC Land Title and Survey Authority,019be211-596a-7b70-9301-da517ea67f9b,BC Land Title and Survey Authority,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-79ef-8ee9-e076d7eead4f,019c298d-6d2f-7379-8dc8-f13ca38bf94c,BC Milk Marketing Board,019be211-596a-7b70-9301-da517ea67f9b,BC Milk Marketing Board,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7e5e-af95-0d86bc5c324b,019c298d-6d2f-7ead-b6bd-09b563703cfe,BC Teachers' Council,019be211-596a-7b70-9301-da517ea67f9b,BC Teachers' Council,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-77b9-8b7c-3d61cb5e4017,019c298d-6d2f-7b27-8b4b-0a63fa340d8a,BC Turkey Marketing Board,019be211-596a-7b70-9301-da517ea67f9b,BC Turkey Marketing Board,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-74f9-89a0-f566ea891c6a,019c298d-6d2f-703b-9c6c-e1ddbe57e8b2,BC Vegetable Marketing Commission,019be211-596a-7b70-9301-da517ea67f9b,BC Vegetable Marketing Commission,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7bd2-b9fb-91c2e2b848f8,019c298d-6d2f-7fac-b138-01aed6360115,Board of Examiners - BC Society of Landscape Architects,019be211-596a-7b70-9301-da517ea67f9b,Board of Examiners - BC Society of Landscape Architects,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-72ac-9b77-56a9bfd48b28,019c298d-6d2f-7162-9796-4848dc38a41a,Board of Examiners of the BC Registered Music Teachers Association,019be211-596a-7b70-9301-da517ea67f9b,Board of Examiners of the BC Registered Music Teachers Association,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7f33-ade1-0a9432ff4d33,019c298d-6d2f-7afa-b03e-479ef785f18f,British Columbia Container Trucking Commissioner,019be211-596a-7b70-9301-da517ea67f9b,British Columbia Container Trucking Commissioner,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7788-83c6-821f83aa7799,019c298d-6d2f-7d3f-8fa5-8c6313dbddd3,Chartered Professional Accountants of British Columbia,,Chartered Professional Accountants of British Columbia,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-70d9-b7d3-4d06b6c1b3db,019c298d-6d2f-706b-ae2d-bdc17c04d145,College of Applied Biology (College of Applied Biologists),,College of Applied Biology (College of Applied Biologists),,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-740e-8a59-814aaa4df99f,019c298d-6d2f-7b50-9029-02c5055bd448,Consumer Protection BC,,Consumer Protection BC,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7cd2-9402-1fcd87ae428a,019c298d-6d2f-7f23-8f15-39616e99dbec,Emergency Medical Assistants Licensing Board,,Emergency Medical Assistants Licensing Board,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-789c-8774-1f00554769c6,019c298e-2cda-77fa-a38f-a8fc14e96e6d,Insurance Council of British Columbia,,Insurance Council of British Columbia,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7588-8674-50fbd02dde35,019c298e-2cda-73bd-9c30-1192c9c0e2fd,Law Society of British Columbia,,Law Society of British Columbia,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7848-8911-2de9c47b4945,019c298e-2cda-7757-b0ca-ae732e639d81,Motor Vehicle Sales Authority of BC,019be211-596a-7b70-9301-da517ea67f9b,Motor Vehicle Sales Authority of BC,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7f4c-bc9b-9d5e7f41681d,019c298e-2cda-7713-9e99-a05cc1b5d935,Notaries Public Board of Examiners,019be211-596a-7b70-9301-da517ea67f9b,Notaries Public Board of Examiners,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-751b-aa45-9ef80da92f8c,019c298e-2cda-7195-8b6c-2807b1a3567f,Professional College - British Columbia College of Nurses and Midwives,019be211-596a-7b70-9301-da517ea67f9b,Professional College - British Columbia College of Nurses and Midwives,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-707d-9449-5761f626a83c,019c298e-2cda-716b-842f-b78d36a12c72,Professional College - British Columbia College of Oral Health Professionals,019be211-596a-7b70-9301-da517ea67f9b,Professional College - British Columbia College of Oral Health Professionals,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7844-84e9-b37f9c2598c2,019c298e-2cda-7e70-8ca3-190d529fb1b4,Professional College - College of Complementary Health Professionals of British Columbia,019be211-596a-7b70-9301-da517ea67f9b,Professional College - College of Complementary Health Professionals of British Columbia,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-78f5-b382-3ab62ac21d5f,019c298e-2cda-7ab3-b555-46168f835d3d,Professional College - College of Health and Care Professionals of British Columbia,019be211-596a-7b70-9301-da517ea67f9b,Professional College - College of Health and Care Professionals of British Columbia,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7504-be09-b29c6eb00059,019c298e-2cda-77c7-adcd-bbd0a4fecae4,Professional College - College of Pharmacists of British Columbia,019be211-596a-7b70-9301-da517ea67f9b,Professional College - College of Pharmacists of British Columbia,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7168-83f2-c692d55c0220,019c298e-2cda-70b8-99cb-c1d2f3b94435,Professional College - College of Physicians and Surgeons of British Columbia,019be211-596a-7b70-9301-da517ea67f9b,Professional College - College of Physicians and Surgeons of British Columbia,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7f1d-b936-3555b417d766,019c298e-2cda-78bf-af95-71babc3bc485,Professional College - College of Veterinarians of BC,019be211-596a-7b70-9301-da517ea67f9b,Professional College - College of Veterinarians of BC,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-7bc9-8e4c-8879f21fdd9d,019c298e-2cda-784a-8dc1-5306393459bc,Real Estate Errors and Omissions Insurance Corporation,019be211-596a-7b70-9301-da517ea67f9b,Real Estate Errors and Omissions Insurance Corporation,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-710c-a7b7-47b490a0fa02,019c298e-2cdb-75f4-b005-017ad4f53b92,WorkSafeBC,,WorkSafeBC,,,019c8c46-a410-7f45-af75-05d4583db17c,,,,,,
+019cbab6-07d1-733e-848a-baa968dc6751,019c298d-6d2e-799e-8f67-5164fb81f73c,BC Arts Council,,BC Arts Council,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7482-afa7-b9579906a2fa,019c298d-6d2e-7e3b-83bf-133916b80258,BC Assessment Authority,,BC Assessment Authority,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7829-a045-e55d2cce1188,019c298d-6d2f-75d5-af7b-0ef26f679308,BC Family Maintenance Agency,,BC Family Maintenance Agency,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7675-9934-08a436e18425,019c298d-6d2f-77ed-9181-75ca25e07b51,BC Financial Services Authority,,BC Financial Services Authority,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7b35-8e37-be0798cb8e82,019c298d-6d2f-7189-a1b6-69ab964978f4,BC Games Society,,BC Games Society,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-78c1-bbee-bb69602d86f2,019c298d-6d2f-7c38-8793-31317ba7ddbc,BC Housing Management Commission,,BC Housing Management Commission,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7e16-86f1-529ad6b7826b,019c298d-6d2f-7170-be6a-97344266f8fc,BC Hydro and Power Authority,,BC Hydro and Power Authority,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7a3d-b0ca-a64f8feb6b85,019c298d-6d2f-7bbf-9ca1-e3c5f8dbe136,BC Infrastructure Benefits,,BC Infrastructure Benefits,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-77e9-807e-34432523f18a,019c298d-6d2f-7682-ad3f-a12b503e862b,BC Lottery Corporation,,BC Lottery Corporation,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7584-920b-28bfd6c5ffc0,019c298d-6d2f-7c9f-b719-a4bf007deb71,BC Pavilion Corporation,,BC Pavilion Corporation,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7a8f-9733-ba2d5e973655,019c298d-6d2f-7dd9-96b1-79cd64e96a3f,BC Railway Company,,BC Railway Company,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7536-b7f9-6f3a1044a99e,019c298d-6d2f-79ca-9db3-0ba9213d8068,BC Securities Commission,,BC Securities Commission,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-70b8-b2e1-f218d6761317,019c298d-6d2f-7e85-baa6-9305f0567cd1,British Columbia Energy Regulator,,British Columbia Energy Regulator,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7137-a505-992b286a7195,019c298d-6d2f-7747-b793-db745b92a380,British Columbia Transit,,British Columbia Transit,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-78a7-87dc-57818d10779e,019c298d-6d2f-7201-9eff-de8dc35b0399,Columbia Basin Trust,,Columbia Basin Trust,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-78ad-8b6b-50e4bd70b777,019c298d-6d2f-77a7-b107-42476d38da3e,Columbia Power Corporation,,Columbia Power Corporation,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7141-8972-a4f7885b01d2,019c298d-6d2f-7ac8-9002-d768b7603279,Community Living British Columbia,,Community Living British Columbia,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7677-b101-0461801a667b,019c298d-6d2f-7661-b732-e9730f6c0681,Destination British Columbia,,Destination British Columbia,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-79a8-bcd7-f415ea9d0334,019c298d-6d2f-7330-8124-be1779d33eae,"First Peoples' Heritage, Language and Culture Council",,"First Peoples' Heritage, Language and Culture Council",,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-79f0-b1c5-ef4100c49a3d,019c298d-6d2f-7bf6-a5dd-a1be7596d7c9,Forestry Innovation Investment Ltd.,,Forestry Innovation Investment Ltd.,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7b54-b29e-9b0f2d51ddeb,019cbab5-01c3-7876-9eef-6b19f8dcb4c9,INBC Investment Corp.,,INBC Investment Corp.,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-781d-bb65-f3850e492918,019c298e-2cda-7eb0-b60e-8b4ea1b15b3b,Infrastructure British Columbia - BC Inc.,,Infrastructure British Columbia - BC Inc.,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-793a-8da9-965b082eddd8,019c298e-2cda-7950-93f5-7c24844a69f8,Innovate BC,,Innovate BC,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-74cb-a0b2-f46f9cff5271,019c298e-2cda-7ae3-abf9-01e8d2c83bc4,Insurance Corporation of British Columbia,,Insurance Corporation of British Columbia,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-79ca-97cd-0d28cde376ca,019c298e-2cda-785f-9581-bdbcda170c15,Knowledge Network Corporation,,Knowledge Network Corporation,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-77c4-88f7-7533887f90cf,019c298e-2cda-7982-a3aa-69bca11c763d,Legal Services Society (Legal Aid BC),,Legal Services Society (Legal Aid BC),,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7456-b79f-a42a870c9e9d,019c298e-2cda-7073-b003-3bb9ded3ec9e,Nechako - Kitamaat Development Fund Society,,Nechako - Kitamaat Development Fund Society,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7b22-acd3-c7ce5893639e,019c298e-2cda-73b9-ba1d-c6aa1876a3b0,Organized Crime Agency of British Columbia,,Organized Crime Agency of British Columbia,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7729-9cac-793f925e9111,019c298e-2cda-76cc-897b-c1bfd5cba9ac,Royal British Columbia Museum,,Royal British Columbia Museum,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-768e-90b8-7c78c4d803a1,019c298e-2cda-7671-ac34-70273f7e245c,SkilledTradesBC,,SkilledTradesBC,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-75e4-a20c-5e8f5f223903,019c298e-2cdb-7d80-8cb7-41d8edbb5a85,Translink,,Translink,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,
+019cbab6-07d1-7d2d-a94e-763017e60bfc,019c298e-2cdb-7ad0-85cf-476afa8a8485,Transportation Investment Corporation,,Transportation Investment Corporation,,,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,,,,,,

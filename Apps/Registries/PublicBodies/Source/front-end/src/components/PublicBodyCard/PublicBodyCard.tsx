@@ -6,7 +6,9 @@ interface PublicBodyCardProps {
   /** Display name */
   name: string | null;
   /** Acronym */
-  acronym: string | null;
+  acronym?: string | null | undefined;
+  /** Public Body Type */
+  publicBodyType?: string | null;
   /** (optional) Effective date */
   effectiveDate?: string | null;
   /** (optional) Retirement date */
@@ -17,6 +19,7 @@ export default function PublicBodyCard({
   id,
   name,
   acronym,
+  publicBodyType,
   effectiveDate,
   retirementDate,
 }: PublicBodyCardProps) {
@@ -32,6 +35,11 @@ export default function PublicBodyCard({
                 <span className="acronym">({acronym})</span>
               </>
             )}
+          </div>
+        )}
+        {publicBodyType && (
+          <div className="card-publicbody-type">
+            <span className="card-publicbody-type">{publicBodyType}</span>
           </div>
         )}
 

@@ -9,10 +9,10 @@ namespace Adr.PublicBodies.Providers
     public interface IPublicBodyProvider
     {
         /// <summary>
-        /// Gets all the public body names.
+        /// Gets all the public bodies.
         /// </summary>
-        /// <returns>A list of public body names.</returns>
-        IEnumerable<PublicBodyNameModel> GetAllNames();
+        /// <returns>A list of public bodies.</returns>
+        IEnumerable<PublicBodyModel> GetAllPublicBodies();
 
         /// <summary>
         /// Gets all the public body types.

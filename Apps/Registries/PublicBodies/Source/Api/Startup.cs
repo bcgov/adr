@@ -63,12 +63,12 @@ namespace Adr.PublicBodies
         public void Configure(IApplicationBuilder app)
         {
             this.startupConfig.UseForwardHeaders(app);
-            this.startupConfig.UseSwagger(app);
             this.startupConfig.UseHttp(app);
             this.startupConfig.UseResponseCaching(app);
             //this.startupConfig.UseAuth(app); not yet
             this.startupConfig.UseEnrichTracing(app);
             this.startupConfig.UseRest(app);
+            this.startupConfig.UseSwagger(app);
         }
     }
 }

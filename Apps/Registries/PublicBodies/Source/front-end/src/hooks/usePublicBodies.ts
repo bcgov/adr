@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
-import getPublicBodies from "../api/public-bodies";
+import { getAllPublicBodiesOptions } from "../api/generated/@tanstack/react-query.gen";
 
 export default function usePublicBodies() {
   return useQuery({
-    queryKey: ["publicBodiesData"],
-    queryFn: getPublicBodies,
+    ...getAllPublicBodiesOptions(),
+    select: (data) => data?.payload ?? [],
   });
 }

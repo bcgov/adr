@@ -7,7 +7,7 @@ import tanstackQuery from "@tanstack/eslint-plugin-query";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  globalIgnores(["dist", "src/api/generated"]),
   {
     files: ["**/*.{ts,tsx}"],
     extends: [

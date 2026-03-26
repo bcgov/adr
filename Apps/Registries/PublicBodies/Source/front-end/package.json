@@ -12,19 +12,23 @@
     "preview": "vite preview",
     "test:unit": "vitest --config=vitest.config.ts --project=unit",
     "test:browser": "vitest --config=vitest.config.ts --project=browser",
-    "test:browser-headless": "vitest --config=vitest.config.ts --project=browser --browser.headless"
+    "test:browser-headless": "vitest --config=vitest.config.ts --project=browser --browser.headless",
+    "generate:schema": "node --env-file=.env node_modules/.bin/openapi-ts --file openapi-ts.config.ts"
   },
   "dependencies": {
     "@bcgov/bc-sans": "2.1.0",
     "@bcgov/design-system-react-components": "0.6.0",
     "@bcgov/design-tokens": "3.2.0",
     "@tanstack/react-query": "5.90.20",
+    "@tanstack/react-table": "^8.21.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "wouter": "^3.9.0",
     "zod": "4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
+    "@hey-api/openapi-ts": "^0.94.2",
     "@tanstack/eslint-plugin-query": "5.91.4",
     "@types/node": "25.2.0",
     "@types/react": "19.2.11",

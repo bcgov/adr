@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { expect, test, suite } from "vitest";
 import { render } from "vitest-browser-react";
 
-import App from "./App";
+import App from "@/App";
 
 suite("App contains semantic HTML elements", async () => {
   test("header", async () => {

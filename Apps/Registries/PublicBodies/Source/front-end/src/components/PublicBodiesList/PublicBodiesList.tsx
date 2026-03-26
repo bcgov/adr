@@ -23,8 +23,9 @@ export default function PublicBodiesList() {
                 id={publicBody.id}
                 name={publicBody.name}
                 acronym={publicBody.acronym}
-                effectiveDate={publicBody.effectiveDate}
-                retirementDate={publicBody.effectiveDate}
+                publicBodyType={publicBody.publicBodyType?.name}
+                effectiveDate={publicBody.publicBodyEffectiveDate}
+                retirementDate={publicBody.publicBodyRetiredDate}
               />
             </li>
           );

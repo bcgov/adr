@@ -13,14 +13,16 @@ namespace Adr.PublicBodies.Mappers
         /// </summary>
         public PublicBodyTypeMapper()
         {
-            //this.Map(m => m.Id).Default(Guid.NewGuid().ToString());
-            this.Map(m => m.StaticId).Name("public_body_type_id");
+            this.Map(m => m.StaticId).Name("pbt_unique_id");
+            this.Map(m => m.PublicBodyTypeId).Name("public_body_type_id");
             this.Map(m => m.Code).Name("public_body_type");
             this.Map(m => m.Name).Name("public_body_type_short_name");
-            this.Map(m => m.Description).Name("public_body_type_description");
-            this.Map(m => m.EffectiveDate).Name("effective_date");
-            this.Map(m => m.RetirementDate).Name("last_effective_date");
-            //this.Map(m => m.LastUpdateDateTime).Name("last_update_datetime");
+            this.Map(m => m.TypeEffectiveDatetime).Name("type_effective_datetime");
+            this.Map(m => m.TypeRetiredDatetime).Name("type_retired_datetime");
+            this.Map(m => m.RecordCreatedDatetime).Name("record_created_datetime");
+            this.Map(m => m.RecordEndedDatetime).Name("record_ended_datetime");
+            this.Map(m => m.RecordCreatedUser).Name("record_created_user");
+            this.Map(m => m.RecordEndedUser).Name("record_ended_user");
         }
     }
 }

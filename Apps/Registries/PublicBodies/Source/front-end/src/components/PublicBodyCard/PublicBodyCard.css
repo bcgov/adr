@@ -25,6 +25,10 @@
       font: var(--typography-bold-h5);
     }
 
+    .card-publicbody-type {
+      font: var(--typography-italic-body);
+    }
+
     .card-date-effective,
     .card-date-retirement {
       font: var(--typography-bold-small-body);
