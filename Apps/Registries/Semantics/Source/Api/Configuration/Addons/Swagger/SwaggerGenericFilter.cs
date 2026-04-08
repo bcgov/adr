@@ -10,7 +10,9 @@ namespace Adr.Semantics.Configuration.Addons.Swagger
             var type = context.Type;
 
             if (type.IsGenericType == false)
+            {
                 return;
+            }
 
             schema.Title = $"{type.Name[0..^2]}<{type.GenericTypeArguments[0].Name}>";
         }

@@ -74,6 +74,16 @@ namespace Adr.PublicBodies.Configuration.Addons.Swagger
                 {
                     schema.Extensions.Add("x-bc-req", new OpenApiString(requiredAttr.Required));
                 }
+
+                // RequiredAttribute
+                var semanticRefAttr = memberInfo.GetCustomAttribute<SemanticAttribute>();
+                if (semanticRefAttr != null)
+                {
+                    schema.Extensions.Add(
+                        "x-bc-semantic-ref",
+                        new OpenApiString(semanticRefAttr.SemanticReference)
+                    );
+                }
             }
         }
     }

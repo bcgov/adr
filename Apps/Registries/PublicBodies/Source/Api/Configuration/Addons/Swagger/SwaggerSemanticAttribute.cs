@@ -122,4 +122,19 @@ namespace Adr.PublicBodies.Configuration.Addons.Swagger
             Required = required;
         }
     }
+
+    /// <summary>
+    /// Indicates whether the attribute is mandatory for compliance or processing.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    [AttributeUsage(AttributeTargets.Property)]
+    public class SemanticAttribute : Attribute
+    {
+        public string SemanticReference { get; set; }
+
+        public SemanticAttribute(string semanticReference)
+        {
+            SemanticReference = semanticReference;
+        }
+    }
 }

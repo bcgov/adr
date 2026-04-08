@@ -19,8 +19,6 @@ namespace Adr.Semantics.Configuration.Addons.Observability
     using Serilog.Events;
     using Serilog.Exceptions;
     using Serilog.Exceptions.Core;
-    using Serilog.Exceptions.EntityFrameworkCore.Destructurers;
-    using Serilog.Exceptions.Refit.Destructurers;
 
     /// <summary>
     /// Methods to configure observability dependencies and settings.
@@ -121,7 +119,9 @@ namespace Adr.Semantics.Configuration.Addons.Observability
                         .SetSampler(new AlwaysOnSampler())
                         .ConfigureResource(resourceBuilder =>
                             resourceBuilder.AddService(
-                                otlpConfig.ServiceName,
+                                otlpConfig.ServiceName
+                                    ?? throw new InvalidOperationException(
+                                        "OpenTelemetry:ServiceName must be configured."),
                                 serviceVersion: otlpConfig.ServiceVersion
                             )
                         )
@@ -137,9 +137,7 @@ namespace Adr.Semantics.Configuration.Addons.Observability
                                             .Request.Path.ToString()
                                             .StartsWith(s, StringComparison.OrdinalIgnoreCase)
                                 );
-                        })
-                        .AddRedisInstrumentation()
-                        .AddEntityFrameworkCoreInstrumentation();
+                        });
                     //.AddNpgsql();
 
                     foreach (string source in otlpConfig.Sources)
@@ -231,16 +229,7 @@ namespace Adr.Semantics.Configuration.Addons.Observability
             loggerConfiguration
                 .Enrich.WithMachineName()
                 .Enrich.FromLogContext()
-                .Enrich.WithExceptionDetails(
-                    new DestructuringOptionsBuilder()
-                        .WithDefaultDestructurers()
-                        .WithDestructurers([
-                            new DbUpdateExceptionDestructurer(),
-                            new ApiExceptionDestructurer(
-                                destructureCommonExceptionProperties: false
-                            ),
-                        ])
-                )
+                .Enrich.WithExceptionDetails(new DestructuringOptionsBuilder().WithDefaultDestructurers())
                 .Enrich.WithProperty("Application", serviceName)
                 .Enrich.WithEnvironmentName()
                 .Enrich.WithCorrelationId()

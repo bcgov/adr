@@ -41,10 +41,8 @@ namespace Adr.Semantics
             services.AddTransient<IGlossaryService, GlossaryService>();
             services.AddSingleton<IGlossaryProvider, GlossaryStaticFileProvider>();
             services.AddTransient<IDictionaryService, DictionaryService>();
+            services.AddHttpClient();
             services.AddSingleton<IDictionaryProvider, OpenApiProvider>();
-
-            // Add auto mapper
-            services.AddAutoMapper(typeof(Startup));
 
             services.AddCors(options =>
             {

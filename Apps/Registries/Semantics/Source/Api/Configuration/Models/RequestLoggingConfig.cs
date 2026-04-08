@@ -19,6 +19,6 @@ namespace Adr.Semantics.Configuration.Models
         /// Gets or sets the names of activity sources to monitor.
         /// Gets or sets the optional request paths to exclude, can handle * wildcard in prefix or postfix.</param>
         /// </summary>
-        public IEnumerable<string>? ExcludedPaths { get; set; } = null;
+        public IEnumerable<string>? ExcludedPaths { get; set; }
     }
 }

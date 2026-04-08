@@ -24,9 +24,14 @@ namespace Adr.Semantics.Services
         /// <inheritdoc/>
         public IEnumerable<GlossaryModel> GetAll()
         {
-            // TODO:
+            return _glossaryProvider.GetAllGlossaries();
+        }
 
-            return new List<GlossaryModel>();
+        /// <inheritdoc/>
+        public GlossaryModel? GetGlossaryEntryByTerm(string term)
+        {
+            var glossaries = GetAll();
+            return glossaries?.FirstOrDefault(x => x?.Id == term);
         }
     }
 }

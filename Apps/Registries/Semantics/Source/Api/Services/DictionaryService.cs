@@ -14,6 +14,7 @@ namespace Adr.Semantics.Services
         /// Initializes a new instance of the <see cref="DictionaryService"/> class.
         /// </summary>
         /// <param name="logger">Injected Logger Provider.</param>
+        /// <param name="dictionaryProvider">Provider that loads parsed dictionary data.</param>
         public DictionaryService(
             ILogger<DictionaryService> logger,
             IDictionaryProvider dictionaryProvider
@@ -26,8 +27,7 @@ namespace Adr.Semantics.Services
         /// <inheritdoc/>
         public IEnumerable<DictionaryModel> GetAll()
         {
-            // TODO:
-            return new List<DictionaryModel>();
+            return _dictionaryProvider.GetAllDictionaries();
         }
     }
 }

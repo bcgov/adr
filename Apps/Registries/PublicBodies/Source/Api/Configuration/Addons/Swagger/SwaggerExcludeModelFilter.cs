@@ -16,7 +16,11 @@ namespace Adr.PublicBodies.Configuration.Addons.Swagger
         {
             if (context.Type.GetCustomAttribute<SwaggerExcludeAttribute>() != null)
             {
-                ExcludedKeys.Add(context.Type.FullName);
+                if (context.Type.FullName is not null)
+                {
+                    ExcludedKeys.Add(context.Type.FullName);
+                }
+
                 return;
             }
 
@@ -39,16 +43,17 @@ namespace Adr.PublicBodies.Configuration.Addons.Swagger
                 }
             }
 
-            if (context.Type.IsEnum || (Nullable.GetUnderlyingType(context.Type)?.IsEnum ?? false))
-            {
-                var type =
-                    (context.Type.IsEnum) ? context.Type : Nullable.GetUnderlyingType(context.Type);
+            var enumType = context.Type.IsEnum
+                ? context.Type
+                : Nullable.GetUnderlyingType(context.Type);
 
+            if (enumType is { IsEnum: true })
+            {
                 var enums = new List<IOpenApiAny>();
 
-                foreach (var name in Enum.GetNames(type))
+                foreach (var name in Enum.GetNames(enumType))
                 {
-                    var value = type.GetMember(name)[0];
+                    var value = enumType.GetMember(name)[0];
                     if (!value.GetCustomAttributes<SwaggerExcludeAttribute>().Any())
                     {
                         enums.Add(new OpenApiString(name));
@@ -63,7 +68,7 @@ namespace Adr.PublicBodies.Configuration.Addons.Swagger
         {
             foreach (var key in swaggerDoc.Components.Schemas.Keys)
             {
-                if (ExcludedKeys.Any(x => x.EndsWith(key)))
+                if (ExcludedKeys.Any(x => x.EndsWith(key, StringComparison.Ordinal)))
                 {
                     swaggerDoc.Components.Schemas.Remove(key);
                 }

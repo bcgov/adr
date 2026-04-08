@@ -53,5 +53,31 @@ namespace Adr.Semantics.Controllers
 
             return requestResponse;
         }
+
+        /// <summary>
+        /// Returns a public body by its static ID.
+        /// </summary>
+        /// <param name="id">The Public Body Static id</param>
+        [HttpGet("{term}")]
+        [Produces("application/json")]
+        [EndpointName("GetGlossaryEntryByTerm")]
+        [ProducesResponseType(typeof(BaseResponseModel<GlossaryModel>), 200)]
+        [ProducesResponseType(404)]
+        public ActionResult<BaseResponseModel<GlossaryModel>> GetByTerm(string term)
+        {
+            var publicBody = _glossaryService.GetGlossaryEntryByTerm(term);
+            if (publicBody == null)
+            {
+                return NotFound();
+            }
+
+            var requestResponse = new BaseResponseModel<GlossaryModel>()
+            {
+                Payload = publicBody,
+                DatetimeRequested = DateTime.Now,
+            };
+
+            return Ok(requestResponse);
+        }
     }
 }

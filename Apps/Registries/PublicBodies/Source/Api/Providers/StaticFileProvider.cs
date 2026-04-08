@@ -86,7 +86,7 @@ namespace Adr.PublicBodies.Providers
             return records;
         }
 
-        private IEnumerable<T> LoadAsset<T>(string assetName, ClassMap mapper)
+        private static IEnumerable<T> LoadAsset<T>(string assetName, ClassMap mapper)
         {
             string resourceName = $"PublicBodies.Assets.{assetName}";
 

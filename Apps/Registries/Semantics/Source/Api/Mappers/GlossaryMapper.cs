@@ -13,8 +13,23 @@ namespace Adr.Semantics.Mappers
         /// </summary>
         public GlossaryMapper()
         {
-            //  TODO: map the fields
-            this.Map(m => m.Id).Name("pb_unique_id");
+            this.Map(m => m.Term).Name("Term");
+
+            this.Map(m => m.Definition).Name("Published Definition");
+
+            this.Map(m => m.Categories).Name("Category").TypeConverter<ListStringConverter>();
+
+            this.Map(m => m.Source).Name("Source");
+
+            this.Map(m => m.TeamSource).Name("Team Source - Temp");
+
+            this.Map(m => m.VerifiedDefinitionFlag)
+                .Name("Verified Definition")
+                .TypeConverter<BooleanFromYesNoConverter>();
+
+            this.Map(m => m.PublishToDevHub)
+                .Name("Publish to DevHub")
+                .TypeConverter<BooleanFromYesNoConverter>();
         }
     }
 }
