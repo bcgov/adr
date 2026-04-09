@@ -39,7 +39,7 @@ namespace Adr.PublicBodies.Services
         }
 
         /// <inheritdoc/>
-        public PublicBodyModel GetPublicBody(string id)
+        public PublicBodyModel? GetPublicBody(string id)
         {
             var publicBodies = _publicBodyProvider.GetAllPublicBodies();
             var types = _publicBodyProvider.GetAllTypes().ToList();
@@ -50,7 +50,7 @@ namespace Adr.PublicBodies.Services
                 return null;
             }
 
-            publicBody?.PublicBodyType = types.Find(t => t.PublicBodyTypeId == publicBody.TypeId);
+            publicBody.PublicBodyType = types.Find(t => t.PublicBodyTypeId == publicBody.TypeId);
             return publicBody;
         }
 

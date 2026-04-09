@@ -41,9 +41,6 @@ namespace Adr.PublicBodies
             services.AddTransient<IPublicBodyService, PublicBodyService>();
             services.AddSingleton<IPublicBodyProvider, StaticFileProvider>();
 
-            // Add auto mapper
-            services.AddAutoMapper(typeof(Startup));
-
             services.AddCors(options =>
             {
                 options.AddPolicy(

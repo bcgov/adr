@@ -11,12 +11,12 @@ namespace Adr.Semantics.Models
         /// <summary>
         /// Gets or sets the record created datetime
         /// </summary>
-        public DateTime? RecordCreatedDatetime { get; set; } = null;
+        public DateTime? RecordCreatedDatetime { get; set; }
 
         /// <summary>
         /// Gets or sets the record ended datetime
         /// </summary>
-        public DateTime? RecordEndedDatetime { get; set; } = null;
+        public DateTime? RecordEndedDatetime { get; set; }
 
         /// <summary>
         /// Gets or sets the record created user

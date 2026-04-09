@@ -13,5 +13,11 @@ namespace Adr.Semantics.Services
         /// </summary>
         /// <returns>A list glossaries.</returns>
         IEnumerable<GlossaryModel> GetAll();
+
+        /// <summary>
+        /// Gets the glossary for a given term.
+        /// </summary>
+        /// <returns>A glossaries entry, or <c>null</c> if no entry matches the supplied term.</returns>
+        GlossaryModel? GetGlossaryEntryByTerm(string term);
     }
 }

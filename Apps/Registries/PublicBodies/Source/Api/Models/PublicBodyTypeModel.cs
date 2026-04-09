@@ -1,7 +1,7 @@
-using Adr.PublicBodies.Configuration.Addons.Swagger;
-
 namespace Adr.PublicBodies.Models
 {
+    using Adr.PublicBodies.Configuration.Addons.Swagger;
+
     /// <summary>
     /// Represents public body types.
     /// </summary>
@@ -93,6 +93,5 @@ namespace Adr.PublicBodies.Models
         [SchemaAndTableName("dbo.PublicBodyType")]
         [DataType("string")]
         public string TypeRetiredDatetime { get; set; } = "";
-
     }
 }

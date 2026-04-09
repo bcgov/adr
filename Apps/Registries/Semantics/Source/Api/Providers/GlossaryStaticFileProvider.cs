@@ -1,16 +1,22 @@
 namespace Adr.Semantics.Providers
 {
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using Adr.Semantics.Mappers;
     using Adr.Semantics.Models;
+    using CsvHelper;
     using CsvHelper.Configuration;
+    using CsvHelper.TypeConversion;
     using Microsoft.Extensions.Logging;
 
     public class GlossaryStaticFileProvider : IGlossaryProvider
     {
         private readonly ILogger<GlossaryStaticFileProvider> _logger;
 
-        // TODO
-        private IEnumerable<GlossaryModel>? _glossaries;
+        private IEnumerable<GlossaryModel>? _glossaryTerms;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StaticFileProvider"/> class.
@@ -19,27 +25,25 @@ namespace Adr.Semantics.Providers
         public GlossaryStaticFileProvider(ILogger<GlossaryStaticFileProvider> logger)
         {
             _logger = logger;
-            _glossaries = null;
+            _glossaryTerms = null;
         }
 
         /// <inheritdoc/>
         public IEnumerable<GlossaryModel> GetAllGlossaries()
         {
-            if (_glossaries is null)
+            if (_glossaryTerms is null)
             {
-                _glossaries = LoadGlossaryFromFile();
+                _glossaryTerms = LoadGlossaryFromFile();
             }
 
-            return _glossaries;
+            return _glossaryTerms;
         }
 
         private IEnumerable<GlossaryModel> LoadGlossaryFromFile()
         {
             _logger.LogInformation("Parsing Names file");
 
-            /*
-             * TODO: retrieve from CSV the correct info
-            var glossaryFile = "public bodies_ministry_plus_public_bodies.csv";
+            var glossaryFile = "Glossary_of_Terms_Data_Table.csv";
 
             var mapper = new GlossaryMapper();
             var records = LoadAsset<GlossaryModel>(glossaryFile, mapper);
@@ -47,37 +51,33 @@ namespace Adr.Semantics.Providers
             // For now generate the ID on the fly
             foreach (var nameRecord in records)
             {
-                nameRecord.Id = Guid.NewGuid().ToString();
+                // For now use the lower case term separated by dashes as identifier
+                // "API System" -> "api-system"
+                nameRecord.Id = nameRecord.Term.Replace(" ", "-").ToLowerInvariant();
             }
-            return records;
-            */
 
-            return new List<GlossaryModel>();
+            return records;
         }
 
-        private IEnumerable<T> LoadAsset<T>(string assetName, ClassMap mapper)
+        private static IEnumerable<T> LoadAsset<T>(string assetName, ClassMap mapper)
         {
-            /*
-             * TODO load the actual file and parse it
-              string resourceName = $"Semantic.Assets.{assetName}";
-  
-              Assembly? assembly = Assembly.GetAssembly(typeof(StaticFileProvider));
-  
-              Stream resourceStream =
-                  assembly!.GetManifestResourceStream(resourceName)
-                  ?? throw new FileNotFoundException($"File {resourceName} not found.");
-              using var reader = new StreamReader(resourceStream);
-  
-              CsvConfiguration csvConfig = new(CultureInfo.InvariantCulture);
-              csvConfig.Delimiter = ",";
-              using CsvReader csv = new(reader, csvConfig);
-              csv.Context.TypeConverterCache.AddConverter<bool>(new BooleanConverter());
-              csv.Context.RegisterClassMap(mapper);
-              IEnumerable<T> records = csv.GetRecords<T>().ToList();
-  
-              return records;
-              */
-            return new List<T>();
+            string resourceName = $"Semantics.Assets.{assetName}";
+
+            Assembly? assembly = Assembly.GetAssembly(typeof(GlossaryStaticFileProvider));
+
+            Stream resourceStream =
+                assembly!.GetManifestResourceStream(resourceName)
+                ?? throw new FileNotFoundException($"File {resourceName} not found.");
+            using var reader = new StreamReader(resourceStream);
+
+            CsvConfiguration csvConfig = new(CultureInfo.InvariantCulture);
+            csvConfig.Delimiter = ",";
+            using CsvReader csv = new(reader, csvConfig);
+            csv.Context.TypeConverterCache.AddConverter<bool>(new BooleanConverter());
+            csv.Context.RegisterClassMap(mapper);
+            IEnumerable<T> records = csv.GetRecords<T>().ToList();
+
+            return records;
         }
     }
 }
