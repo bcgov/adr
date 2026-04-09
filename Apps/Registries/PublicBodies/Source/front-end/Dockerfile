@@ -18,11 +18,10 @@ RUN npm ci
 # Copy required files
 COPY . .
 
-# Build arguments required by the Vite build
-ARG VITE_PUBLIC_BODIES_API_URL
-
-# Run Vite build script, which places built files in /app/dist
-RUN VITE_PUBLIC_BODIES_API_URL=${VITE_PUBLIC_BODIES_API_URL} npm run build
+# Run Vite build script, which places built files in /app/dist.
+# Note: Variables are intentionally NOT passed at build time.
+# Env is injected at start by entrypoint.sh → /usr/share/nginx/html/config.js → window.<vars> (see src/constants.ts).
+RUN npm run build
 
 # -----------
 # Serve stage
@@ -32,8 +31,19 @@ FROM docker.io/nginxinc/nginx-unprivileged:alpine3.22 AS serve-stage
 # Copy nginx configuration
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-# Copy built Vite files to nginx public web root folder
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+# Copy built Vite files to nginx public web root folder.
+# Note:
+# --chown is required so the entrypoint script (running as the nginx user) can
+# overwrite /usr/share/nginx/html/config.js at startup.
+COPY --chown=nginx:nginx --from=build-stage /app/dist /usr/share/nginx/html
+
+# Install the runtime config writer into nginx's startup hook directory. The
+# nginx-unprivileged base image runs every executable script in
+# /docker-entrypoint.d/ before starting nginx.
+# Note:
+#   script use 40-<name> to guarantee that it runs after the base images startup scripts and
+#   before new scripts are added.
+COPY --chmod=755 entrypoint.sh /docker-entrypoint.d/40-write-runtime-config.sh
 
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]

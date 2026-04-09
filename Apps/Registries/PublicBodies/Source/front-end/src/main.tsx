@@ -4,17 +4,18 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { client } from "@/api/generated/client.gen";
 import App from "@/App.tsx";
+import { API_URL } from "@/constants.ts";
 import "@/index.css";
 
-client.setConfig({ baseUrl: import.meta.env.VITE_PUBLIC_BODIES_API_URL });
+client.setConfig({ baseUrl: API_URL });
 import "@bcgov/bc-sans/css/BC_Sans.css";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </StrictMode>,
+    <StrictMode>
+        <QueryClientProvider client={queryClient}>
+            <App />
+        </QueryClientProvider>
+    </StrictMode>,
 );
