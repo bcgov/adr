@@ -31,11 +31,9 @@ FROM docker.io/nginxinc/nginx-unprivileged:alpine3.22 AS serve-stage
 # Copy nginx configuration
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-# Copy built Vite files to nginx public web root folder.
-# Note:
-# --chown is required so the entrypoint script (running as the nginx user) can
-# overwrite /usr/share/nginx/html/config.js at startup.
-COPY --chown=nginx:nginx --from=build-stage /app/dist /usr/share/nginx/html
+# Owned by nginx (UID 101) so the runtime entrypoint can rewrite config.js.
+# Numeric IDs bypass buildah's host-side username lookup.
+COPY --chown=101:101 --from=build-stage /app/dist /usr/share/nginx/html
 
 # Install the runtime config writer into nginx's startup hook directory. The
 # nginx-unprivileged base image runs every executable script in
