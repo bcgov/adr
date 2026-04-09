@@ -1,48 +1,48 @@
 .card {
-  flex-grow: 1;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: flex-start;
-  border-radius: var(--layout-margin-xsmall);
-  border: var(--layout-border-width-small) solid
-    var(--surface-color-border-default);
-  background: var(--surface-color-background-white);
-  box-shadow: var(--surface-shadow-small);
-
-  .card-body {
     flex-grow: 1;
     display: flex;
-    padding: var(--layout-margin-large);
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--layout-padding-medium);
-    align-self: stretch;
+    border-radius: var(--layout-margin-xsmall);
+    border: var(--layout-border-width-small) solid
+        var(--surface-color-border-default);
+    background: var(--surface-color-background-white);
+    box-shadow: var(--surface-shadow-small);
 
-    .card-name {
-      color: var(--typography-color-primary);
-      font: var(--typography-bold-h5);
+    .card-body {
+        flex-grow: 1;
+        display: flex;
+        padding: var(--layout-margin-large);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--layout-padding-medium);
+        align-self: stretch;
+
+        .card-name {
+            color: var(--typography-color-primary);
+            font: var(--typography-bold-h5);
+        }
+
+        .card-publicbody-type {
+            font: var(--typography-italic-body);
+        }
+
+        .card-date-effective,
+        .card-date-retirement {
+            font: var(--typography-bold-small-body);
+
+            time {
+                color: var(--typography-color-secondary);
+                font: var(--typography-regular-small-body);
+            }
+        }
+
+        .card-id {
+            color: var(--typography-color-secondary);
+            font-size: var(--typography-font-size-label);
+            font-style: italic;
+        }
     }
-
-    .card-publicbody-type {
-      font: var(--typography-italic-body);
-    }
-
-    .card-date-effective,
-    .card-date-retirement {
-      font: var(--typography-bold-small-body);
-
-      time {
-        color: var(--typography-color-secondary);
-        font: var(--typography-regular-small-body);
-      }
-    }
-
-    .card-id {
-      color: var(--typography-color-secondary);
-      font-size: var(--typography-font-size-label);
-      font-style: italic;
-    }
-  }
 }
