@@ -27,7 +27,7 @@ RUN VITE_PUBLIC_BODIES_API_URL=${VITE_PUBLIC_BODIES_API_URL} npm run build
 # -----------
 # Serve stage
 # -----------
-FROM docker.io/library/nginxinc/nginx-unprivileged:alpine3.22 AS serve-stage
+FROM docker.io/nginxinc/nginx-unprivileged:alpine3.22 AS serve-stage
 
 # Copy nginx configuration
 COPY ./nginx.conf /etc/nginx/nginx.conf
