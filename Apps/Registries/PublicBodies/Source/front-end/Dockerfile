@@ -31,17 +31,21 @@ FROM docker.io/nginxinc/nginx-unprivileged:alpine3.22 AS serve-stage
 # Copy nginx configuration
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-# Owned by nginx (UID 101) so the runtime entrypoint can rewrite config.js.
-# Numeric IDs bypass buildah's host-side username lookup.
-COPY --chown=101:101 --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-# Install the runtime config writer into nginx's startup hook directory. The
-# nginx-unprivileged base image runs every executable script in
-# /docker-entrypoint.d/ before starting nginx.
-# Note:
-#   script use 40-<name> to guarantee that it runs after the base images startup scripts and
-#   before new scripts are added.
+# Runtime config writer. /docker-entrypoint.d/*.sh runs before nginx starts;
+# the 40- prefix sequences it after the base image's own scripts (10–30).
 COPY --chmod=755 entrypoint.sh /docker-entrypoint.d/40-write-runtime-config.sh
+
+# OpenShift's restricted SCC (Security Context Constraints — the default
+# per-namespace pod security policy that overrides UID/capabilities/host
+# access) runs containers as a random UID with GID 0, so group-own the html
+# dir to root (0) and grant group write — the standard Red Hat pattern for
+# SCC-compatible images.
+USER root
+RUN chgrp -R 0 /usr/share/nginx/html && \
+    chmod -R g=u /usr/share/nginx/html
+USER 101
 
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
