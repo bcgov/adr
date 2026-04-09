@@ -3,7 +3,7 @@
 # -----------
 # Build stage
 # -----------
-FROM node:24-alpine3.23 AS build-stage
+FROM docker.io/library/node:24-alpine3.23 AS build-stage
 
 # Copy package.json and package-lock.json
 WORKDIR /app
@@ -27,7 +27,7 @@ RUN VITE_PUBLIC_BODIES_API_URL=${VITE_PUBLIC_BODIES_API_URL} npm run build
 # -----------
 # Serve stage
 # -----------
-FROM nginxinc/nginx-unprivileged:alpine3.22 AS serve-stage
+FROM docker.io/library/nginxinc/nginx-unprivileged:alpine3.22 AS serve-stage
 
 # Copy nginx configuration
 COPY ./nginx.conf /etc/nginx/nginx.conf
