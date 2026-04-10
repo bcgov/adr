@@ -1,3 +1,35 @@
 .dictionary-search {
     margin-left: 10px;
 }
+
+.dictionary-table-wrapper {
+    overflow-x: auto;
+}
+
+.dictionary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dictionary-table .col-field-name {
+    max-width: 8em;
+}
+
+.dictionary-table .col-description {
+    min-width: 18em;
+}
+
+.dictionary-table th,
+.dictionary-table td {
+    padding: var(--layout-padding-small) var(--layout-padding-medium);
+    text-align: left;
+    vertical-align: top;
+}
+
+.dictionary-table th {
+    border-bottom: var(--layout-border-width-small) solid var(--surface-color-border-default);
+}
+
+.dictionary-table tbody tr:nth-child(even) {
+    background: var(--surface-color-background-secondary, #f7f7f7);
+}

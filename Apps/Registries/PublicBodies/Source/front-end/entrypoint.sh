@@ -16,6 +16,7 @@ set -eu
 
 cat > /usr/share/nginx/html/config.js <<EOF
 window.APP_CONFIG = {
-  PUBLIC_BODIES_API_URL: "${PUBLIC_BODIES_API_URL:-}"
+  PUBLIC_BODIES_API_URL: "${PUBLIC_BODIES_API_URL:-}",
+  SEMANTICS_API_URL: "${SEMANTICS_API_URL:-}"
 };
 EOF
