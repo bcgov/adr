@@ -2,12 +2,14 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { client } from "@/api/generated/client.gen";
+import { client as publicBodiesClient } from "@/api/generated-publicbodies/client.gen";
+import { client as semanticsClient } from "@/api/generated-semantics/client.gen";
 import App from "@/App.tsx";
-import { API_URL } from "@/constants.ts";
+import { API_URL, SEMANTICS_API_URL } from "@/constants.ts";
 import "@/index.css";
 
-client.setConfig({ baseUrl: API_URL });
+publicBodiesClient.setConfig({ baseUrl: API_URL });
+semanticsClient.setConfig({ baseUrl: SEMANTICS_API_URL });
 import "@bcgov/bc-sans/css/BC_Sans.css";
 
 const queryClient = new QueryClient();

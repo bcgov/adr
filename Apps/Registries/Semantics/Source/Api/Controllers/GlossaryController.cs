@@ -40,7 +40,7 @@ namespace Adr.Semantics.Controllers
         /// </summary>
         [HttpGet]
         [Produces("application/json")]
-        [EndpointName("GetAllGlossasary")]
+        [EndpointName("GetAllGlossary")]
         [ProducesResponseType(typeof(BaseResponseModel<IEnumerable<GlossaryModel>>), 200)]
         public BaseResponseModel<IEnumerable<GlossaryModel>> GetAll()
         {
