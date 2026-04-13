@@ -98,5 +98,55 @@ namespace Adr.PublicBodies.Controllers
 
             return requestResponse;
         }
+
+        /// <summary>
+        /// Returns all parent-child relationships between public bodies.
+        /// </summary>
+        [HttpGet("relationships")]
+        [Produces("application/json")]
+        [EndpointName("GetPublicBodyRelationships")]
+        [ProducesResponseType(
+            typeof(BaseResponseModel<IEnumerable<PublicBodyParentChildModel>>),
+            200
+        )]
+        public BaseResponseModel<
+            IEnumerable<PublicBodyParentChildModel>
+        > GetParentChildRelationships()
+        {
+            var relationships = _publicBodyService.GetAllParentChildRelationships();
+            var requestResponse = new BaseResponseModel<IEnumerable<PublicBodyParentChildModel>>()
+            {
+                Payload = relationships,
+                DatetimeRequested = DateTime.Now,
+            };
+
+            return requestResponse;
+        }
+
+        /// <summary>
+        /// Returns the full lineage history for a public body as a directed acyclic graph.
+        /// </summary>
+        /// <param name="id">The Public Body Static id</param>
+        [HttpGet("{id}/history")]
+        [Produces("application/json")]
+        [EndpointName("GetPublicBodyHistory")]
+        [ProducesResponseType(typeof(BaseResponseModel<PublicBodyHistoryModel>), 200)]
+        [ProducesResponseType(404)]
+        public ActionResult<BaseResponseModel<PublicBodyHistoryModel>> GetHistory(string id)
+        {
+            var history = _publicBodyService.GetHistory(id);
+            if (history == null)
+            {
+                return NotFound();
+            }
+
+            var requestResponse = new BaseResponseModel<PublicBodyHistoryModel>()
+            {
+                Payload = history,
+                DatetimeRequested = DateTime.Now,
+            };
+
+            return Ok(requestResponse);
+        }
     }
 }

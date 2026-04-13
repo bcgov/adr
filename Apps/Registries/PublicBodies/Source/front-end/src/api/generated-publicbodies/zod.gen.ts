@@ -3,29 +3,10 @@
 import * as z from 'zod';
 
 export const zAdrPublicBodiesModelsBaseAuditModel = z.object({
-    recordCreatedDatetime: z.iso.datetime().nullish(),
-    recordEndedDatetime: z.iso.datetime().nullish(),
+    recordCreatedDatetime: z.iso.date().nullish(),
+    recordEndedDatetime: z.iso.date().nullish(),
     recordCreatedUser: z.string().nullish(),
     recordEndedUser: z.string().nullish()
-});
-
-export const zAdrPublicBodiesModelsPublicBodyTypeModel = zAdrPublicBodiesModelsBaseAuditModel.and(z.object({
-    id: z.string().nullable(),
-    staticId: z.string().nullable(),
-    publicBodyTypeId: z.string().nullish(),
-    code: z.string().nullable(),
-    name: z.string().nullable(),
-    description: z.string().nullish(),
-    typeEffectiveDatetime: z.string().nullish(),
-    typeRetiredDatetime: z.string().nullish()
-}));
-
-/**
- * BaseResponseModel<IEnumerable`1>
- */
-export const zAdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyTypeModel = z.object({
-    payload: z.array(zAdrPublicBodiesModelsPublicBodyTypeModel).nullable(),
-    datetimeRequested: z.iso.datetime()
 });
 
 export const zAdrPublicBodiesModelsPublicBodyModel = zAdrPublicBodiesModelsBaseAuditModel.and(z.object({
@@ -38,7 +19,6 @@ export const zAdrPublicBodiesModelsPublicBodyModel = zAdrPublicBodiesModelsBaseA
     acronym: z.string().nullish(),
     sector: z.string().nullish(),
     typeId: z.string().nullish(),
-    publicBodyType: zAdrPublicBodiesModelsPublicBodyTypeModel.optional(),
     publicBodyEffectiveDate: z.iso.date().nullish(),
     publicBodyRetiredDate: z.iso.date().nullish()
 }));
@@ -56,6 +36,57 @@ export const zAdrPublicBodiesModelsBaseResponseModelAdrPublicBodiesModelsPublicB
  */
 export const zAdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyModel = z.object({
     payload: z.array(zAdrPublicBodiesModelsPublicBodyModel).nullable(),
+    datetimeRequested: z.iso.datetime()
+});
+
+export const zAdrPublicBodiesModelsPublicBodyParentChildModel = zAdrPublicBodiesModelsBaseAuditModel.and(z.object({
+    parentChildId: z.string().nullable(),
+    actionDatetime: z.iso.date().nullish(),
+    parentUniqueId: z.string().nullable(),
+    childUniqueId: z.string().nullable(),
+    wasRenamed: z.boolean().optional(),
+    wasMerged: z.boolean().optional(),
+    wasSplit: z.boolean().optional(),
+    publicBodyEffectiveDatetime: z.iso.date().nullish()
+}));
+
+/**
+ * BaseResponseModel<IEnumerable`1>
+ */
+export const zAdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyParentChildModel = z.object({
+    payload: z.array(zAdrPublicBodiesModelsPublicBodyParentChildModel).nullable(),
+    datetimeRequested: z.iso.datetime()
+});
+
+export const zAdrPublicBodiesModelsPublicBodyHistoryModel = z.object({
+    publicBodyId: z.string().nullable(),
+    publicBodies: z.array(zAdrPublicBodiesModelsPublicBodyModel).nullable(),
+    relationships: z.array(zAdrPublicBodiesModelsPublicBodyParentChildModel).nullable()
+});
+
+/**
+ * BaseResponseModel<PublicBodyHistoryModel>
+ */
+export const zAdrPublicBodiesModelsBaseResponseModelAdrPublicBodiesModelsPublicBodyHistoryModel = z.object({
+    payload: zAdrPublicBodiesModelsPublicBodyHistoryModel,
+    datetimeRequested: z.iso.datetime()
+});
+
+export const zAdrPublicBodiesModelsPublicBodyTypeModel = zAdrPublicBodiesModelsBaseAuditModel.and(z.object({
+    id: z.string().nullable(),
+    staticId: z.string().nullable(),
+    publicBodyTypeId: z.string().nullish(),
+    name: z.string().nullable(),
+    shortName: z.string().nullish(),
+    typeEffectiveDatetime: z.iso.date().nullish(),
+    typeRetiredDatetime: z.iso.date().nullish()
+}));
+
+/**
+ * BaseResponseModel<IEnumerable`1>
+ */
+export const zAdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyTypeModel = z.object({
+    payload: z.array(zAdrPublicBodiesModelsPublicBodyTypeModel).nullable(),
     datetimeRequested: z.iso.datetime()
 });
 
@@ -105,3 +136,27 @@ export const zGetPublicBodyTypesData = z.object({
  * OK
  */
 export const zGetPublicBodyTypesResponse = zAdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyTypeModel;
+
+export const zGetPublicBodyRelationshipsData = z.object({
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+/**
+ * OK
+ */
+export const zGetPublicBodyRelationshipsResponse = zAdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyParentChildModel;
+
+export const zGetPublicBodyHistoryData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        id: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * OK
+ */
+export const zGetPublicBodyHistoryResponse = zAdrPublicBodiesModelsBaseResponseModelAdrPublicBodiesModelsPublicBodyHistoryModel;

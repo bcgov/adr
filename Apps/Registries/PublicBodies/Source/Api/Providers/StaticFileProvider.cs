@@ -6,6 +6,7 @@ namespace Adr.PublicBodies.Providers
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using Adr.PublicBodies.Converters;
     using Adr.PublicBodies.Mappers;
     using Adr.PublicBodies.Models;
     using CsvHelper;
@@ -19,6 +20,7 @@ namespace Adr.PublicBodies.Providers
 
         private IEnumerable<PublicBodyModel>? _publicBodies;
         private IEnumerable<PublicBodyTypeModel>? _publicBodyTypes;
+        private IEnumerable<PublicBodyParentChildModel>? _parentChildRelationships;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StaticFileProvider"/> class.
@@ -29,6 +31,7 @@ namespace Adr.PublicBodies.Providers
             _logger = logger;
             _publicBodies = null;
             _publicBodyTypes = null;
+            _parentChildRelationships = null;
         }
 
         /// <inheritdoc/>
@@ -52,11 +55,22 @@ namespace Adr.PublicBodies.Providers
             return _publicBodyTypes;
         }
 
+        /// <inheritdoc/>
+        public IEnumerable<PublicBodyParentChildModel> GetAllParentChildRelationships()
+        {
+            if (_parentChildRelationships is null)
+            {
+                _parentChildRelationships = LoadParentChildFromFile();
+            }
+
+            return _parentChildRelationships;
+        }
+
         private IEnumerable<PublicBodyModel> LoadPublicBodiesFromFile()
         {
             _logger.LogInformation("Parsing Names file");
 
-            var publicBodiesFile = "public bodies_ministry_plus_public_bodies.csv";
+            var publicBodiesFile = "public_bodies.csv";
 
             var mapper = new PublicBodyMapper();
             var records = LoadAsset<PublicBodyModel>(publicBodiesFile, mapper);
@@ -73,7 +87,7 @@ namespace Adr.PublicBodies.Providers
         {
             _logger.LogInformation("Parsing Types file");
 
-            var typesFileName = "public bodies_ministry_plus_public_body_types.csv";
+            var typesFileName = "public body_types.csv";
 
             var mapper = new PublicBodyTypeMapper();
             var records = LoadAsset<PublicBodyTypeModel>(typesFileName, mapper);
@@ -83,6 +97,18 @@ namespace Adr.PublicBodies.Providers
             {
                 typeRecord.Id = Guid.NewGuid().ToString();
             }
+            return records;
+        }
+
+        private IEnumerable<PublicBodyParentChildModel> LoadParentChildFromFile()
+        {
+            _logger.LogInformation("Parsing Parent-Child relationships file");
+
+            var parentChildFile = "public_bodies_parent_child.csv";
+
+            var mapper = new PublicBodyParentChildMapper();
+            var records = LoadAsset<PublicBodyParentChildModel>(parentChildFile, mapper);
+
             return records;
         }
 
@@ -101,6 +127,7 @@ namespace Adr.PublicBodies.Providers
             csvConfig.Delimiter = ",";
             using CsvReader csv = new(reader, csvConfig);
             csv.Context.TypeConverterCache.AddConverter<bool>(new BooleanConverter());
+            csv.Context.TypeConverterCache.AddConverter<DateOnly?>(new Adr.PublicBodies.Converters.DateOnlyConverter());
             csv.Context.RegisterClassMap(mapper);
             IEnumerable<T> records = csv.GetRecords<T>().ToList();
 

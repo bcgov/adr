@@ -25,5 +25,18 @@ namespace Adr.PublicBodies.Services
         /// </summary>
         /// <returns>A list public body types.</returns>
         IEnumerable<PublicBodyTypeModel> GetAllTypes();
+
+        /// <summary>
+        /// Gets all parent-child relationships between public bodies.
+        /// </summary>
+        /// <returns>A list of parent-child relationships.</returns>
+        IEnumerable<PublicBodyParentChildModel> GetAllParentChildRelationships();
+
+        /// <summary>
+        /// Gets the full lineage history for a public body as a DAG.
+        /// </summary>
+        /// <param name="id">The static ID of the public body.</param>
+        /// <returns>The lineage graph, or null if the public body is not found.</returns>
+        PublicBodyHistoryModel? GetHistory(string id);
     }
 }
