@@ -246,6 +246,20 @@ namespace Adr.Semantics.Configuration
                 });
             }
 
+            // Private Network Access: browsers send a preflight with
+            // Access-Control-Request-Private-Network: true when a public site
+            // fetches from an address the browser considers private/local.
+            // Reply with the corresponding allow header so the request proceeds.
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Headers.ContainsKey("Access-Control-Request-Private-Network"))
+                {
+                    context.Response.Headers.Append("Access-Control-Allow-Private-Network", "true");
+                }
+
+                await next();
+            });
+
             // Setup response secure headers
             app.Use(
                 async (context, next) =>

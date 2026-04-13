@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetAllPublicBodiesData, GetAllPublicBodiesResponses, GetPublicBodyByIdData, GetPublicBodyByIdErrors, GetPublicBodyByIdResponses, GetPublicBodyTypesData, GetPublicBodyTypesResponses } from './types.gen';
+import type { GetAllPublicBodiesData, GetAllPublicBodiesResponses, GetPublicBodyByIdData, GetPublicBodyByIdErrors, GetPublicBodyByIdResponses, GetPublicBodyHistoryData, GetPublicBodyHistoryErrors, GetPublicBodyHistoryResponses, GetPublicBodyRelationshipsData, GetPublicBodyRelationshipsResponses, GetPublicBodyTypesData, GetPublicBodyTypesResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -23,3 +23,7 @@ export const getAllPublicBodies = <ThrowOnError extends boolean = false>(options
 export const getPublicBodyById = <ThrowOnError extends boolean = false>(options: Options<GetPublicBodyByIdData, ThrowOnError>) => (options.client ?? client).get<GetPublicBodyByIdResponses, GetPublicBodyByIdErrors, ThrowOnError>({ url: '/v1/PublicBodies/{id}', ...options });
 
 export const getPublicBodyTypes = <ThrowOnError extends boolean = false>(options?: Options<GetPublicBodyTypesData, ThrowOnError>) => (options?.client ?? client).get<GetPublicBodyTypesResponses, unknown, ThrowOnError>({ url: '/v1/PublicBodies/types', ...options });
+
+export const getPublicBodyRelationships = <ThrowOnError extends boolean = false>(options?: Options<GetPublicBodyRelationshipsData, ThrowOnError>) => (options?.client ?? client).get<GetPublicBodyRelationshipsResponses, unknown, ThrowOnError>({ url: '/v1/PublicBodies/relationships', ...options });
+
+export const getPublicBodyHistory = <ThrowOnError extends boolean = false>(options: Options<GetPublicBodyHistoryData, ThrowOnError>) => (options.client ?? client).get<GetPublicBodyHistoryResponses, GetPublicBodyHistoryErrors, ThrowOnError>({ url: '/v1/PublicBodies/{id}/history', ...options });

@@ -1,0 +1,95 @@
+.history-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-padding-large);
+}
+
+.history-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-padding-small);
+}
+
+.history-header h2 {
+    margin: 0;
+    font: var(--typography-bold-h4);
+    color: var(--typography-color-primary);
+}
+
+.history-header .history-subtitle {
+    font: var(--typography-regular-body);
+    color: var(--typography-color-secondary);
+}
+
+.history-back {
+    font: var(--typography-regular-body);
+    color: var(--typography-color-link);
+    text-decoration: none;
+}
+
+.history-back:hover {
+    text-decoration: underline;
+}
+
+.history-diagram-wrapper {
+    position: relative;
+    border-radius: var(--layout-margin-xsmall);
+    border: var(--layout-border-width-small) solid
+        var(--surface-color-border-default);
+    background: var(--surface-color-background-white);
+    box-shadow: var(--surface-shadow-small);
+}
+
+.history-legend {
+    position: absolute;
+    top: var(--layout-padding-small);
+    right: var(--layout-padding-small);
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-padding-xsmall);
+    padding: var(--layout-padding-small) var(--layout-padding-medium);
+    font: var(--typography-regular-small-body);
+    color: var(--typography-color-secondary);
+    background: var(--surface-color-background-white);
+    border: var(--layout-border-width-small) solid
+        var(--surface-color-border-default);
+    border-radius: var(--layout-margin-xsmall);
+    box-shadow: var(--surface-shadow-small);
+    z-index: 1;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--layout-padding-xsmall);
+}
+
+.legend-swatch {
+    width: 32px;
+    height: 8px;
+}
+
+.history-diagram {
+    overflow-x: auto;
+    padding: var(--layout-padding-medium);
+}
+
+.history-diagram .node {
+    cursor: pointer;
+}
+
+.history-diagram .node:hover rect,
+.history-diagram .node:hover polygon,
+.history-diagram .node:hover circle {
+    filter: brightness(0.92);
+}
+
+.history-diagram svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.history-empty {
+    font: var(--typography-italic-body);
+    color: var(--typography-color-secondary);
+}
