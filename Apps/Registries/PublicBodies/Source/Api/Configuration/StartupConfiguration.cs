@@ -79,7 +79,15 @@ namespace Adr.PublicBodies.Configuration
                     options.UseOneOfForPolymorphism();
                     options.SchemaFilter<SwaggerExcludeModelFilter>();
                     options.SchemaFilter<SwaggerGenericFilter>();
+                    options.SchemaFilter<SwaggerSemanticRefFilter>();
                     options.DocumentFilter<SwaggerExcludeModelFilter>();
+                    options.CustomSchemaIds(type =>
+                        type.ToString()
+                            .Replace("`1", "")
+                            .Replace("IEnumerable", "List")
+                            .Replace("[", "")
+                            .Replace("]", "")
+                    );
                 });
         }
 
@@ -216,13 +224,26 @@ namespace Adr.PublicBodies.Configuration
             // Enable health endpoint for readiness probe
             app.UseHealthChecks("/health");
 
-            // Enable CORS
+            // CORS. AllowOrigins is "*" (any origin) or a comma-separated explicit list.
             string? enableCors = Configuration.GetValue<string>("AllowOrigins");
             if (!string.IsNullOrEmpty(enableCors))
             {
                 app.UseCors(builder =>
                 {
-                    builder.WithOrigins(enableCors).AllowAnyHeader().AllowAnyMethod();
+                    if (enableCors == "*")
+                    {
+                        builder.AllowAnyOrigin();
+                    }
+                    else
+                    {
+                        var origins = enableCors.Split(
+                            ',',
+                            StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries
+                        );
+                        builder.WithOrigins(origins);
+                    }
+
+                    builder.AllowAnyHeader().AllowAnyMethod();
                 });
             }
 

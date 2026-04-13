@@ -1,5 +1,6 @@
 namespace Adr.PublicBodies.Models
 {
+    using System;
     using Adr.PublicBodies.Configuration.Addons.Swagger;
 
     /// <summary>
@@ -8,13 +9,35 @@ namespace Adr.PublicBodies.Models
     public class BaseAuditModel
     {
         /// <summary>
-        /// Gets or sets the effective date. When the data became active
+        /// Gets or sets the record created datetime
         /// </summary>
-        public System.DateOnly? EffectiveDate { get; set; }
+        [FieldName("RecordCreatedDatetime")]
+        [FieldDescription("The date and time the record was created.")]
+        [DataType("string")]
+        public DateTime? RecordCreatedDatetime { get; set; } = null;
 
         /// <summary>
-        /// Gets or sets the retirment date for the information. When is no longer active.
+        /// Gets or sets the record ended datetime
         /// </summary>
-        public System.DateOnly? RetirementDate { get; set; }
+        [FieldName("RecordEndedDatetime")]
+        [FieldDescription("The date and time the record was ended.")]
+        [DataType("string")]
+        public DateTime? RecordEndedDatetime { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the record created user
+        /// </summary>
+        [FieldName("RecordCreatedUser")]
+        [FieldDescription("The user who created the record.")]
+        [DataType("string")]
+        public string RecordCreatedUser { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets the record ended user
+        /// </summary>
+        [FieldName("RecordEndedUser")]
+        [FieldDescription("The user who ended the record.")]
+        [DataType("string")]
+        public string RecordEndedUser { get; set; } = "";
     }
 }

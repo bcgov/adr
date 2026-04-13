@@ -1,55 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-
-    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.14.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.14.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.11" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.14.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.14" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.14.0" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.14.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.14.0" />
-
-    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
-    <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.7.0" />
-    <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
-    <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
-    <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0" />
-    <PackageReference Include="Serilog.Enrichers.Span" Version="3.1.0" />
-    <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
-    <PackageReference Include="Serilog.Exceptions.EntityFrameworkCore" Version="8.4.0" />
-    <PackageReference Include="Serilog.Exceptions.Refit" Version="8.4.0" />
-    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.1.0" />
-    <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
-    <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
-    <PackageReference Include="SerilogTraceListener" Version="3.2.0" />
-
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
-
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="10.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.0" />
-
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
-  </ItemGroup>
-
-
-
+    <ItemGroup>
+        <EmbeddedResource Include="Assets\public body types 2026-01-21v2.csv" />
+        <EmbeddedResource Include="Assets\public body names 2026-01-21v2.csv" />
+        <EmbeddedResource Include="Assets\public bodies_ministry_plus_public_bodies.csv" />
+        <EmbeddedResource Include="Assets\public bodies_ministry_plus_public_body_types.csv" />
+    </ItemGroup>
 </Project>

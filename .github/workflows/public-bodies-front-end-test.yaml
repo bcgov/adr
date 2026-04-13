@@ -1,0 +1,62 @@
+---
+name: Public Bodies - Front-end - Test
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    paths:
+      - Apps/Registries/PublicBodies/Source/front-end/**
+  workflow_dispatch:
+
+# Cancel any currently running builds to save GitHub Actions hours.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-suite:
+    name: Test suite
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./Apps/Registries/PublicBodies/Source/front-end
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Read .nvmrc
+        run: echo "GITHUB_NVMRC_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
+        working-directory: ${{env.working-directory}}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.GITHUB_NVMRC_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{env.working-directory}}
+
+      - name: Install Playwright Chromium for browser test suite
+        run: npx playwright install chromium
+        working-directory: ${{env.working-directory}}
+
+      # Errors in lint process will cause this job to fail.
+      - name: Lint
+        run: npm run lint
+        working-directory: ${{env.working-directory}}
+
+      - name: Unit test suite
+        run: npm run test:unit -- --passWithNoTests
+        working-directory: ${{env.working-directory}}
+
+      - name: Browser test suite
+        run: npm run test:browser-headless
+        working-directory: ${{env.working-directory}}
+
+      # Treat failures in the Vite build as test failures. We don't need to keep
+      # the artifact of this build, we just care that it completes successfully.
+      - name: Run Vite build
+        run: npm run build
+        working-directory: ${{env.working-directory}}

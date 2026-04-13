@@ -1,0 +1,27 @@
+ul.list-public-bodies {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--layout-padding-medium);
+    width: 100%;
+
+    li {
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+    }
+}
+
+@media (max-width: 1200px) {
+    ul.list-public-bodies {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    ul.list-public-bodies {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

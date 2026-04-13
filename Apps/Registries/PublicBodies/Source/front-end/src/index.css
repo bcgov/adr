@@ -1,0 +1,37 @@
+:root {
+    font-family: "BC Sans", sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    /* System font stack */
+    --font-system-mono:
+        Menlo, Consolas, Monaco, Adwaita Mono, Liberation Mono, Lucida Console,
+        monospace;
+    --font-system-sans:
+        "BC Sans", -apple-system, BlinkMacSystemFont, avenir next, avenir,
+        segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto,
+        helvetica, arial, sans-serif;
+    --font-system-serif:
+        -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+        helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto,
+        helvetica, arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+/* Font utility classes */
+.mono {
+    font-family: var(--font-system-mono);
+}
+.sans {
+    font-family: var(--font-system-sans);
+}
+.serif {
+    font-family: var(--font-system-serif);
+}

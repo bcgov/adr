@@ -6,19 +6,20 @@ namespace Adr.PublicBodies.Controllers
     using Adr.PublicBodies.Services;
     using Asp.Versioning;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Routing;
     using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// The PublicBodies controller.
     /// </summary>
     [ApiVersion("1.0")]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
     [ApiController]
     public class PublicBodiesController : Controller
     {
         private readonly ILogger<PublicBodiesController> _logger;
 
-        private readonly IMinistryService _ministryService;
+        private readonly IPublicBodyService _publicBodyService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PublicBodiesController"/> class.
@@ -27,32 +28,71 @@ namespace Adr.PublicBodies.Controllers
         /// <param name="ministryService">Injected Ministry Service.</param>
         public PublicBodiesController(
             ILogger<PublicBodiesController> logger,
-            IMinistryService ministryService
+            IPublicBodyService publicBodyService
         )
         {
             _logger = logger;
-            _ministryService = ministryService;
+            _publicBodyService = publicBodyService;
         }
 
+        /// <summary>
+        /// Returns all public bodies.
+        /// </summary>
         [HttpGet]
         [Produces("application/json")]
-        public BaseResponseModel<String> Index()
+        [EndpointName("GetAllPublicBodies")]
+        [ProducesResponseType(typeof(BaseResponseModel<IEnumerable<PublicBodyModel>>), 200)]
+        public BaseResponseModel<IEnumerable<PublicBodyModel>> GetAllPublicBodies()
         {
-            return new BaseResponseModel<String>()
+            var publicBodies = _publicBodyService.GetAll();
+            var requestResponse = new BaseResponseModel<IEnumerable<PublicBodyModel>>()
             {
-                Payload = "Hello Adr World",
+                Payload = publicBodies,
                 DatetimeRequested = DateTime.Now,
             };
+
+            return requestResponse;
         }
 
-        [HttpGet("ministries")]
+        /// <summary>
+        /// Returns a public body by its static ID.
+        /// </summary>
+        /// <param name="id">The Public Body Static id</param>
+        [HttpGet("{id}")]
         [Produces("application/json")]
-        public BaseResponseModel<IEnumerable<MinistryModel>> GetMinistries()
+        [EndpointName("GetPublicBodyById")]
+        [ProducesResponseType(typeof(BaseResponseModel<PublicBodyModel>), 200)]
+        [ProducesResponseType(404)]
+        public ActionResult<BaseResponseModel<PublicBodyModel>> GetById(string id)
         {
-            var ministries = _ministryService.GetAll();
-            var requestResponse = new BaseResponseModel<IEnumerable<MinistryModel>>()
+            var publicBody = _publicBodyService.GetPublicBody(id);
+            if (publicBody == null)
             {
-                Payload = ministries,
+                return NotFound();
+            }
+
+            var requestResponse = new BaseResponseModel<PublicBodyModel>()
+            {
+                Payload = publicBody,
+                DatetimeRequested = DateTime.Now,
+            };
+
+            return Ok(requestResponse);
+        }
+
+        /// <summary>
+        /// Returns all public body types.
+        /// </summary>
+        [HttpGet("types")]
+        [Produces("application/json")]
+        [EndpointName("GetPublicBodyTypes")]
+        [ProducesResponseType(typeof(BaseResponseModel<IEnumerable<PublicBodyTypeModel>>), 200)]
+        public BaseResponseModel<IEnumerable<PublicBodyTypeModel>> GetTypes()
+        {
+            var types = _publicBodyService.GetAllTypes();
+            var requestResponse = new BaseResponseModel<IEnumerable<PublicBodyTypeModel>>()
+            {
+                Payload = types,
                 DatetimeRequested = DateTime.Now,
             };
 

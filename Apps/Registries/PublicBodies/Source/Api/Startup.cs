@@ -2,6 +2,7 @@ namespace Adr.PublicBodies
 {
     using System.Diagnostics.CodeAnalysis;
     using Adr.PublicBodies.Configuration;
+    using Adr.PublicBodies.Providers;
     using Adr.PublicBodies.Services;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -37,10 +38,8 @@ namespace Adr.PublicBodies
             this.startupConfig.ConfigureTracing(services);
 
             // Configure the public bodies services
-            services.AddTransient<IMinistryService, HardcodedMinistryService>();
-
-            // Add auto mapper
-            services.AddAutoMapper(typeof(Startup));
+            services.AddTransient<IPublicBodyService, PublicBodyService>();
+            services.AddSingleton<IPublicBodyProvider, StaticFileProvider>();
 
             services.AddCors(options =>
             {
@@ -61,12 +60,12 @@ namespace Adr.PublicBodies
         public void Configure(IApplicationBuilder app)
         {
             this.startupConfig.UseForwardHeaders(app);
-            this.startupConfig.UseSwagger(app);
             this.startupConfig.UseHttp(app);
             this.startupConfig.UseResponseCaching(app);
             //this.startupConfig.UseAuth(app); not yet
             this.startupConfig.UseEnrichTracing(app);
             this.startupConfig.UseRest(app);
+            this.startupConfig.UseSwagger(app);
         }
     }
 }

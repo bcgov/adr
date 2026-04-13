@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Glossary_of_Terms_Data_Table.csv" />
+  </ItemGroup>
+</Project>
