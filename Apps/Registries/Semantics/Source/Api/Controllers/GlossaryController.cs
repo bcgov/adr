@@ -2,6 +2,8 @@ namespace Adr.Semantics.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Adr.Semantics.Mappers;
     using Adr.Semantics.Models;
     using Adr.Semantics.Services;
     using Asp.Versioning;
@@ -45,13 +47,30 @@ namespace Adr.Semantics.Controllers
         public BaseResponseModel<IEnumerable<GlossaryModel>> GetAll()
         {
             var glossaryInfo = _glossaryService.GetAll();
+            var filteredGlossary = glossaryInfo.Where(g =>
+                g.PublishToDevHub && g.VerifiedDefinitionFlag
+            );
             var requestResponse = new BaseResponseModel<IEnumerable<GlossaryModel>>()
             {
-                Payload = glossaryInfo,
+                Payload = filteredGlossary,
                 DatetimeRequested = DateTime.Now,
             };
 
             return requestResponse;
+        }
+
+        /// <summary>
+        /// Returns all glossary information rendered as a Markdown document.
+        /// </summary>
+        [HttpGet("markdown")]
+        [Produces("text/markdown")]
+        [EndpointName("GetGlossaryMarkdown")]
+        [ProducesResponseType(typeof(string), 200)]
+        public ContentResult GetMarkdown()
+        {
+            var glossaryInfo = _glossaryService.GetAll();
+            var markdown = GlossaryMarkdownMapper.Map(glossaryInfo);
+            return Content(markdown, "text/markdown");
         }
 
         /// <summary>
