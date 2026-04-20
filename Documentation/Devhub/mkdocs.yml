@@ -1,8 +1,8 @@
 site_name: "Authoritative Data Registers"
 site_description: "Standards, dictionaries, and glossaries for authoritative data registers."
-docs_dir: "docs"
+docs_dir: "Pages"
 repo_url: "https://github.com/bcgov/adr"
-edit_uri: edit/docs/docs
+edit_uri: edit/dev/Documentation/Devhub/Pages/
 nav:
   - Introduction: index.md
   - Getting started: getting-started.md
