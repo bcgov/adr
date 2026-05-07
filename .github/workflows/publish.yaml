@@ -4,16 +4,16 @@ permissions:
 on:
     workflow_dispatch:
     push:
-        branches: [ docs ]
+        branches: [ dev ]
         paths:
             - "mkdocs.yml"
-            - "docs/*"
+            - "Documentation/Devhub/**"
             - "catalog-info.yaml"
     pull_request:
-        branches: [ docs ]
+        branches: [ dev ]
         paths:
             - "mkdocs.yml"
-            - "docs/*"
+            - "Documentation/Devhub/**"
             - "catalog-info.yaml"
 
 jobs:
