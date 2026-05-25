@@ -1,6 +1,5 @@
 namespace Adr.PublicBodies.Mappers
 {
-    using System;
     using Adr.PublicBodies.Models;
     using CsvHelper.Configuration;
 
@@ -18,33 +17,9 @@ namespace Adr.PublicBodies.Mappers
             this.Map(m => m.ActionDatetime).Name("ACTION_DATETIME");
             this.Map(m => m.ParentUniqueId).Name("PARENT_UNIQUE_ID");
             this.Map(m => m.ChildUniqueId).Name("CHILD_UNIQUE_ID");
-            this.Map(m => m.WasRenamed)
-                .Name("WAS_RENAMED")
-                .Convert(args =>
-                    string.Equals(
-                        args.Row.GetField("WAS_RENAMED")?.Trim(),
-                        "T",
-                        StringComparison.OrdinalIgnoreCase
-                    )
-                );
-            this.Map(m => m.WasMerged)
-                .Name("WAS_MERGED")
-                .Convert(args =>
-                    string.Equals(
-                        args.Row.GetField("WAS_MERGED")?.Trim(),
-                        "T",
-                        StringComparison.OrdinalIgnoreCase
-                    )
-                );
-            this.Map(m => m.WasSplit)
-                .Name("WAS_SPLIT")
-                .Convert(args =>
-                    string.Equals(
-                        args.Row.GetField("WAS_SPLIT")?.Trim(),
-                        "T",
-                        StringComparison.OrdinalIgnoreCase
-                    )
-                );
+            this.Map(m => m.WasRenamed).Ignore();
+            this.Map(m => m.WasMerged).Ignore();
+            this.Map(m => m.WasSplit).Ignore();
             this.Map(m => m.PublicBodyEffectiveDatetime).Name("PUBLIC_BODY_EFFECTIVE_DATETIME");
             this.Map(m => m.RecordCreatedDatetime).Name("RECORD_CREATED_DATETIME");
             this.Map(m => m.RecordEndedDatetime).Name("RECORD_ENDED_DATETIME");
