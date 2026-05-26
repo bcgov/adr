@@ -1,0 +1,8 @@
+﻿pbt_unique_id,public_body_type_id,public_body_type,public_body_type_short_name,type_effective_datetime,type_retired_datetime,record_created_datetime,record_ended_datetime,record_created_user,record_ended_user
+019c72c9-780e-7916-9a7d-b336074c1b9e,019be1ef-d916-726f-ae70-e1e6e37055b2,BC Government Ministry,Min,2026-01-01 15:00,,2026-01-01 15:00,2026-02-18 15:00,bsparks,mdwilkie
+019c72c9-ab23-7c49-82a1-fb8b8711d8be,019be1ef-d916-726f-ae70-e1e6e37055b2,BC Government Ministry,Ministry,2026-01-01 15:00,,2026-02-18 15:00,,mdwilkie,
+019c8c46-a410-74e0-8dab-6308638f23d0,019be1f1-4a18-7a6b-92f3-37ea73d2dd5e,BC Central Government Agency,Central Agency,2026-01-01 15:00,,2026-02-18 15:00,2026-02-23 15:00,mdwilkie,
+019c8c46-a410-7345-9a64-babfe30cadb5,019be1f1-4a18-7a6b-92f3-37ea73d2dd5e,BC Central Government Agency,BC Central Agency,2026-01-01 15:00,,2026-02-23 15:00,,mdwilkie,
+019c8c46-a410-74e5-87a3-085a06e6fec6,019be1f2-af90-7b1e-a17a-4ef9fabbd4f0,BC Crown Corporation,Crown Corporation,2026-02-23 15:00,,2026-02-23 15:00,,mdwilkie,
+019c8c46-a410-7ee1-9858-1f5e25505e44,019c8c46-a410-7852-bd27-7181d49771e4,Federal Central  Government Agency,Federal,2026-02-23 15:00,,2026-02-23 15:00,,mdwilkie,
+019c8c46-a410-7bee-a805-d9bc245aadf5,019c8c46-a410-7f45-af75-05d4583db17c,Regulatory Agency,Regulatory,2026-02-23 15:00,,2026-02-23 15:00,,mdwilkie,

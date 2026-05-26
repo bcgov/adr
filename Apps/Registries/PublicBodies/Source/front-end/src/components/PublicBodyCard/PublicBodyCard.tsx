@@ -1,14 +1,18 @@
+import { Link } from "wouter";
+
 import "./PublicBodyCard.css";
 
 interface PublicBodyCardProps {
-    /** GUID */
-    id: string | null;
+    /** Static ID for API lookups */
+    staticId?: string | null;
     /** Display name */
     name: string | null;
     /** Acronym */
     acronym?: string | null | undefined;
     /** Public Body Type */
     publicBodyType?: string | null;
+    /** Whether lineage history is available for this public body */
+    hasHistory?: boolean;
     /** (optional) Effective date */
     effectiveDate?: string | null;
     /** (optional) Retirement date */
@@ -16,10 +20,11 @@ interface PublicBodyCardProps {
 }
 
 export default function PublicBodyCard({
-    id,
+    staticId,
     name,
     acronym,
     publicBodyType,
+    hasHistory,
     effectiveDate,
     retirementDate,
 }: PublicBodyCardProps) {
@@ -70,7 +75,16 @@ export default function PublicBodyCard({
                     </div>
                 )}
 
-                {id && <div className="card-id mono">{id}</div>}
+                {staticId && <div className="card-id mono">{staticId}</div>}
+
+                {staticId && hasHistory && (
+                    <Link
+                        href={`/public-bodies/${staticId}/history`}
+                        className="card-history-link"
+                    >
+                        View History
+                    </Link>
+                )}
             </div>
         </div>
     );

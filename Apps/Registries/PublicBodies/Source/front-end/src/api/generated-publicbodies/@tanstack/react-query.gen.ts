@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { getAllPublicBodies, getPublicBodyById, getPublicBodyTypes, type Options } from '../sdk.gen';
-import type { GetAllPublicBodiesData, GetAllPublicBodiesResponse, GetPublicBodyByIdData, GetPublicBodyByIdError, GetPublicBodyByIdResponse, GetPublicBodyTypesData, GetPublicBodyTypesResponse } from '../types.gen';
+import { getAllPublicBodies, getPublicBodyById, getPublicBodyHistory, getPublicBodyRelationships, getPublicBodyTypes, type Options } from '../sdk.gen';
+import type { GetAllPublicBodiesData, GetAllPublicBodiesResponse, GetPublicBodyByIdData, GetPublicBodyByIdError, GetPublicBodyByIdResponse, GetPublicBodyHistoryData, GetPublicBodyHistoryError, GetPublicBodyHistoryResponse, GetPublicBodyRelationshipsData, GetPublicBodyRelationshipsResponse, GetPublicBodyTypesData, GetPublicBodyTypesResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -82,4 +82,34 @@ export const getPublicBodyTypesOptions = (options?: Options<GetPublicBodyTypesDa
         return data;
     },
     queryKey: getPublicBodyTypesQueryKey(options)
+});
+
+export const getPublicBodyRelationshipsQueryKey = (options?: Options<GetPublicBodyRelationshipsData>) => createQueryKey('getPublicBodyRelationships', options);
+
+export const getPublicBodyRelationshipsOptions = (options?: Options<GetPublicBodyRelationshipsData>) => queryOptions<GetPublicBodyRelationshipsResponse, DefaultError, GetPublicBodyRelationshipsResponse, ReturnType<typeof getPublicBodyRelationshipsQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getPublicBodyRelationships({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getPublicBodyRelationshipsQueryKey(options)
+});
+
+export const getPublicBodyHistoryQueryKey = (options: Options<GetPublicBodyHistoryData>) => createQueryKey('getPublicBodyHistory', options);
+
+export const getPublicBodyHistoryOptions = (options: Options<GetPublicBodyHistoryData>) => queryOptions<GetPublicBodyHistoryResponse, GetPublicBodyHistoryError, GetPublicBodyHistoryResponse, ReturnType<typeof getPublicBodyHistoryQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getPublicBodyHistory({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getPublicBodyHistoryQueryKey(options)
 });

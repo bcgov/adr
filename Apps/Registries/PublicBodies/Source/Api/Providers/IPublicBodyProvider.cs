@@ -19,5 +19,11 @@ namespace Adr.PublicBodies.Providers
         /// </summary>
         /// <returns>A list public body types.</returns>
         IEnumerable<PublicBodyTypeModel> GetAllTypes();
+
+        /// <summary>
+        /// Gets all the parent-child relationships between public bodies.
+        /// </summary>
+        /// <returns>A list of parent-child relationships.</returns>
+        IEnumerable<PublicBodyParentChildModel> GetAllParentChildRelationships();
     }
 }

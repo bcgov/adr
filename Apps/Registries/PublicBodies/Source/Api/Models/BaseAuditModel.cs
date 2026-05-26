@@ -14,7 +14,7 @@ namespace Adr.PublicBodies.Models
         [FieldName("RecordCreatedDatetime")]
         [FieldDescription("The date and time the record was created.")]
         [DataType("string")]
-        public DateTime? RecordCreatedDatetime { get; set; } = null;
+        public DateOnly? RecordCreatedDatetime { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the record ended datetime
@@ -22,7 +22,7 @@ namespace Adr.PublicBodies.Models
         [FieldName("RecordEndedDatetime")]
         [FieldDescription("The date and time the record was ended.")]
         [DataType("string")]
-        public DateTime? RecordEndedDatetime { get; set; } = null;
+        public DateOnly? RecordEndedDatetime { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the record created user

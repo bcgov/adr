@@ -6,15 +6,23 @@ export type ClientOptions = {
 
 export type AdrPublicBodiesModelsBaseAuditModel = {
     /**
-     * Nullable<DateTime>
+     * Nullable<DateOnly>
      */
     recordCreatedDatetime?: string | null;
     /**
-     * Nullable<DateTime>
+     * Nullable<DateOnly>
      */
     recordEndedDatetime?: string | null;
     recordCreatedUser?: string | null;
     recordEndedUser?: string | null;
+};
+
+/**
+ * BaseResponseModel<PublicBodyHistoryModel>
+ */
+export type AdrPublicBodiesModelsBaseResponseModelAdrPublicBodiesModelsPublicBodyHistoryModel = {
+    payload: AdrPublicBodiesModelsPublicBodyHistoryModel;
+    datetimeRequested: string;
 };
 
 /**
@@ -39,12 +47,35 @@ export type AdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAd
 /**
  * BaseResponseModel<IEnumerable`1>
  */
+export type AdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyParentChildModel = {
+    /**
+     * IEnumerable<PublicBodyParentChildModel>
+     */
+    payload: Array<AdrPublicBodiesModelsPublicBodyParentChildModel> | null;
+    datetimeRequested: string;
+};
+
+/**
+ * BaseResponseModel<IEnumerable`1>
+ */
 export type AdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyTypeModel = {
     /**
      * IEnumerable<PublicBodyTypeModel>
      */
     payload: Array<AdrPublicBodiesModelsPublicBodyTypeModel> | null;
     datetimeRequested: string;
+};
+
+export type AdrPublicBodiesModelsPublicBodyHistoryModel = {
+    publicBodyId: string | null;
+    /**
+     * IEnumerable<PublicBodyModel>
+     */
+    publicBodies: Array<AdrPublicBodiesModelsPublicBodyModel> | null;
+    /**
+     * IEnumerable<PublicBodyParentChildModel>
+     */
+    relationships: Array<AdrPublicBodiesModelsPublicBodyParentChildModel> | null;
 };
 
 export type AdrPublicBodiesModelsPublicBodyModel = AdrPublicBodiesModelsBaseAuditModel & {
@@ -57,7 +88,6 @@ export type AdrPublicBodiesModelsPublicBodyModel = AdrPublicBodiesModelsBaseAudi
     acronym?: string | null;
     sector?: string | null;
     typeId?: string | null;
-    publicBodyType?: AdrPublicBodiesModelsPublicBodyTypeModel;
     /**
      * Nullable<DateOnly>
      */
@@ -68,14 +98,36 @@ export type AdrPublicBodiesModelsPublicBodyModel = AdrPublicBodiesModelsBaseAudi
     publicBodyRetiredDate?: string | null;
 };
 
+export type AdrPublicBodiesModelsPublicBodyParentChildModel = AdrPublicBodiesModelsBaseAuditModel & {
+    parentChildId: string | null;
+    /**
+     * Nullable<DateOnly>
+     */
+    actionDatetime?: string | null;
+    parentUniqueId: string | null;
+    childUniqueId: string | null;
+    wasRenamed?: boolean;
+    wasMerged?: boolean;
+    wasSplit?: boolean;
+    /**
+     * Nullable<DateOnly>
+     */
+    publicBodyEffectiveDatetime?: string | null;
+};
+
 export type AdrPublicBodiesModelsPublicBodyTypeModel = AdrPublicBodiesModelsBaseAuditModel & {
     id: string | null;
     staticId: string | null;
     publicBodyTypeId?: string | null;
-    code: string | null;
     name: string | null;
-    description?: string | null;
+    shortName?: string | null;
+    /**
+     * Nullable<DateOnly>
+     */
     typeEffectiveDatetime?: string | null;
+    /**
+     * Nullable<DateOnly>
+     */
     typeRetiredDatetime?: string | null;
 };
 
@@ -159,3 +211,46 @@ export type GetPublicBodyTypesResponses = {
 };
 
 export type GetPublicBodyTypesResponse = GetPublicBodyTypesResponses[keyof GetPublicBodyTypesResponses];
+
+export type GetPublicBodyRelationshipsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/PublicBodies/relationships';
+};
+
+export type GetPublicBodyRelationshipsResponses = {
+    /**
+     * OK
+     */
+    200: AdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericListAdrPublicBodiesModelsPublicBodyParentChildModel;
+};
+
+export type GetPublicBodyRelationshipsResponse = GetPublicBodyRelationshipsResponses[keyof GetPublicBodyRelationshipsResponses];
+
+export type GetPublicBodyHistoryData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/PublicBodies/{id}/history';
+};
+
+export type GetPublicBodyHistoryErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetPublicBodyHistoryError = GetPublicBodyHistoryErrors[keyof GetPublicBodyHistoryErrors];
+
+export type GetPublicBodyHistoryResponses = {
+    /**
+     * OK
+     */
+    200: AdrPublicBodiesModelsBaseResponseModelAdrPublicBodiesModelsPublicBodyHistoryModel;
+};
+
+export type GetPublicBodyHistoryResponse = GetPublicBodyHistoryResponses[keyof GetPublicBodyHistoryResponses];

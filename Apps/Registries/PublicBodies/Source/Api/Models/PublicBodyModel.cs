@@ -101,14 +101,6 @@ namespace Adr.PublicBodies.Models
         public string TypeId { get; set; } = "";
 
         /// <summary>
-        /// Gets or sets the public body type
-        /// </summary>
-        [FieldDescription("The type of public body (e.g., Ministry, Agency).")]
-        [DataSource("PublicBodyType table")]
-        [Semantic("reference-data")]
-        public PublicBodyTypeModel? PublicBodyType { get; set; } = null;
-
-        /// <summary>
         /// Gets or sets the public body effective datetime
         /// </summary>
         [FieldName("PublicBodyEffectiveDatetime")]

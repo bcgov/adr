@@ -13,20 +13,20 @@ namespace Adr.PublicBodies.Mappers
         /// </summary>
         public PublicBodyMapper()
         {
-            this.Map(m => m.StaticId).Name("pb_unique_id");
-            this.Map(m => m.PublicBodyId).Name("public_body_id");
-            this.Map(m => m.BusinessIdSource).Name("business_id_source");
-            this.Map(m => m.BusinessIdValue).Name("business_id_value");
-            this.Map(m => m.Name).Name("name");
-            this.Map(m => m.Acronym).Name("acronym");
-            this.Map(m => m.Sector).Name("sector");
-            this.Map(m => m.TypeId).Name("type_id");
-            this.Map(m => m.PublicBodyEffectiveDate).Name("public_body_effective_datetime");
-            this.Map(m => m.PublicBodyRetiredDate).Name("public_body_retired_datetime");
-            this.Map(m => m.RecordCreatedDatetime).Name("record_created_datetime");
-            this.Map(m => m.RecordEndedDatetime).Name("record_ended_datetime");
-            this.Map(m => m.RecordCreatedUser).Name("record_created_user");
-            this.Map(m => m.RecordEndedUser).Name("record_ended_user");
+            this.Map(m => m.StaticId).Name("PB_UNIQUE_ID");
+            this.Map(m => m.PublicBodyId).Name("PUBLIC_BODY_ID");
+            this.Map(m => m.BusinessIdSource).Name("BUSINESS_ID_SOURCE");
+            this.Map(m => m.BusinessIdValue).Name("BUSINESS_ID_VALUE");
+            this.Map(m => m.Name).Name("NAME");
+            this.Map(m => m.Acronym).Name("ACRONYM");
+            this.Map(m => m.Sector).Name("SECTOR");
+            this.Map(m => m.TypeId).Name("TYPE_ID");
+            this.Map(m => m.PublicBodyEffectiveDate).Name("PUBLIC_BODY_EFFECTIVE_DATETIME");
+            this.Map(m => m.PublicBodyRetiredDate).Name("PUBLIC_BODY_RETIRED_DATETIME");
+            this.Map(m => m.RecordCreatedDatetime).Name("RECORD_CREATED_DATETIME");
+            this.Map(m => m.RecordEndedDatetime).Name("RECORD_ENDED_DATETIME");
+            this.Map(m => m.RecordCreatedUser).Name("RECORD_CREATED_USER");
+            this.Map(m => m.RecordEndedUser).Name("RECORD_ENDED_USER");
         }
     }
 }

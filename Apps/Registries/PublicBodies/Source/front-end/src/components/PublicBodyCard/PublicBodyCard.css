@@ -44,5 +44,15 @@
             font-size: var(--typography-font-size-label);
             font-style: italic;
         }
+
+        .card-history-link {
+            color: var(--typography-color-link);
+            font: var(--typography-regular-small-body);
+            text-decoration: none;
+        }
+
+        .card-history-link:hover {
+            text-decoration: underline;
+        }
     }
 }

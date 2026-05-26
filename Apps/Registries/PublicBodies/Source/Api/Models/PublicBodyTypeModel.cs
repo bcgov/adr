@@ -1,5 +1,6 @@
 namespace Adr.PublicBodies.Models
 {
+    using System;
     using Adr.PublicBodies.Configuration.Addons.Swagger;
 
     /// <summary>
@@ -41,22 +42,10 @@ namespace Adr.PublicBodies.Models
         public string PublicBodyTypeId { get; set; } = "";
 
         /// <summary>
-        /// Gets or sets the public body type code
-        /// </summary>
-        [FieldName("Code")]
-        [FieldDescription("A code representing the type of public body")]
-        [SchemaAndTableName("dbo.PublicBodyType")]
-        [DataSource("Database")]
-        [DataType("string")]
-        [SystemOfRecord("Internal Database")]
-        [Required("true")]
-        public required string Code { get; set; }
-
-        /// <summary>
         /// Gets or sets the public body type name
         /// </summary>
         [FieldName("Name")]
-        [FieldDescription("The human-readable name of the public body type")]
+        [FieldDescription("The full name of the public body type")]
         [SchemaAndTableName("dbo.PublicBodyType")]
         [DataSource("Database")]
         [DataType("string")]
@@ -65,16 +54,15 @@ namespace Adr.PublicBodies.Models
         public required string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the type code description
+        /// Gets or sets the public body type short name
         /// </summary>
-        [FieldName("Description")]
-        [FieldDescription("A brief explanation or definition of the public body type")]
+        [FieldName("ShortName")]
+        [FieldDescription("The short name or abbreviation of the public body type")]
         [SchemaAndTableName("dbo.PublicBodyType")]
         [DataSource("Database")]
         [DataType("string")]
         [SystemOfRecord("Internal Database")]
-        [Required("false")]
-        public string Description { get; set; } = "";
+        public string ShortName { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the type effective datetime
@@ -83,7 +71,7 @@ namespace Adr.PublicBodies.Models
         [FieldDescription("The date and time the public body type became effective.")]
         [SchemaAndTableName("dbo.PublicBodyType")]
         [DataType("string")]
-        public string TypeEffectiveDatetime { get; set; } = "";
+        public DateOnly? TypeEffectiveDatetime { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the type retired datetime
@@ -92,6 +80,6 @@ namespace Adr.PublicBodies.Models
         [FieldDescription("The date and time the public body type was retired.")]
         [SchemaAndTableName("dbo.PublicBodyType")]
         [DataType("string")]
-        public string TypeRetiredDatetime { get; set; } = "";
+        public DateOnly? TypeRetiredDatetime { get; set; } = null;
     }
 }
