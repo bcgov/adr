@@ -9,10 +9,11 @@ namespace Adr.PublicBodies.Services
     public interface IPublicBodyService
     {
         /// <summary>
-        /// Gets the information for all public bodies.
+        /// Gets the information for all public bodies, optionally filtered.
         /// </summary>
+        /// <param name="filter">Optional, AND-combined filters. When null, all public bodies are returned.</param>
         /// <returns>A list public bodies.</returns>
-        IEnumerable<PublicBodyModel> GetAll();
+        IEnumerable<PublicBodyModel> GetAll(PublicBodyFilter? filter = null);
 
         /// <summary>
         /// Gets the information for public body with a given id.
