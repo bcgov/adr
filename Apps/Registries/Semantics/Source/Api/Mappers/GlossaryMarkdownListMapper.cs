@@ -40,8 +40,9 @@ namespace Adr.Semantics.Mappers
 
             foreach (var entry in ordered)
             {
-                var categories = string.Join(", ", (entry.Categories ?? new List<string>())
-                    .Where(c => !string.IsNullOrWhiteSpace(c)));
+                var categories = string.Join(", ", (entry.Categories ?? Enumerable.Empty<string>())
+                    .Where(c => !string.IsNullOrWhiteSpace(c))
+                    .Select(c => c.Trim()));
 
                 stringBuilder
                     .Append("## ")
