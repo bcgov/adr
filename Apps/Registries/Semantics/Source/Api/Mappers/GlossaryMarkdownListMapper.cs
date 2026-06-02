@@ -45,7 +45,7 @@ namespace Adr.Semantics.Mappers
 
                 stringBuilder
                     .Append("## ")
-                    .Append(entry.Term)
+                    .Append(entry.Term.Trim())
                     .Append("\n\n")
                     .Append(entry.Definition)
                     .Append("\n\n");
