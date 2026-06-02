@@ -44,7 +44,7 @@ namespace Adr.PublicBodies.Controllers
         [EndpointName("GetAllPublicBodies")]
         [ProducesResponseType(typeof(BaseResponseModel<IEnumerable<PublicBodyModel>>), 200)]
         public BaseResponseModel<IEnumerable<PublicBodyModel>> GetAllPublicBodies(
-            [FromQuery] PublicBodyFilter filter
+            [FromQuery] PublicBodyFilter? filter = null
         )
         {
             var publicBodies = _publicBodyService.GetAll(filter);
