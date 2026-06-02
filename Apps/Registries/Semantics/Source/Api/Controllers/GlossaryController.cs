@@ -60,7 +60,7 @@ namespace Adr.Semantics.Controllers
         }
 
         /// <summary>
-        /// Returns all glossary information rendered as a Markdown document.
+        /// Returns all glossary information rendered as a Markdown table.
         /// </summary>
         [HttpGet("markdown")]
         [Produces("text/markdown")]
@@ -70,6 +70,20 @@ namespace Adr.Semantics.Controllers
         {
             var glossaryInfo = _glossaryService.GetAll();
             var markdown = GlossaryMarkdownMapper.Map(glossaryInfo);
+            return Content(markdown, "text/markdown");
+        }
+
+        /// <summary>
+        /// Returns all glossary information rendered as a Markdown list.
+        /// </summary>
+        [HttpGet("MarkdownList")]
+        [Produces("text/markdown")]
+        [EndpointName("GetGlossaryMarkdownList")]
+        [ProducesResponseType(typeof(string), 200)]
+        public ContentResult GetMarkdownList()
+        {
+            var glossaryInfo = _glossaryService.GetAll();
+            var markdown = GlossaryMarkdownListMapper.Map(glossaryInfo);
             return Content(markdown, "text/markdown");
         }
 
