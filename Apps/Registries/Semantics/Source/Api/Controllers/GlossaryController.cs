@@ -76,7 +76,7 @@ namespace Adr.Semantics.Controllers
         /// <summary>
         /// Returns all glossary information rendered as a Markdown list.
         /// </summary>
-        [HttpGet("MarkdownList")]
+        [HttpGet("markdown-list")]
         [Produces("text/markdown")]
         [EndpointName("GetGlossaryMarkdownList")]
         [ProducesResponseType(typeof(string), 200)]
