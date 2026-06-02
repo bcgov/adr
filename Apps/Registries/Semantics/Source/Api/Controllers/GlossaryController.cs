@@ -70,7 +70,7 @@ namespace Adr.Semantics.Controllers
         {
             var glossaryInfo = _glossaryService.GetAll();
             var markdown = GlossaryMarkdownMapper.Map(glossaryInfo);
-            return Content(markdown, "text/markdown");
+            return Content(markdown, "text/markdown; charset=utf-8");
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Adr.Semantics.Controllers
         {
             var glossaryInfo = _glossaryService.GetAll();
             var markdown = GlossaryMarkdownListMapper.Map(glossaryInfo);
-            return Content(markdown, "text/markdown");
+            return Content(markdown, "text/markdown; charset=utf-8");
         }
 
         /// <summary>
