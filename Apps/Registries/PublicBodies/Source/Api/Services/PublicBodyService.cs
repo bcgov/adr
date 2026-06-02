@@ -1,11 +1,11 @@
 namespace Adr.PublicBodies.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Adr.PublicBodies.Models;
     using Adr.PublicBodies.Providers;
     using Microsoft.Extensions.Logging;
-    using System;
 
     public class PublicBodyService : IPublicBodyService
     {
@@ -26,9 +26,10 @@ namespace Adr.PublicBodies.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<PublicBodyModel> GetAll()
+        public IEnumerable<PublicBodyModel> GetAll(PublicBodyFilter? filter = null)
         {
-            return _publicBodyProvider.GetAllPublicBodies();
+            var publicBodies = _publicBodyProvider.GetAllPublicBodies();
+            return filter is null ? publicBodies : ApplyFilter(publicBodies, filter);
         }
 
         /// <inheritdoc/>
@@ -153,5 +154,58 @@ namespace Adr.PublicBodies.Services
                     && parentBody.PublicBodyId == childBody.PublicBodyId;
             }
         }
+
+        // Applies the filters. Skipped for each member that is  unset.
+        private static IEnumerable<PublicBodyModel> ApplyFilter(
+            IEnumerable<PublicBodyModel> publicBodies,
+            PublicBodyFilter filter
+        )
+        {
+            var query = publicBodies;
+
+            if (!string.IsNullOrWhiteSpace(filter.Search))
+            {
+                var search = filter.Search.Trim();
+                query = query.Where(b =>
+                    b.Name.Contains(search, StringComparison.OrdinalIgnoreCase)
+                    || b.Acronym.Contains(search, StringComparison.OrdinalIgnoreCase)
+                );
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.Sector))
+            {
+                var sector = filter.Sector.Trim();
+                query = query.Where(b =>
+                    string.Equals(b.Sector, sector, StringComparison.OrdinalIgnoreCase)
+                );
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.TypeId))
+            {
+                var typeId = filter.TypeId.Trim();
+                query = query.Where(b =>
+                    string.Equals(b.TypeId, typeId, StringComparison.OrdinalIgnoreCase)
+                );
+            }
+
+            // ActiveOn takes precedence over Active; Active is evaluated as of today.
+            if (filter.ActiveOn is DateOnly activeOn)
+            {
+                query = query.Where(b => IsActiveOn(b, activeOn));
+            }
+            else if (filter.Active is bool active)
+            {
+                var today = DateOnly.FromDateTime(DateTime.Today);
+                query = query.Where(b => IsActiveOn(b, today) == active);
+            }
+
+            return query;
+        }
+
+        // A body is active on a given date once it has come into effect and has not yet retired.
+        // A null effective date is treated as "always effective"; a null retired date as "never retired".
+        private static bool IsActiveOn(PublicBodyModel body, DateOnly date) =>
+            (body.PublicBodyEffectiveDate is null || body.PublicBodyEffectiveDate <= date)
+            && (body.PublicBodyRetiredDate is null || body.PublicBodyRetiredDate > date);
     }
 }

@@ -36,15 +36,18 @@ namespace Adr.PublicBodies.Controllers
         }
 
         /// <summary>
-        /// Returns all public bodies.
+        /// Returns all public bodies, optionally filtered by the supplied query parameters.
         /// </summary>
+        /// <param name="filter">Filter parameters are AND combined. Omit all to return every public body.</param>
         [HttpGet]
         [Produces("application/json")]
         [EndpointName("GetAllPublicBodies")]
         [ProducesResponseType(typeof(BaseResponseModel<IEnumerable<PublicBodyModel>>), 200)]
-        public BaseResponseModel<IEnumerable<PublicBodyModel>> GetAllPublicBodies()
+        public BaseResponseModel<IEnumerable<PublicBodyModel>> GetAllPublicBodies(
+            [FromQuery] PublicBodyFilter? filter = null
+        )
         {
-            var publicBodies = _publicBodyService.GetAll();
+            var publicBodies = _publicBodyService.GetAll(filter);
             var requestResponse = new BaseResponseModel<IEnumerable<PublicBodyModel>>()
             {
                 Payload = publicBodies,
