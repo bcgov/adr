@@ -13,13 +13,19 @@ namespace Adr.Semantics.Mappers
         /// </summary>
         public GlossaryMapper()
         {
+            this.Map(m => m.StaticId).Name("StaticId");
+
+            this.Map(m => m.Name).Name("Name");
+
             this.Map(m => m.Term).Name("Term");
 
             this.Map(m => m.Definition).Name("Published Definition");
 
-            this.Map(m => m.Categories).Name("Category").TypeConverter<ListStringConverter>();
+            this.Map(m => m.Keywords).Name("Keywords").TypeConverter<ListStringConverter>();
 
-            this.Map(m => m.Source).Name("Source");
+            this.Map(m => m.Context).Name("Context");
+
+            this.Map(m => m.Citations).Name("Citations");
 
             this.Map(m => m.TeamSource).Name("Team Source - Temp");
 

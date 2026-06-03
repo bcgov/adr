@@ -31,7 +31,7 @@ namespace Adr.Semantics.Services
         public GlossaryModel? GetGlossaryEntryByTerm(string term)
         {
             var glossaries = GetAll();
-            return glossaries?.FirstOrDefault(x => x?.Id == term);
+            return glossaries?.FirstOrDefault(x => x?.Name == term);
         }
     }
 }
