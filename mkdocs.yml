@@ -9,7 +9,8 @@ nav:
   - Configuration: configuration.md
   - Tips and tricks: tips-and-tricks.md
   - About us: about-us.md
-  - Glossary: glossary.md
+  - Glossary of terms table: glossary.md
+  - Glossary of terms list: glossary-list.md
 plugins:
   - techdocs-core
   - git-revision-date-localized
