@@ -15,4 +15,5 @@ plugins:
   - techdocs-core
   - git-revision-date-localized
 markdown_extensions:
+  - attr_list
   - md_in_html
