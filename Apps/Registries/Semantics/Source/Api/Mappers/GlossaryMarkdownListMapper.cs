@@ -40,9 +40,12 @@ namespace Adr.Semantics.Mappers
 
             foreach (var entry in ordered)
             {
-                var categories = string.Join(", ", (entry.Categories ?? Enumerable.Empty<string>())
-                    .Where(c => !string.IsNullOrWhiteSpace(c))
-                    .Select(c => c.Trim()));
+                var keywords = string.Join(
+                    ", ",
+                    (entry.Keywords ?? Enumerable.Empty<string>())
+                        .Where(c => !string.IsNullOrWhiteSpace(c))
+                        .Select(c => c.Trim())
+                );
 
                 stringBuilder
                     .Append("## ")
@@ -51,12 +54,10 @@ namespace Adr.Semantics.Mappers
                     .Append(entry.Definition)
                     .Append("\n\n");
 
-                if (!string.IsNullOrWhiteSpace(categories))
+                // TODO: Verify that this is the correct output for the markdown
+                if (!string.IsNullOrWhiteSpace(keywords))
                 {
-                    stringBuilder
-                        .Append("Categories: ")
-                        .Append(categories)
-                        .Append("\n\n");
+                    stringBuilder.Append("Keywords: ").Append(keywords).Append("\n\n");
                 }
             }
 

@@ -9,9 +9,14 @@ namespace Adr.Semantics.Models
     public class GlossaryModel : BaseAuditModel
     {
         /// <summary>
-        /// Gets or sets the id of this record
+        /// Gets or sets the stable static identifier (GUID) for this term.
         /// </summary>
-        public required string Id { get; set; }
+        public string StaticId { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets the URL-friendly name (slug) for this term.
+        /// </summary>
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the term.
@@ -24,14 +29,19 @@ namespace Adr.Semantics.Models
         public string Definition { get; set; } = "";
 
         /// <summary>
-        /// Gets or sets the categories of the term.
+        /// Gets or sets the keywords for the term.
         /// </summary>
-        public IList<string> Categories { get; set; } = new List<string>();
+        public IList<string> Keywords { get; set; } = new List<string>();
 
         /// <summary>
-        /// Gets or sets the source of the term.
+        /// Gets or sets the business context the term belongs to (e.g. Property Ownership, BC Services Card).
         /// </summary>
-        public string Source { get; set; } = "";
+        public string Context { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets the citation / reference URL for the term.
+        /// </summary>
+        public string Citations { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the internal team source (transitional).

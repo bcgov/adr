@@ -39,22 +39,17 @@ namespace Adr.Semantics.Providers
             return _glossaryTerms;
         }
 
-        private IEnumerable<GlossaryModel> LoadGlossaryFromFile()
+        private List<GlossaryModel> LoadGlossaryFromFile()
         {
             _logger.LogInformation("Parsing Names file");
 
             var glossaryFile = "Glossary_of_Terms_Data_Table.csv";
 
             var mapper = new GlossaryMapper();
-            var records = LoadAsset<GlossaryModel>(glossaryFile, mapper);
 
-            // For now generate the ID on the fly
-            foreach (var nameRecord in records)
-            {
-                // For now use the lower case term separated by dashes as identifier
-                // "API System" -> "api-system"
-                nameRecord.Id = nameRecord.Term.Replace(" ", "-").ToLowerInvariant();
-            }
+            var records = LoadAsset<GlossaryModel>(glossaryFile, mapper)
+                .Where(record => !string.IsNullOrWhiteSpace(record.Term))
+                .ToList();
 
             return records;
         }
