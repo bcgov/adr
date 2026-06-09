@@ -38,26 +38,26 @@ export default function GlossaryList() {
                     >
                         <div className="card-body">
                             <h3 className="card-name">{entry.term}</h3>
-                            {entry.categories &&
-                                entry.categories.length > 0 && (
+                            {entry.keywords &&
+                                entry.keywords.length > 0 && (
                                     <div>
-                                        {entry.categories.map((category) => (
-                                            <span key={category}>
-                                                {category}
+                                        {entry.keywords.map((keyword) => (
+                                            <span key={keyword}>
+                                                {keyword}
                                             </span>
                                         ))}
                                     </div>
                                 )}
                             <p>{entry.definition}</p>
-                            {entry.source && (
+                            {entry.citations && (
                                 <p className="card-id">
                                     Source:{" "}
                                     <a
-                                        href={entry.source}
+                                        href={entry.citations}
                                         target="_blank"
                                         rel="noreferrer"
                                     >
-                                        {entry.source}
+                                        {entry.citations}
                                     </a>
                                 </p>
                             )}

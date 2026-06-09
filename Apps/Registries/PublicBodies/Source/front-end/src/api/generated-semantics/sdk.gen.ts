@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetAllDictionariesData, GetAllDictionariesResponses, GetAllGlossaryData, GetAllGlossaryResponses, GetGlossaryEntryByTermData, GetGlossaryEntryByTermErrors, GetGlossaryEntryByTermResponses } from './types.gen';
+import type { GetAllDictionariesData, GetAllDictionariesResponses, GetAllGlossaryData, GetAllGlossaryResponses, GetGlossaryEntryByTermData, GetGlossaryEntryByTermErrors, GetGlossaryEntryByTermResponses, GetGlossaryMarkdownData, GetGlossaryMarkdownListData, GetGlossaryMarkdownListResponses, GetGlossaryMarkdownResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -21,5 +21,9 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 export const getAllDictionaries = <ThrowOnError extends boolean = false>(options?: Options<GetAllDictionariesData, ThrowOnError>) => (options?.client ?? client).get<GetAllDictionariesResponses, unknown, ThrowOnError>({ url: '/v1/Dictionary', ...options });
 
 export const getAllGlossary = <ThrowOnError extends boolean = false>(options?: Options<GetAllGlossaryData, ThrowOnError>) => (options?.client ?? client).get<GetAllGlossaryResponses, unknown, ThrowOnError>({ url: '/v1/Glossary', ...options });
+
+export const getGlossaryMarkdown = <ThrowOnError extends boolean = false>(options?: Options<GetGlossaryMarkdownData, ThrowOnError>) => (options?.client ?? client).get<GetGlossaryMarkdownResponses, unknown, ThrowOnError>({ url: '/v1/Glossary/markdown', ...options });
+
+export const getGlossaryMarkdownList = <ThrowOnError extends boolean = false>(options?: Options<GetGlossaryMarkdownListData, ThrowOnError>) => (options?.client ?? client).get<GetGlossaryMarkdownListResponses, unknown, ThrowOnError>({ url: '/v1/Glossary/markdown-list', ...options });
 
 export const getGlossaryEntryByTerm = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryEntryByTermData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryEntryByTermResponses, GetGlossaryEntryByTermErrors, ThrowOnError>({ url: '/v1/Glossary/{term}', ...options });

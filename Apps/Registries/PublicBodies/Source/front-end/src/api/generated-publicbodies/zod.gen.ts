@@ -41,13 +41,12 @@ export const zAdrPublicBodiesModelsBaseResponseModelSystemCollectionsGenericList
 
 export const zAdrPublicBodiesModelsPublicBodyParentChildModel = zAdrPublicBodiesModelsBaseAuditModel.and(z.object({
     parentChildId: z.string().nullable(),
-    actionDatetime: z.iso.date().nullish(),
+    transitionDatetime: z.iso.date().nullish(),
     parentUniqueId: z.string().nullable(),
     childUniqueId: z.string().nullable(),
     wasRenamed: z.boolean().optional(),
     wasMerged: z.boolean().optional(),
-    wasSplit: z.boolean().optional(),
-    publicBodyEffectiveDatetime: z.iso.date().nullish()
+    wasSplit: z.boolean().optional()
 }));
 
 /**
@@ -105,7 +104,13 @@ export const zMicrosoftAspNetCoreHttpHttpValidationProblemDetails = zMicrosoftAs
 export const zGetAllPublicBodiesData = z.object({
     body: z.never().optional(),
     path: z.never().optional(),
-    query: z.never().optional()
+    query: z.object({
+        Search: z.string().optional(),
+        Sector: z.string().optional(),
+        TypeId: z.string().optional(),
+        Active: z.boolean().optional(),
+        ActiveOn: z.iso.date().optional()
+    }).optional()
 });
 
 /**

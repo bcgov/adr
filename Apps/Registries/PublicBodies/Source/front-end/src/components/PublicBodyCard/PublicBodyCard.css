@@ -39,6 +39,17 @@
             }
         }
 
+        .card-audit-dates {
+            display: flex;
+            flex-direction: column;
+            gap: var(--layout-padding-xsmall, 2px);
+
+            .card-audit-date {
+                color: var(--typography-color-placeholder);
+                font: var(--typography-regular-small-body);
+            }
+        }
+
         .card-id {
             color: var(--typography-color-secondary);
             font-size: var(--typography-font-size-label);

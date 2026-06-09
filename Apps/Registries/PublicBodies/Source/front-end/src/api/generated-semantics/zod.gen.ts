@@ -42,11 +42,13 @@ export const zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdr
 });
 
 export const zAdrSemanticsModelsGlossaryModel = zAdrSemanticsModelsBaseAuditModel.and(z.object({
-    id: z.string().nullable(),
+    id: z.string().nullish(),
+    name: z.string().nullish(),
     term: z.string().nullable(),
     definition: z.string().nullish(),
-    categories: z.array(z.string()).nullish(),
-    source: z.string().nullish(),
+    keywords: z.array(z.string()).nullish(),
+    context: z.string().nullish(),
+    citations: z.string().nullish(),
     teamSource: z.string().nullish(),
     verifiedDefinitionFlag: z.boolean().optional(),
     publishToDevHub: z.boolean().optional()
@@ -101,6 +103,28 @@ export const zGetAllGlossaryData = z.object({
  * OK
  */
 export const zGetAllGlossaryResponse = zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
+
+export const zGetGlossaryMarkdownData = z.object({
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+/**
+ * OK
+ */
+export const zGetGlossaryMarkdownResponse = z.string();
+
+export const zGetGlossaryMarkdownListData = z.object({
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+/**
+ * OK
+ */
+export const zGetGlossaryMarkdownListResponse = z.string();
 
 export const zGetGlossaryEntryByTermData = z.object({
     body: z.never().optional(),

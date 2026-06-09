@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { getAllDictionaries, getAllGlossary, getGlossaryEntryByTerm, type Options } from '../sdk.gen';
-import type { GetAllDictionariesData, GetAllDictionariesResponse, GetAllGlossaryData, GetAllGlossaryResponse, GetGlossaryEntryByTermData, GetGlossaryEntryByTermError, GetGlossaryEntryByTermResponse } from '../types.gen';
+import { getAllDictionaries, getAllGlossary, getGlossaryEntryByTerm, getGlossaryMarkdown, getGlossaryMarkdownList, type Options } from '../sdk.gen';
+import type { GetAllDictionariesData, GetAllDictionariesResponse, GetAllGlossaryData, GetAllGlossaryResponse, GetGlossaryEntryByTermData, GetGlossaryEntryByTermError, GetGlossaryEntryByTermResponse, GetGlossaryMarkdownData, GetGlossaryMarkdownListData, GetGlossaryMarkdownListResponse, GetGlossaryMarkdownResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -67,6 +67,36 @@ export const getAllGlossaryOptions = (options?: Options<GetAllGlossaryData>) => 
         return data;
     },
     queryKey: getAllGlossaryQueryKey(options)
+});
+
+export const getGlossaryMarkdownQueryKey = (options?: Options<GetGlossaryMarkdownData>) => createQueryKey('getGlossaryMarkdown', options);
+
+export const getGlossaryMarkdownOptions = (options?: Options<GetGlossaryMarkdownData>) => queryOptions<GetGlossaryMarkdownResponse, DefaultError, GetGlossaryMarkdownResponse, ReturnType<typeof getGlossaryMarkdownQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getGlossaryMarkdown({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getGlossaryMarkdownQueryKey(options)
+});
+
+export const getGlossaryMarkdownListQueryKey = (options?: Options<GetGlossaryMarkdownListData>) => createQueryKey('getGlossaryMarkdownList', options);
+
+export const getGlossaryMarkdownListOptions = (options?: Options<GetGlossaryMarkdownListData>) => queryOptions<GetGlossaryMarkdownListResponse, DefaultError, GetGlossaryMarkdownListResponse, ReturnType<typeof getGlossaryMarkdownListQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getGlossaryMarkdownList({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getGlossaryMarkdownListQueryKey(options)
 });
 
 export const getGlossaryEntryByTermQueryKey = (options: Options<GetGlossaryEntryByTermData>) => createQueryKey('getGlossaryEntryByTerm', options);

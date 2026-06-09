@@ -124,7 +124,9 @@ namespace Adr.PublicBodies.Configuration.Addons.Swagger
     }
 
     /// <summary>
-    /// Indicates whether the attribute is mandatory for compliance or processing.
+    /// Associates a property with a glossary term. The value is the term's
+    /// <c>StaticId</c> &#8212; the stable GUID identifier from the Semantics glossary
+    /// &#8212; which is immune to term/slug renames.
     /// </summary>
     [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Property)]

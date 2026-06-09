@@ -1,6 +1,7 @@
 namespace Adr.Semantics.Models
 {
     using System.Collections.Generic;
+    using System.Text.Json.Serialization;
     using Adr.Semantics.Configuration.Addons.Swagger;
 
     /// <summary>
@@ -10,7 +11,9 @@ namespace Adr.Semantics.Models
     {
         /// <summary>
         /// Gets or sets the stable static identifier (GUID) for this term.
+        /// Serialized as <c>id</c> so consumers can reference terms by their stable identifier.
         /// </summary>
+        [JsonPropertyName("id")]
         public string StaticId { get; set; } = "";
 
         /// <summary>

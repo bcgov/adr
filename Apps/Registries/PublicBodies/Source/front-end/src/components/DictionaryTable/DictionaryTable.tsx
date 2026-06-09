@@ -102,48 +102,48 @@ export default function DictionaryTable() {
                 />
             </span>
             <div className="dictionary-table-wrapper">
-            <table className="dictionary-table">
-                <colgroup>
-                    <col /> {/* Source */}
-                    <col className="col-field-name" />
-                    <col /> {/* Glossary */}
-                    <col className="col-description" />
-                    <col /> {/* Schema/Table */}
-                    <col /> {/* Data Source */}
-                    <col /> {/* Data Type */}
-                    <col /> {/* Key Relationships */}
-                    <col /> {/* System of Record */}
-                    <col /> {/* Required */}
-                </colgroup>
-                <thead>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <tr key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => (
-                                <th key={header.id}>
-                                    {flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext(),
-                                    )}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody>
-                    {table.getRowModel().rows.map((row) => (
-                        <tr key={row.id}>
-                            {row.getVisibleCells().map((cell) => (
-                                <td key={cell.id}>
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext(),
-                                    )}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                <table className="dictionary-table">
+                    <colgroup>
+                        <col /> {/* Source */}
+                        <col className="col-field-name" />
+                        <col /> {/* Glossary */}
+                        <col className="col-description" />
+                        <col /> {/* Schema/Table */}
+                        <col /> {/* Data Source */}
+                        <col /> {/* Data Type */}
+                        <col /> {/* Key Relationships */}
+                        <col /> {/* System of Record */}
+                        <col /> {/* Required */}
+                    </colgroup>
+                    <thead>
+                        {table.getHeaderGroups().map((headerGroup) => (
+                            <tr key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => (
+                                    <th key={header.id}>
+                                        {flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext(),
+                                        )}
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody>
+                        {table.getRowModel().rows.map((row) => (
+                            <tr key={row.id}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <td key={cell.id}>
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext(),
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );
