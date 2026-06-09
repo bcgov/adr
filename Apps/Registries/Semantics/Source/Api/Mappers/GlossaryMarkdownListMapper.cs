@@ -54,10 +54,14 @@ namespace Adr.Semantics.Mappers
                     .Append(entry.Definition)
                     .Append("\n\n");
 
-                // TODO: Verify that this is the correct output for the markdown
                 if (!string.IsNullOrWhiteSpace(keywords))
                 {
                     stringBuilder.Append("Keywords: ").Append(keywords).Append("\n\n");
+                }
+
+                if (!string.IsNullOrWhiteSpace(entry.Context))
+                {
+                    stringBuilder.Append("Context: ").Append(entry.Context).Append("\n\n");
                 }
             }
 
