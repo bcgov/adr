@@ -35,37 +35,77 @@ namespace Adr.Semantics.Mappers
                 .OrderBy(e => e.Term, StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
+            var groupedEntries = ordered
+                .GroupBy(entry => GetSectionLetter(entry.Term))
+                .OrderBy(group => group.Key == "#" ? "ZZZ" : group.Key, StringComparer.Ordinal)
+                .ToList();
+
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(Header);
 
-            foreach (var entry in ordered)
+            if (groupedEntries.Any())
             {
-                var keywords = string.Join(
-                    ", ",
-                    (entry.Keywords ?? Enumerable.Empty<string>())
-                        .Where(c => !string.IsNullOrWhiteSpace(c))
-                        .Select(c => c.Trim())
-                );
+                var links = groupedEntries
+                    .Select(group => $"[{group.Key}](#{GetSectionId(group.Key)})");
+                stringBuilder.Append(string.Join(" | ", links)).Append("\n\n");
+            }
 
+            foreach (var group in groupedEntries)
+            {
                 stringBuilder
                     .Append("## ")
-                    .Append(entry.Term.Trim())
-                    .Append("\n\n")
-                    .Append(entry.Definition)
-                    .Append("\n\n");
+                    .Append(group.Key)
+                    .Append(" {#")
+                    .Append(GetSectionId(group.Key))
+                    .Append("}\n\n");
 
-                if (!string.IsNullOrWhiteSpace(keywords))
+                foreach (var entry in group)
                 {
-                    stringBuilder.Append("Keywords: ").Append(keywords).Append("\n\n");
-                }
+                    var keywords = string.Join(
+                        ", ",
+                        (entry.Keywords ?? Enumerable.Empty<string>())
+                            .Where(c => !string.IsNullOrWhiteSpace(c))
+                            .Select(c => c.Trim())
+                    );
 
-                if (!string.IsNullOrWhiteSpace(entry.Context))
-                {
-                    stringBuilder.Append("Context: ").Append(entry.Context).Append("\n\n");
+                    stringBuilder
+                        .Append("### ")
+                        .Append(entry.Term.Trim())
+                        .Append("\n\n")
+                        .Append(entry.Definition)
+                        .Append("\n\n");
+
+                    if (!string.IsNullOrWhiteSpace(keywords))
+                    {
+                        stringBuilder.Append("Keywords: ").Append(keywords).Append("\n\n");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(entry.Context))
+                    {
+                        stringBuilder.Append("Context: ").Append(entry.Context).Append("\n\n");
+                    }
                 }
             }
 
             return stringBuilder.ToString();
+        }
+
+        private static string GetSectionLetter(string term)
+        {
+            var firstCharacter = term?.Trim().FirstOrDefault() ?? '\0';
+            if (char.IsLetter(firstCharacter))
+            {
+                return char.ToUpperInvariant(firstCharacter).ToString();
+            }
+
+            return "#";
+        }
+
+        private static string GetSectionId(string sectionLetter)
+        {
+            return sectionLetter == "#"
+                ? "terms-other"
+                : $"terms-{sectionLetter.ToLowerInvariant()}";
         }
     }
 }
