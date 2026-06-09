@@ -27,7 +27,7 @@ namespace Adr.PublicBodies.Models
         [SchemaAndTableName("dbo.PublicBodies")]
         [DataType("string")]
         [Required("true")]
-        [Semantic("immutable")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public required string StaticId { get; set; }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Adr.PublicBodies.Models
         [FieldDescription("The source system for the business identifier.")]
         [SchemaAndTableName("dbo.PublicBodies")]
         [DataType("string")]
-        [Semantic("system-of-record")]
+        [Semantic("b2c5967a-33ea-47a5-88e1-7d20ec7f0994")] // system-of-record
         public string BusinessIdSource { get; set; } = "";
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Adr.PublicBodies.Models
         [FieldDescription("The sector the public body belongs to.")]
         [SchemaAndTableName("dbo.PublicBodies")]
         [DataType("string")]
-        [Semantic("reference-data")]
+        [Semantic("72a0f54d-6d36-447a-aede-8ad055dec205")] // reference-data
         public string Sector { get; set; } = "";
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Adr.PublicBodies.Models
         [DataType("string")]
         [DataSource("PublicBodyType table")]
         [KeyRelationships("Foreign key to PublicBodyType")]
-        [Semantic("reference-data")]
+        [Semantic("72a0f54d-6d36-447a-aede-8ad055dec205")] // reference-data
         public string TypeId { get; set; } = "";
 
         /// <summary>

@@ -103,16 +103,12 @@ export type AdrPublicBodiesModelsPublicBodyParentChildModel = AdrPublicBodiesMod
     /**
      * Nullable<DateOnly>
      */
-    actionDatetime?: string | null;
+    transitionDatetime?: string | null;
     parentUniqueId: string | null;
     childUniqueId: string | null;
     wasRenamed?: boolean;
     wasMerged?: boolean;
     wasSplit?: boolean;
-    /**
-     * Nullable<DateOnly>
-     */
-    publicBodyEffectiveDatetime?: string | null;
 };
 
 export type AdrPublicBodiesModelsPublicBodyTypeModel = AdrPublicBodiesModelsBaseAuditModel & {
@@ -156,7 +152,19 @@ export type MicrosoftAspNetCoreMvcProblemDetails = {
 export type GetAllPublicBodiesData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        Search?: string;
+        Sector?: string;
+        TypeId?: string;
+        /**
+         * Nullable<Boolean>
+         */
+        Active?: boolean;
+        /**
+         * Nullable<DateOnly>
+         */
+        ActiveOn?: string;
+    };
     url: '/v1/PublicBodies';
 };
 

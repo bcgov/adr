@@ -78,14 +78,16 @@ export type AdrSemanticsModelsDictionaryModel = AdrSemanticsModelsBaseAuditModel
 };
 
 export type AdrSemanticsModelsGlossaryModel = AdrSemanticsModelsBaseAuditModel & {
-    id: string | null;
+    id?: string | null;
+    name?: string | null;
     term: string | null;
     definition?: string | null;
     /**
      * IList<String>
      */
-    categories?: Array<string> | null;
-    source?: string | null;
+    keywords?: Array<string> | null;
+    context?: string | null;
+    citations?: string | null;
     teamSource?: string | null;
     verifiedDefinitionFlag?: boolean;
     publishToDevHub?: boolean;
@@ -144,6 +146,38 @@ export type GetAllGlossaryResponses = {
 };
 
 export type GetAllGlossaryResponse = GetAllGlossaryResponses[keyof GetAllGlossaryResponses];
+
+export type GetGlossaryMarkdownData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/Glossary/markdown';
+};
+
+export type GetGlossaryMarkdownResponses = {
+    /**
+     * OK
+     */
+    200: string;
+};
+
+export type GetGlossaryMarkdownResponse = GetGlossaryMarkdownResponses[keyof GetGlossaryMarkdownResponses];
+
+export type GetGlossaryMarkdownListData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/Glossary/markdown-list';
+};
+
+export type GetGlossaryMarkdownListResponses = {
+    /**
+     * OK
+     */
+    200: string;
+};
+
+export type GetGlossaryMarkdownListResponse = GetGlossaryMarkdownListResponses[keyof GetGlossaryMarkdownListResponses];
 
 export type GetGlossaryEntryByTermData = {
     body?: never;

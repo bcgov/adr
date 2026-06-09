@@ -2,6 +2,23 @@ import { Link } from "wouter";
 
 import "./PublicBodyCard.css";
 
+// Formats an audit timestamp like "2026-05-14 02:53:32 PM".
+// DateOnly values (e.g. "2026-01-01") are shown verbatim to avoid timezone drift.
+function formatTimestamp(value: string | null | undefined): string | null {
+    if (!value) return null;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    const pad = (n: number) => String(n).padStart(2, "0");
+    let hours = date.getHours();
+    const meridiem = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    return (
+        `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ` +
+        `${pad(hours)}:${pad(date.getMinutes())}:${pad(date.getSeconds())} ${meridiem}`
+    );
+}
+
 interface PublicBodyCardProps {
     /** Static ID for API lookups */
     staticId?: string | null;
@@ -17,6 +34,10 @@ interface PublicBodyCardProps {
     effectiveDate?: string | null;
     /** (optional) Retirement date */
     retirementDate?: string | null;
+    /** (optional) Record creation timestamp */
+    createdDate?: string | null;
+    /** (optional) Record last-updated timestamp */
+    updatedDate?: string | null;
 }
 
 export default function PublicBodyCard({
@@ -27,7 +48,12 @@ export default function PublicBodyCard({
     hasHistory,
     effectiveDate,
     retirementDate,
+    createdDate,
+    updatedDate,
 }: PublicBodyCardProps) {
+    const createdOn = formatTimestamp(createdDate);
+    const updatedOn = formatTimestamp(updatedDate);
+
     return (
         <div className="card">
             <div className="card-body">
@@ -70,6 +96,21 @@ export default function PublicBodyCard({
                                         {retirementDate}
                                     </time>
                                 </span>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {(createdOn || updatedOn) && (
+                    <div className="card-audit-dates">
+                        {createdOn && (
+                            <div className="card-audit-date">
+                                Created on {createdOn}
+                            </div>
+                        )}
+                        {updatedOn && (
+                            <div className="card-audit-date">
+                                Updated on {updatedOn}
                             </div>
                         )}
                     </div>

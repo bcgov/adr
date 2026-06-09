@@ -19,13 +19,15 @@ namespace Adr.PublicBodies.Models
         public required string ParentChildId { get; set; }
 
         /// <summary>
-        /// Gets or sets the action datetime
+        /// Gets or sets the transition datetime
         /// </summary>
-        [FieldName("ActionDatetime")]
-        [FieldDescription("The date and time the action (rename, merge, or split) occurred.")]
+        [FieldName("TransitionDatetime")]
+        [FieldDescription(
+            "The date and time the transition (rename, merge, or split) occurred."
+        )]
         [SchemaAndTableName("dbo.PublicBodyParentChild")]
         [DataType("string")]
-        public DateOnly? ActionDatetime { get; set; } = null;
+        public DateOnly? TransitionDatetime { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the parent unique identifier
@@ -79,14 +81,5 @@ namespace Adr.PublicBodies.Models
         [SchemaAndTableName("dbo.PublicBodyParentChild")]
         [DataType("bool")]
         public bool WasSplit { get; set; } = false;
-
-        /// <summary>
-        /// Gets or sets the public body effective datetime
-        /// </summary>
-        [FieldName("PublicBodyEffectiveDatetime")]
-        [FieldDescription("The date and time the public body became effective.")]
-        [SchemaAndTableName("dbo.PublicBodyParentChild")]
-        [DataType("string")]
-        public DateOnly? PublicBodyEffectiveDatetime { get; set; } = null;
     }
 }

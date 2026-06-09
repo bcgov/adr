@@ -43,6 +43,12 @@ export default function PublicBodiesList() {
                                 retirementDate={
                                     publicBody.publicBodyRetiredDate
                                 }
+                                createdDate={
+                                    publicBody.recordCreatedDatetime
+                                }
+                                updatedDate={
+                                    publicBody.recordEndedDatetime
+                                }
                             />
                         </li>
                     );

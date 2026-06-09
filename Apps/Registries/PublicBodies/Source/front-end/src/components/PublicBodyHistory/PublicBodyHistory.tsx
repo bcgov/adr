@@ -5,12 +5,13 @@ import usePublicBodyHistory from "../../hooks/usePublicBodyHistory";
 
 import "./PublicBodyHistory.css";
 
-// Edge styling: three independent visual dimensions per flag
-const EDGE_COLOR_RENAMED = "#1a5a96";
-const EDGE_COLOR_DEFAULT = "#6c757d";
-const EDGE_WIDTH_MERGED = "4px";
-const EDGE_WIDTH_DEFAULT = "1.5px";
-const EDGE_DASH_SPLIT = "6 4";
+// Edge styling: a single binary channel.
+//   Solid  = rename / continuation (1->1 lineage; topology can't show this)
+//   Dotted = functions transferred via reorganization (merge/split; whether it
+//            is a merge or split stays readable from the graph topology).
+const EDGE_COLOR = "#6c757d";
+const EDGE_WIDTH = "1.5px";
+const EDGE_DOTTED = "2 3";
 
 // Highlight style for the queried node
 const QUERIED_NODE_FILL = "#003366";
@@ -79,24 +80,17 @@ function buildMermaidDef(
         }
     }
 
-    // Track per-edge flags for linkStyle below
-    const edgeFlags: {
-        renamed: boolean;
-        merged: boolean;
-        split: boolean;
-    }[] = [];
+    // Track whether each edge is a reorganization (functions transferred) for
+    // linkStyle below. A merge or split means functions moved between bodies.
+    const edgeIsReorg: boolean[] = [];
     for (const rel of relationships) {
         const sourceAlias = nodeIds.get(rel.parentUniqueId ?? "");
         const targetAlias = nodeIds.get(rel.childUniqueId ?? "");
         if (!sourceAlias || !targetAlias) continue;
 
-        edgeFlags.push({
-            renamed: !!rel.wasRenamed,
-            merged: !!rel.wasMerged,
-            split: !!rel.wasSplit,
-        });
+        edgeIsReorg.push(!!rel.wasMerged || !!rel.wasSplit);
 
-        const date = rel.actionDatetime ?? "";
+        const date = rel.transitionDatetime ?? "";
 
         if (date) {
             lines.push(`    ${sourceAlias} -->|"${date}"| ${targetAlias}`);
@@ -105,14 +99,13 @@ function buildMermaidDef(
         }
     }
 
-    // Each flag maps to an independent visual dimension:
-    //   renamed -> color, merged -> width, split -> dash
-    edgeFlags.forEach((flags, i) => {
-        const stroke = flags.renamed ? EDGE_COLOR_RENAMED : EDGE_COLOR_DEFAULT;
-        const width = flags.merged ? EDGE_WIDTH_MERGED : EDGE_WIDTH_DEFAULT;
-        const dash = flags.split ? `,stroke-dasharray:${EDGE_DASH_SPLIT}` : "";
+    // Solid for rename/continuation, dotted for reorganization. Reorg takes
+    // precedence: an edge that is both renamed and merged/split is still a
+    // function transfer, so it reads as dotted.
+    edgeIsReorg.forEach((isReorg, i) => {
+        const dotted = isReorg ? `,stroke-dasharray:${EDGE_DOTTED}` : "";
         lines.push(
-            `    linkStyle ${i} stroke:${stroke},stroke-width:${width}${dash}`,
+            `    linkStyle ${i} stroke:${EDGE_COLOR},stroke-width:${EDGE_WIDTH}${dotted}`,
         );
     });
 
@@ -213,11 +206,11 @@ export default function PublicBodyHistory({ id }: PublicBodyHistoryProps) {
                                     y1="4"
                                     x2="30"
                                     y2="4"
-                                    stroke={EDGE_COLOR_RENAMED}
-                                    strokeWidth={EDGE_WIDTH_DEFAULT}
+                                    stroke={EDGE_COLOR}
+                                    strokeWidth={EDGE_WIDTH}
                                 />
                             </svg>
-                            Renamed (blue)
+                            Renamed or continued
                         </span>
                         <span className="legend-item">
                             <svg
@@ -230,29 +223,12 @@ export default function PublicBodyHistory({ id }: PublicBodyHistoryProps) {
                                     y1="4"
                                     x2="30"
                                     y2="4"
-                                    stroke={EDGE_COLOR_DEFAULT}
-                                    strokeWidth={EDGE_WIDTH_MERGED}
+                                    stroke={EDGE_COLOR}
+                                    strokeWidth={EDGE_WIDTH}
+                                    strokeDasharray={EDGE_DOTTED}
                                 />
                             </svg>
-                            Merged (thick)
-                        </span>
-                        <span className="legend-item">
-                            <svg
-                                className="legend-swatch"
-                                viewBox="0 0 32 8"
-                                aria-hidden="true"
-                            >
-                                <line
-                                    x1="2"
-                                    y1="4"
-                                    x2="30"
-                                    y2="4"
-                                    stroke={EDGE_COLOR_DEFAULT}
-                                    strokeWidth={EDGE_WIDTH_DEFAULT}
-                                    strokeDasharray={EDGE_DASH_SPLIT}
-                                />
-                            </svg>
-                            Split (dashed)
+                            Functions transferred (reorganization)
                         </span>
                     </div>
                     <div className="history-diagram" ref={diagramRef} />

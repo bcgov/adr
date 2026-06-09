@@ -14,13 +14,12 @@ namespace Adr.PublicBodies.Mappers
         public PublicBodyParentChildMapper()
         {
             this.Map(m => m.ParentChildId).Name("PARENT_CHILD_ID");
-            this.Map(m => m.ActionDatetime).Name("ACTION_DATETIME");
+            this.Map(m => m.TransitionDatetime).Name("TRANSITION_DATETIME");
             this.Map(m => m.ParentUniqueId).Name("PARENT_UNIQUE_ID");
             this.Map(m => m.ChildUniqueId).Name("CHILD_UNIQUE_ID");
             this.Map(m => m.WasRenamed).Ignore();
             this.Map(m => m.WasMerged).Ignore();
             this.Map(m => m.WasSplit).Ignore();
-            this.Map(m => m.PublicBodyEffectiveDatetime).Name("PUBLIC_BODY_EFFECTIVE_DATETIME");
             this.Map(m => m.RecordCreatedDatetime).Name("RECORD_CREATED_DATETIME");
             this.Map(m => m.RecordEndedDatetime).Name("RECORD_ENDED_DATETIME");
             this.Map(m => m.RecordCreatedUser).Name("RECORD_CREATED_USER");
