@@ -94,10 +94,10 @@ namespace Adr.Semantics.Mappers
 
         private static string GetSectionLetter(string term)
         {
-            var firstCharacter = term?.Trim().FirstOrDefault() ?? '\0';
-            if (char.IsLetter(firstCharacter))
+            var firstCharacter = term?.Trim().FirstOrDefault() ?? null;
+            if (firstCharacter.HasValue && char.IsLetter(firstCharacter.Value))
             {
-                return char.ToUpperInvariant(firstCharacter).ToString();
+                return char.ToUpperInvariant(firstCharacter.Value).ToString();
             }
 
             return "#";
