@@ -9,10 +9,11 @@ nav:
   - Configuration: configuration.md
   - Tips and tricks: tips-and-tricks.md
   - About us: about-us.md
-  - Glossary of terms table: glossary.md
-  - Glossary of terms list: glossary-list.md
+  - Connected Services Glossary of Terms table: glossary.md
+  - Connected Services Glossary of Terms list: glossary-list.md
 plugins:
   - techdocs-core
   - git-revision-date-localized
 markdown_extensions:
+  - attr_list
   - md_in_html

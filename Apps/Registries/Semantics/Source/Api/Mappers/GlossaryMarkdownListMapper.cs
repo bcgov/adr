@@ -13,7 +13,7 @@ namespace Adr.Semantics.Mappers
     {
         private const string Header =
             "---\n"
-            + "title: Connected Services Glossary of Terms\n"
+            + "title: Connected Services Glossary of Terms list\n"
             + "---\n"
             + "\n"
             + "<!--\n"
@@ -35,33 +35,91 @@ namespace Adr.Semantics.Mappers
                 .OrderBy(e => e.Term, StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
+            var groupedByLetter = ordered
+                .GroupBy(entry => GetSectionLetter(entry.Term))
+                .OrderBy(group => group.Key == "#" ? "ZZZ" : group.Key, StringComparer.Ordinal)
+                .ToList();
+
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(Header);
 
-            foreach (var entry in ordered)
+            if (groupedByLetter.Any())
             {
-                var keywords = string.Join(
-                    ", ",
-                    (entry.Keywords ?? Enumerable.Empty<string>())
-                        .Where(c => !string.IsNullOrWhiteSpace(c))
-                        .Select(c => c.Trim())
-                );
+                var links = groupedByLetter
+                    .Select(group => $"[{group.Key}](#{GetSectionId(group.Key)})");
+                stringBuilder.Append(string.Join(" | ", links)).Append("\n\n");
+            }
 
+            foreach (var letterGroup in groupedByLetter)
+            {
                 stringBuilder
                     .Append("## ")
-                    .Append(entry.Term.Trim())
-                    .Append("\n\n")
-                    .Append(entry.Definition)
-                    .Append("\n\n");
+                    .Append(letterGroup.Key)
+                    .Append(" {#")
+                    .Append(GetSectionId(letterGroup.Key))
+                    .Append("}\n\n");
 
-                // TODO: Verify that this is the correct output for the markdown
-                if (!string.IsNullOrWhiteSpace(keywords))
+                foreach (var entry in letterGroup)
                 {
-                    stringBuilder.Append("Keywords: ").Append(keywords).Append("\n\n");
+                    var keywords = string.Join(
+                        ", ",
+                        (entry.Keywords ?? Enumerable.Empty<string>())
+                            .Where(c => !string.IsNullOrWhiteSpace(c))
+                            .Select(c => c.Trim())
+                    );
+
+                    stringBuilder
+                        .Append("### ")
+                        .Append(entry.Term.Trim())
+                        .Append(" {#")
+                        .Append(GetTermId(entry.StaticId, entry.Name))
+                        .Append("}\n\n")
+                        .Append(entry.Definition)
+                        .Append("\n\n");
+
+                    if (!string.IsNullOrWhiteSpace(keywords))
+                    {
+                        stringBuilder.Append("Keywords: ").Append(keywords).Append("\n\n");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(entry.Context))
+                    {
+                        stringBuilder.Append("Context: ").Append(entry.Context).Append("\n\n");
+                    }
                 }
             }
 
             return stringBuilder.ToString();
+        }
+
+        private static string GetSectionLetter(string term)
+        {
+            var firstCharacter = term?.Trim().FirstOrDefault() ?? null;
+            if (firstCharacter.HasValue && char.IsLetter(firstCharacter.Value))
+            {
+                return char.ToUpperInvariant(firstCharacter.Value).ToString();
+            }
+
+            return "#";
+        }
+
+        private static string GetSectionId(string sectionLetter)
+        {
+            return sectionLetter == "#"
+                ? "terms-other"
+                : $"terms-{sectionLetter.ToLowerInvariant()}";
+        }
+
+        private static string GetTermId(string staticId, string name)
+        {
+            var normalizedId = staticId?.Trim();
+            if (!string.IsNullOrWhiteSpace(normalizedId))
+            {
+                return $"term-{normalizedId.ToLowerInvariant()}";
+            }
+
+            // Fallback only for unexpected records missing StaticId.
+            return $"term-{name.ToLowerInvariant()}";
         }
     }
 }

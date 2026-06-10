@@ -13,7 +13,7 @@ namespace Adr.Semantics.Mappers
     {
         private const string Header =
             "---\n"
-            + "title: Glossary\n"
+            + "title: Connected Services Glossary of Terms table\n"
             + "---\n"
             + "\n"
             + "<!--\n"
