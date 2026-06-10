@@ -84,7 +84,22 @@ namespace Adr.Semantics.Mappers
 
                     if (!string.IsNullOrWhiteSpace(entry.Context))
                     {
-                        stringBuilder.Append("Context: ").Append(entry.Context).Append("\n\n");
+                        var contextText = entry.Context.Trim();
+                        var citationUrl = entry.Citations?.Trim();
+
+                        if (!string.IsNullOrWhiteSpace(citationUrl))
+                        {
+                            stringBuilder
+                                .Append("Context: [")
+                                .Append(contextText)
+                                .Append("](")
+                                .Append(citationUrl)
+                                .Append(")\n\n");
+                        }
+                        else
+                        {
+                            stringBuilder.Append("Context: ").Append(contextText).Append("\n\n");
+                        }
                     }
                 }
             }
