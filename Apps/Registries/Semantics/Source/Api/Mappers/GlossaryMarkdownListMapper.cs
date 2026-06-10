@@ -85,16 +85,28 @@ namespace Adr.Semantics.Mappers
                     if (!string.IsNullOrWhiteSpace(entry.Context))
                     {
                         var contextText = entry.Context.Trim();
-                        var citationUrl = entry.Citations?.Trim();
+                        var urls = ExtractUrls(entry.Citations);
 
-                        if (!string.IsNullOrWhiteSpace(citationUrl))
+                        if (urls.Count > 0)
                         {
-                            stringBuilder
-                                .Append("Context: [")
-                                .Append(contextText)
-                                .Append("](")
-                                .Append(citationUrl)
-                                .Append(")\n\n");
+                            stringBuilder.Append("Context: ");
+
+                            for (int i = 0; i < urls.Count; i++)
+                            {
+                                if (i > 0)
+                                {
+                                    stringBuilder.Append(", ");
+                                }
+
+                                stringBuilder
+                                    .Append("[")
+                                    .Append(contextText)
+                                    .Append("](")
+                                    .Append(urls[i])
+                                    .Append(")");
+                            }
+
+                            stringBuilder.Append("\n\n");
                         }
                         else
                         {
@@ -135,6 +147,57 @@ namespace Adr.Semantics.Mappers
 
             // Fallback only for unexpected records missing StaticId.
             return $"term-{name.ToLowerInvariant()}";
+        }
+
+        private static List<string> ExtractUrls(string text)
+        {
+            var urls = new List<string>();
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return urls;
+            }
+
+            var trimmed = text.Trim();
+
+            // Split by whitespace and newlines to find potential URLs
+            var parts = trimmed.Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var part in parts)
+            {
+                if (IsValidUrl(part))
+                {
+                    urls.Add(part);
+                }
+            }
+
+            return urls;
+        }
+
+        private static bool IsValidUrl(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return false;
+            }
+
+            if (!Uri.TryCreate(text, UriKind.Absolute, out var uri))
+            {
+                return false;
+            }
+
+            // Only accept http and https schemes
+            if (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps)
+            {
+                return false;
+            }
+
+            // Host must contain at least one dot (`example.com` is valid, `example` and `Data` are not)
+            if (!uri.Host.Contains('.'))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
