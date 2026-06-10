@@ -27,7 +27,7 @@ Context: [General](https://developer.gov.bc.ca/docs/default/component/aps-infra-
 
 Accuracy measures the degree to which data describes the real-world phenomena it is intended to represent.
 
-Context: [General](https://Data Quality Assessment Standard)
+Context: General
 
 ### API Catalogue {#term-a03ab4ed-6a49-44c9-8b29-4116c791755e}
 
@@ -119,7 +119,7 @@ Context: [General](https://www2.gov.bc.ca/gov/content?id=706EBC0C26B146EBB864181
 
 The publicly accessible list of datasets that are designated authoritative through corporate data governance process. This information is published in the BC Data Catalogue.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### Authorization {#term-fb1799f6-ad3b-49ee-8746-bdaa4f72db2c}
 
@@ -149,8 +149,7 @@ Backstage is an open-source framework for building developer portals which unifi
 
 Keywords: Integration Toolkit
 
-Context: [General](https://dpdd.atlassian.net/wiki/spaces/POSM/pages/1389330560/Updated+CS+Terminology+Language
-https://backstage.io/docs/features/software-catalog/system-model/#ecosystem-modeling)
+Context: [General](https://dpdd.atlassian.net/wiki/spaces/POSM/pages/1389330560/Updated+CS+Terminology+Language), [General](https://backstage.io/docs/features/software-catalog/system-model/#ecosystem-modeling)
 
 ### Backstage Connector {#term-5674583a-9aea-42fc-9d40-da7d081e50db}
 
@@ -174,8 +173,7 @@ A Certificate Authority (CA) is a trusted organization that provides/issues digi
 
 Keywords: Security, SDX
 
-Context: [General](https://dpdd.atlassian.net/wiki/spaces/POSM/pages/1338442522/ADR-013+Private+Certificate+Authority
-https://www.digicert.com/blog/what-is-a-certificate-authority)
+Context: [General](https://dpdd.atlassian.net/wiki/spaces/POSM/pages/1338442522/ADR-013+Private+Certificate+Authority), [General](https://www.digicert.com/blog/what-is-a-certificate-authority)
 
 ### Channel {#term-24717e39-b997-44ff-8a2b-aacbaa425569}
 
@@ -205,19 +203,19 @@ Context: [General](https://developer.gov.bc.ca/docs/default/component/aps-infra-
 
 The proportion of stored data against the definition of “100% complete”. Completeness is contextual to the purpose for data collection (for example, is the scope of collection the whole province or a region?)
 
-Context: [General](https://Data Quality Assessment Standard)
+Context: General
 
 ### Connected Services Data Dictionary {#term-3147c042-f3a4-4bd8-a1f2-07f1b4c8a4e3}
 
 The centralized repository documenting technical metadata for Connected Services data elements.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### Connected Services Glossary of Terms {#term-d78fc349-9944-4eb1-a478-a5dca8eb0135}
 
 The centralized repository documenting concepts in plain language for Connected Services business and technical terms.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### Consent {#term-8eb02fb4-6665-451a-8651-40daa3d9a5e0}
 
@@ -283,7 +281,7 @@ Context: [General](https://www2.gov.bc.ca/gov/content?id=32A530E73D344273B378A7B
 
 The ability for authorized users to easily find, retrieve, and use data when they need it, supported by appropriate permissions, usable formats, documentation, and interoperability that allows data to work across systems and contexts.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### Data Custodian {#term-fac64871-82e4-4c6c-8e45-e94708586c55}
 
@@ -295,7 +293,7 @@ Context: [General](https://www2.gov.bc.ca/gov/content?id=706EBC0C26B146EBB864181
 
 The smallest identifiable unit of data with a defined meaning, typically represented as an attribute or field within a data model or dataset.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### Data Exchange {#term-722582cb-b494-4b1b-b8c2-3944edd1a5ed}
 
@@ -321,13 +319,13 @@ Context: [General](https://www2.gov.bc.ca/gov/content?id=706EBC0C26B146EBB864181
 
 Data Quality Assessment Framework defines standardized dimensions of data quality and associated measures for assessing the level of data quality. A measure may apply at the dataset, record, and/or attribute level.
 
-Context: [General](https://Data Quality Assessment Standard)
+Context: General
 
 ### Data Quality Scorecard {#term-0d2898a9-b4bc-478f-9a0e-d9586aae479c}
 
 A Data Quality Scorecard is an instance or snapshot of a dataset’s data quality measures, as defined by the Data Quality Assessment Framework.
 
-Context: [General](https://Data Quality Assessment Standard)
+Context: General
 
 ### Data Register {#term-ab328591-774b-4789-90f6-4c533fcc1b16}
 
@@ -402,7 +400,7 @@ Context: [General](https://dpdd.atlassian.net/wiki/spaces/POSM/pages/1389330560/
 
 A uniquely identifiable real-world object, event, or concept about which data is stored. Entities are described by attributes and may have relationships with other entities.
 
-Context: [General](https://Data Register Guidelines)
+Context: General
 
 ### Extract, Transform, Load (ETL) {#term-a093d869-940a-4f09-ad34-bf427cbafc45}
 
@@ -460,7 +458,7 @@ Context: [General](https://www2.gov.bc.ca/gov/content/governments/services-for-g
 
 An element (such as an identifier, data structure, or stored record) is considered immutable when its value or state is fixed at creation and does not change thereafter. Immutability provides a consistent point of reference and supports reliable auditing, versioning, and data integrity, even as related or derived information may evolve.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### Independent boards, commissions and tribunals {#term-37f79c0d-0380-4183-82e9-e756294c7d8e}
 
@@ -510,22 +508,19 @@ Context: [General](https://developer.gov.bc.ca/docs/default/component/aps-infra-
 
 An enactment that provides the statutory framework for the administration of Crown land, establishes the responsibilities of government Ministers regarding the administration of Crown land and provides for the delegation of certain authorities. Many powers have been delegated to the Surveyor General with respect to Crown land definition and disposition.
 
-Context: [Property Ownership](https://ltsa.ca/property-owners/about-land-records/glossary/
-http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/00_96245_01)
+Context: [Property Ownership](https://ltsa.ca/property-owners/about-land-records/glossary/), [Property Ownership](http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/00_96245_01)
 
 ### Land Owner Transparency Act {#term-22f1bfee-dbff-400f-b1a6-12e851e11f4c}
 
 The Land Owner Transparency Act was passed by the government of British Columbia in May 2019. The first-of-its-kind in Canada, it created an accessible registry of beneficial interests in land in B.C. – the Land Owner Transparency Registry.
 
-Context: [Property Ownership](https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/19023
-https://ltsa.ca/property-owners/about-land-records/glossary/)
+Context: [Property Ownership](https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/19023), [Property Ownership](https://ltsa.ca/property-owners/about-land-records/glossary/)
 
 ### Land Owner Transparency Registry {#term-a2b46bd5-1828-4c54-8d65-0c211147f2be}
 
 A publicly searchable registry of information about beneficial ownership of land in British Columbia. Beneficial owners are people who own or control land indirectly, such as through a corporation, partnership, or trust. The registry is intended to end hidden ownership of land in BC. The Land Owner Transparency Registry launched November 30, 2020, and opened to public search on April 30, 2021.
 
-Context: [Property Ownership](https://landtransparency.ca/
-https://ltsa.ca/property-owners/about-land-records/glossary/)
+Context: [Property Ownership](https://landtransparency.ca/), [Property Ownership](https://ltsa.ca/property-owners/about-land-records/glossary/)
 
 ### Land Title Act {#term-63e3ece2-6ce1-4b44-bb88-68a0f4b7ebe5}
 
@@ -566,7 +561,7 @@ Context: [Property Ownership](https://ltsa.ca/property-owners/about-land-records
 
 Core, non-transactional data that describes key business entities (e.g., persons in BC, services, assets, locations). Master Data should represent Authoritative Data so it can be trusted and used with confidence by the entire organization.
 
-Context: [General](https://Data Register Guidelines)
+Context: General
 
 ### Metadata {#term-8983389a-7650-412b-bfde-524994c37b28}
 
@@ -594,7 +589,7 @@ Context: [General](<https://bcgov.sharepoint.com/:w:/r/teams/00108/Shared%20Docu
 
 A Minimum Viable Dataset (MVD) contains only data essential to its purpose. For example, a Parks Names data register only contains data about park names (official name, legal name, pronunciation) and no other park data.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### Ministries {#term-b0d6b711-018a-4813-b39c-5fd922d4bdb5}
 
@@ -716,7 +711,7 @@ Context: [General](https://developer.gov.bc.ca/docs/default/component/aps-infra-
 
 Data that is used to describe or classify other data (e.g., lists of disease types, gender codes, building materials, etc.)
 
-Context: [General](https://Data Register Guidelines)
+Context: General
 
 ### Registered Owner {#term-446482a5-dc2c-4dac-86b7-b90c7650c997}
 
@@ -728,7 +723,7 @@ Context: [Property Ownership](https://ltsa.ca/property-owners/about-land-records
 
 A Data Custodian that is responsible for one or more data registers.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### Registrar {#term-9a892ea4-b453-4199-9cfe-29ea05e722dd}
 
@@ -832,13 +827,13 @@ Context: [Income and Disability Assistance](https://www.myselfserve.gov.bc.ca/)
 
 The authoritative source where data for a specific domain is created/collected, maintained, and shared.
 
-Context: [General](https://Data Register Standard)
+Context: General
 
 ### System of Reference {#term-1fd602bc-eeb2-45e3-b25a-871859edb11c}
 
 A system that consolidates and harmonizes data from multiple systems of record to provide a trusted reference for sharing data.
 
-Context: [General](https://Data Register Guidelines)
+Context: General
 
 ## T {#terms-t}
 
@@ -846,7 +841,7 @@ Context: [General](https://Data Register Guidelines)
 
 The degree to which data represent reality from the required point in time. Includes currency (are the data up to date?) and latency (when was the data last updated?)
 
-Context: [General](https://Data Quality Assessment Standard)
+Context: General
 
 ### Title {#term-ee562ba5-e061-44b3-9986-459528b77ab5}
 
@@ -918,7 +913,7 @@ Context: [General](https://dpdd.atlassian.net/wiki/spaces/POSM/pages/1389330560/
 
 The degree to which there are no duplicate data.
 
-Context: [General](https://Data Quality Assessment Standard)
+Context: General
 
 ## V {#terms-v}
 
@@ -926,4 +921,4 @@ Context: [General](https://Data Quality Assessment Standard)
 
 The degree to which data conforms to its defined domain of values, including the rules for allowed formats, structures, acceptable ranges, and lists of permissible values.
 
-Context: [General](https://Data Quality Assessment Standard)
+Context: General
