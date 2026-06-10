@@ -35,7 +35,7 @@ namespace Adr.Semantics.Mappers
                 .OrderBy(e => e.Term, StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
-            var groupedEntries = ordered
+            var groupedByLetter = ordered
                 .GroupBy(entry => GetSectionLetter(entry.Term))
                 .OrderBy(group => group.Key == "#" ? "ZZZ" : group.Key, StringComparer.Ordinal)
                 .ToList();
@@ -43,23 +43,23 @@ namespace Adr.Semantics.Mappers
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(Header);
 
-            if (groupedEntries.Any())
+            if (groupedByLetter.Any())
             {
-                var links = groupedEntries
+                var links = groupedByLetter
                     .Select(group => $"[{group.Key}](#{GetSectionId(group.Key)})");
                 stringBuilder.Append(string.Join(" | ", links)).Append("\n\n");
             }
 
-            foreach (var group in groupedEntries)
+            foreach (var letterGroup in groupedByLetter)
             {
                 stringBuilder
                     .Append("## ")
-                    .Append(group.Key)
+                    .Append(letterGroup.Key)
                     .Append(" {#")
-                    .Append(GetSectionId(group.Key))
+                    .Append(GetSectionId(letterGroup.Key))
                     .Append("}\n\n");
 
-                foreach (var entry in group)
+                foreach (var entry in letterGroup)
                 {
                     var keywords = string.Join(
                         ", ",
