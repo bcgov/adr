@@ -72,7 +72,7 @@ namespace Adr.Semantics.Mappers
                         .Append("### ")
                         .Append(entry.Term.Trim())
                         .Append(" {#")
-                        .Append(GetTermId(entry.StaticId, entry.Term))
+                        .Append(GetTermId(entry.StaticId, entry.Name))
                         .Append("}\n\n")
                         .Append(entry.Definition)
                         .Append("\n\n");
@@ -110,7 +110,7 @@ namespace Adr.Semantics.Mappers
                 : $"terms-{sectionLetter.ToLowerInvariant()}";
         }
 
-        private static string GetTermId(string staticId, string term)
+        private static string GetTermId(string staticId, string name)
         {
             var normalizedId = staticId?.Trim();
             if (!string.IsNullOrWhiteSpace(normalizedId))
@@ -119,7 +119,7 @@ namespace Adr.Semantics.Mappers
             }
 
             // Fallback only for unexpected records missing StaticId.
-            return $"term-{term.Trim().ToLowerInvariant()}";
+            return $"term-{name.ToLowerInvariant()}";
         }
     }
 }
