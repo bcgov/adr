@@ -2,6 +2,7 @@ namespace Adr.PublicBodies
 {
     using System.Diagnostics.CodeAnalysis;
     using Adr.PublicBodies.Configuration;
+    using Adr.PublicBodies.Configuration.Models;
     using Adr.PublicBodies.Providers;
     using Adr.PublicBodies.Services;
     using Microsoft.AspNetCore.Builder;
@@ -14,7 +15,7 @@ namespace Adr.PublicBodies
     /// </summary>
     public class Startup
     {
-        private readonly StartupConfiguration startupConfig;
+        private readonly StartupConfiguration _startupConfig;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Startup"/> class.
@@ -23,7 +24,7 @@ namespace Adr.PublicBodies
         /// <param name="configuration">The injected configuration provider.</param>
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
-            this.startupConfig = new StartupConfiguration(configuration, env);
+            _startupConfig = new StartupConfiguration(configuration, env);
         }
 
         /// <summary>
@@ -32,10 +33,15 @@ namespace Adr.PublicBodies
         /// <param name="services">The injected services provider.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            this.startupConfig.ConfigureForwardHeaders(services);
-            this.startupConfig.ConfigureHttpServices(services);
-            this.startupConfig.ConfigureSwaggerServices(services);
-            this.startupConfig.ConfigureTracing(services);
+            _startupConfig.ConfigureForwardHeaders(services);
+            _startupConfig.ConfigureHttpServices(services);
+            _startupConfig.ConfigureSwaggerServices(services);
+            _startupConfig.ConfigureTracing(services);
+
+            services.Configure<ChefsConfiguration>(
+                _startupConfig.Configuration.GetSection("Chefs")
+            );
+            services.AddTransient<IChefsTokenService, ChefsTokenService>();
 
             // Configure the public bodies services
             services.AddTransient<IPublicBodyService, PublicBodyService>();
@@ -59,13 +65,13 @@ namespace Adr.PublicBodies
         /// <param name="app">The application builder.</param>
         public void Configure(IApplicationBuilder app)
         {
-            this.startupConfig.UseForwardHeaders(app);
-            this.startupConfig.UseHttp(app);
-            this.startupConfig.UseResponseCaching(app);
-            //this.startupConfig.UseAuth(app); not yet
-            this.startupConfig.UseEnrichTracing(app);
-            this.startupConfig.UseRest(app);
-            this.startupConfig.UseSwagger(app);
+            _startupConfig.UseForwardHeaders(app);
+            _startupConfig.UseHttp(app);
+            _startupConfig.UseResponseCaching(app);
+            //_startupConfig.UseAuth(app); not yet
+            _startupConfig.UseEnrichTracing(app);
+            _startupConfig.UseRest(app);
+            _startupConfig.UseSwagger(app);
         }
     }
 }
