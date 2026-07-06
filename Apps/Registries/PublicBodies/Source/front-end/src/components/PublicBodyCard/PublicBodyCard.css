@@ -54,6 +54,10 @@
             color: var(--typography-color-secondary);
             font-size: var(--typography-font-size-label);
             font-style: italic;
+
+            a {
+                word-break: break-all;
+            }
         }
 
         .card-history-link {
