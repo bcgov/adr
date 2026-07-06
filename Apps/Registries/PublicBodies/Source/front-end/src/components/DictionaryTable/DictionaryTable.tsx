@@ -1,5 +1,9 @@
 import { useMemo, useState } from "react";
-import { Link } from "wouter";
+import {
+    Button,
+    ProgressBar,
+    TextField,
+} from "@bcgov/design-system-react-components";
 import {
     flexRender,
     getCoreRowModel,
@@ -7,6 +11,9 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 
+import { DEVHUB_URL } from "@/constants";
+import Main from "../Main/Main";
+import { HighlightedText } from "../HighlightedText/HighlightedText";
 import useDictionary from "@/hooks/useDictionary";
 import useGlossary from "@/hooks/useGlossary";
 import type { DictionaryField } from "@/models/dictionary";
@@ -53,15 +60,30 @@ export default function DictionaryTable() {
         { header: "Field Name", accessorKey: "fieldName" },
         {
             header: "Glossary",
-            accessorKey: "semanticTermRef",
-            cell: ({ getValue }: { getValue: () => unknown }) => {
-                const termId = termIdFromRef(getValue() as string | undefined);
+            id: "glossary",
+            accessorFn: (row: DictionaryRow) => {
+                const termId = termIdFromRef(row.semanticTermRef);
+                if (!termId) return "";
+                return glossaryByTermId.get(termId) ?? termId;
+            },
+            cell: ({
+                row,
+                getValue,
+            }: {
+                row: { original: DictionaryRow };
+                getValue: () => unknown;
+            }) => {
+                const termId = termIdFromRef(row.original.semanticTermRef);
                 if (!termId) return null;
-                const display = glossaryByTermId.get(termId) ?? termId;
+                const display = String(getValue() ?? termId);
                 return (
-                    <Link href={`/glossary#${encodeURIComponent(termId)}`}>
-                        {display}
-                    </Link>
+                    <a
+                        href={`${DEVHUB_URL}/docs/default/component/authoritative-data-registers/glossary-list/#term-${encodeURIComponent(termId)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <HighlightedText text={display} search={globalFilter} />
+                    </a>
                 );
             },
         },
@@ -74,6 +96,7 @@ export default function DictionaryTable() {
         { header: "Required", accessorKey: "designatedAsRequired" },
     ];
 
+    const [layout, setLayout] = useState<"fixed" | "fluid">("fixed");
     const [globalFilter, setGlobalFilter] = useState("");
 
     const table = useReactTable({
@@ -85,35 +108,78 @@ export default function DictionaryTable() {
         getFilteredRowModel: getFilteredRowModel(),
     });
 
-    if (isPending) return "Loading...";
-    if (error) return "An error has occurred: " + error.message;
+    if (isPending)
+        return (
+            <Main>
+                <ProgressBar
+                    isIndeterminate
+                    size="medium"
+                    valueLabel="Loading..."
+                />
+            </Main>
+        );
+
+    if (error)
+        return (
+            <Main>
+                <p>An error has occurred: {error.message}</p>
+            </Main>
+        );
 
     return (
-        <div>
-            {isFetching && <span>Fetching data...</span>}
-            <span>
-                Search:
-                <input
-                    className="dictionary-search"
-                    type="text"
-                    placeholder=""
-                    value={globalFilter}
-                    onChange={(e) => setGlobalFilter(e.target.value)}
+        <Main layout={layout}>
+            {isFetching && (
+                <ProgressBar
+                    isIndeterminate
+                    size="medium"
+                    valueLabel="Fetching data..."
                 />
-            </span>
+            )}
+            <div className="dictionary-search-bar">
+                <TextField
+                    label="Search: "
+                    type="search"
+                    value={globalFilter}
+                    onChange={(value) => setGlobalFilter(value)}
+                />
+                <Button
+                    variant="secondary"
+                    onPress={() =>
+                        setLayout(layout === "fixed" ? "fluid" : "fixed")
+                    }
+                >
+                    {layout === "fixed"
+                        ? "Expand table view"
+                        : "Collapse table view"}
+                </Button>
+            </div>
             <div className="dictionary-table-wrapper">
                 <table className="dictionary-table">
+                    {/*
+                        Columns
+                        -------
+                        Source
+                        Field Name
+                        Glossary
+                        Description
+                        Schema/Table
+                        Data Source
+                        Data Type
+                        Key Relationships
+                        System of Record
+                        Required
+                    */}
                     <colgroup>
-                        <col /> {/* Source */}
+                        <col />
                         <col className="col-field-name" />
-                        <col /> {/* Glossary */}
+                        <col />
                         <col className="col-description" />
-                        <col /> {/* Schema/Table */}
-                        <col /> {/* Data Source */}
-                        <col /> {/* Data Type */}
-                        <col /> {/* Key Relationships */}
-                        <col /> {/* System of Record */}
-                        <col /> {/* Required */}
+                        <col />
+                        <col />
+                        <col />
+                        <col />
+                        <col />
+                        <col />
                     </colgroup>
                     <thead>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -134,9 +200,18 @@ export default function DictionaryTable() {
                             <tr key={row.id}>
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id}>
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext(),
+                                        {cell.column.id === "glossary" ? (
+                                            flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                            )
+                                        ) : (
+                                            <HighlightedText
+                                                text={String(
+                                                    cell.getValue() ?? "",
+                                                )}
+                                                search={globalFilter}
+                                            />
                                         )}
                                     </td>
                                 ))}
@@ -145,6 +220,6 @@ export default function DictionaryTable() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </Main>
     );
 }
