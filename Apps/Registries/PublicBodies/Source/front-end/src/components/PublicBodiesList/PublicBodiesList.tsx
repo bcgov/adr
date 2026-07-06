@@ -2,6 +2,7 @@ import type { PublicBody } from "../../models/public-body";
 import usePublicBodies from "../../hooks/usePublicBodies";
 import usePublicBodyTypes from "../../hooks/usePublicBodyTypes";
 
+import Main from "../Main/Main";
 import PublicBodyCard from "../PublicBodyCard/PublicBodyCard";
 
 import "./PublicBodiesList.css";
@@ -17,12 +18,10 @@ export default function PublicBodiesList() {
 
     if (error) return "An error has occurred: " + error.message;
 
-    const typesById = new Map(
-        types?.map((t) => [t.publicBodyTypeId, t]) ?? [],
-    );
+    const typesById = new Map(types?.map((t) => [t.publicBodyTypeId, t]) ?? []);
 
     return (
-        <div>
+        <Main>
             {isFetching && <span>Fetching data...</span>}
             <ul className="list-public-bodies">
                 {data.map((publicBody: PublicBody, index: number) => {
@@ -33,7 +32,9 @@ export default function PublicBodiesList() {
                                 staticId={publicBody.staticId}
                                 name={publicBody.name}
                                 acronym={publicBody.acronym}
-                                publicBodyType={type?.shortName ?? type?.name ?? null}
+                                publicBodyType={
+                                    type?.shortName ?? type?.name ?? null
+                                }
                                 hasHistory={
                                     type?.name === HISTORY_ENABLED_TYPE_NAME
                                 }
@@ -43,17 +44,13 @@ export default function PublicBodiesList() {
                                 retirementDate={
                                     publicBody.publicBodyRetiredDate
                                 }
-                                createdDate={
-                                    publicBody.recordCreatedDatetime
-                                }
-                                updatedDate={
-                                    publicBody.recordEndedDatetime
-                                }
+                                createdDate={publicBody.recordCreatedDatetime}
+                                updatedDate={publicBody.recordEndedDatetime}
                             />
                         </li>
                     );
                 })}
             </ul>
-        </div>
+        </Main>
     );
 }

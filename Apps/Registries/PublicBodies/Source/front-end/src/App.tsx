@@ -23,9 +23,7 @@ function App() {
                     Glossary
                 </Link>
             </Subheader>
-            <main>
-                <PageRouter />
-            </main>
+            <PageRouter />
             <Footer />
         </>
     );

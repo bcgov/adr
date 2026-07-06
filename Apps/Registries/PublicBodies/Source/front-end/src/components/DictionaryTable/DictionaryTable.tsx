@@ -8,6 +8,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 
+import Main from "../Main/Main";
 import useDictionary from "@/hooks/useDictionary";
 import useGlossary from "@/hooks/useGlossary";
 import type { DictionaryField } from "@/models/dictionary";
@@ -90,7 +91,7 @@ export default function DictionaryTable() {
     if (error) return "An error has occurred: " + error.message;
 
     return (
-        <div>
+        <Main layout="fluid">
             {isFetching && (
                 <ProgressBar
                     isIndeterminate
@@ -148,6 +149,6 @@ export default function DictionaryTable() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </Main>
     );
 }

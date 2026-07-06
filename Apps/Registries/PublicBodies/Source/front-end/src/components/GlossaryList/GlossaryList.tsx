@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import Main from "../Main/Main";
 import useGlossary from "@/hooks/useGlossary";
 import type { GlossaryEntry } from "@/models/glossary";
 
@@ -27,7 +28,7 @@ export default function GlossaryList() {
     if (error) return "An error has occurred: " + error.message;
 
     return (
-        <div>
+        <Main>
             {isFetching && <span>Fetching data...</span>}
             <ul className="list-glossary">
                 {(data ?? []).map((entry: GlossaryEntry) => (
@@ -38,16 +39,13 @@ export default function GlossaryList() {
                     >
                         <div className="card-body">
                             <h3 className="card-name">{entry.term}</h3>
-                            {entry.keywords &&
-                                entry.keywords.length > 0 && (
-                                    <div>
-                                        {entry.keywords.map((keyword) => (
-                                            <span key={keyword}>
-                                                {keyword}
-                                            </span>
-                                        ))}
-                                    </div>
-                                )}
+                            {entry.keywords && entry.keywords.length > 0 && (
+                                <div>
+                                    {entry.keywords.map((keyword) => (
+                                        <span key={keyword}>{keyword}</span>
+                                    ))}
+                                </div>
+                            )}
                             <p>{entry.definition}</p>
                             {entry.citations && (
                                 <p className="card-id">
@@ -65,6 +63,6 @@ export default function GlossaryList() {
                     </li>
                 ))}
             </ul>
-        </div>
+        </Main>
     );
 }
