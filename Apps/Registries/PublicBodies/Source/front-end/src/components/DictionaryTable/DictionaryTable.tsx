@@ -107,17 +107,31 @@ export default function DictionaryTable() {
             />
             <div className="dictionary-table-wrapper">
                 <table className="dictionary-table">
+                    {/*
+                        Columns
+                        -------
+                        Source
+                        Field Name
+                        Glossary
+                        Description
+                        Schema/Table
+                        Data Source
+                        Data Type
+                        Key Relationships
+                        System of Record
+                        Required
+                    */}
                     <colgroup>
-                        <col /> {/* Source */}
+                        <col />
                         <col className="col-field-name" />
-                        <col /> {/* Glossary */}
+                        <col />
                         <col className="col-description" />
-                        <col /> {/* Schema/Table */}
-                        <col /> {/* Data Source */}
-                        <col /> {/* Data Type */}
-                        <col /> {/* Key Relationships */}
-                        <col /> {/* System of Record */}
-                        <col /> {/* Required */}
+                        <col />
+                        <col />
+                        <col />
+                        <col />
+                        <col />
+                        <col />
                     </colgroup>
                     <thead>
                         {table.getHeaderGroups().map((headerGroup) => (
