@@ -108,8 +108,23 @@ export default function DictionaryTable() {
         getFilteredRowModel: getFilteredRowModel(),
     });
 
-    if (isPending) return "Loading...";
-    if (error) return "An error has occurred: " + error.message;
+    if (isPending)
+        return (
+            <Main>
+                <ProgressBar
+                    isIndeterminate
+                    size="medium"
+                    valueLabel="Loading..."
+                />
+            </Main>
+        );
+
+    if (error)
+        return (
+            <Main>
+                <p>An error has occurred: {error.message}</p>
+            </Main>
+        );
 
     return (
         <Main layout={layout}>
