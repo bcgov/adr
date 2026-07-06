@@ -5,7 +5,7 @@ interface HighlightProps {
     search: string;
 }
 
-export const HighlightedText: React.FC<HighlightProps> = ({ text, search }) => {
+export function HighlightedText({ text, search }: HighlightProps) {
     if (!search.trim()) return <>{text}</>;
 
     // Escape special regex characters to prevent crashes
@@ -20,4 +20,4 @@ export const HighlightedText: React.FC<HighlightProps> = ({ text, search }) => {
             )}
         </>
     );
-};
+}
