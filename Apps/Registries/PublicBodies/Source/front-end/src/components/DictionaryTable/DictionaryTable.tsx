@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { TextField } from "@bcgov/design-system-react-components";
 import { Link } from "wouter";
 import {
     flexRender,
@@ -91,16 +92,12 @@ export default function DictionaryTable() {
     return (
         <div>
             {isFetching && <span>Fetching data...</span>}
-            <span>
-                Search:
-                <input
-                    className="dictionary-search"
-                    type="text"
-                    placeholder=""
-                    value={globalFilter}
-                    onChange={(e) => setGlobalFilter(e.target.value)}
-                />
-            </span>
+            <TextField
+                label="Search: "
+                type="search"
+                value={globalFilter}
+                onChange={(value) => setGlobalFilter(value)}
+            />
             <div className="dictionary-table-wrapper">
                 <table className="dictionary-table">
                     <colgroup>

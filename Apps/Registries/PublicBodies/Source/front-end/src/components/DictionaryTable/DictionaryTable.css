@@ -1,7 +1,3 @@
-.dictionary-search {
-    margin-left: 10px;
-}
-
 .dictionary-table-wrapper {
     overflow-x: auto;
 }
@@ -27,7 +23,8 @@
 }
 
 .dictionary-table th {
-    border-bottom: var(--layout-border-width-small) solid var(--surface-color-border-default);
+    border-bottom: var(--layout-border-width-small) solid
+        var(--surface-color-border-default);
 }
 
 .dictionary-table tbody tr:nth-child(even) {
