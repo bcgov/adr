@@ -80,6 +80,7 @@ export default function DictionaryTable() {
                     <a
                         href={`${DEVHUB_URL}/docs/default/component/authoritative-data-registers/glossary-list/#term-${encodeURIComponent(termId)}`}
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <HighlightedText text={display} search={globalFilter} />
                     </a>
