@@ -3,6 +3,7 @@ declare global {
         APP_CONFIG?: {
             PUBLIC_BODIES_API_URL?: string;
             SEMANTICS_API_URL?: string;
+            DEVHUB_URL?: string;
         };
     }
 }
@@ -20,3 +21,8 @@ export const SEMANTICS_API_URL: string =
     window.APP_CONFIG?.SEMANTICS_API_URL ||
     import.meta.env.VITE_SEMANTICS_API_URL ||
     "http://localhost:5001";
+
+export const DEVHUB_URL: string =
+    window.APP_CONFIG?.DEVHUB_URL ||
+    import.meta.env.VITE_DEVHUB_URL ||
+    "https://dev.developer.gov.bc.ca";

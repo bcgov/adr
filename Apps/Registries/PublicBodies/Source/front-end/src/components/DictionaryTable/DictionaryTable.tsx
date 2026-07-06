@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { ProgressBar, TextField } from "@bcgov/design-system-react-components";
-import { Link } from "wouter";
 import {
     flexRender,
     getCoreRowModel,
@@ -8,6 +7,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 
+import { DEVHUB_URL } from "@/constants";
 import Main from "../Main/Main";
 import useDictionary from "@/hooks/useDictionary";
 import useGlossary from "@/hooks/useGlossary";
@@ -61,9 +61,12 @@ export default function DictionaryTable() {
                 if (!termId) return null;
                 const display = glossaryByTermId.get(termId) ?? termId;
                 return (
-                    <Link href={`/glossary#${encodeURIComponent(termId)}`}>
+                    <a
+                        href={`${DEVHUB_URL}/docs/default/component/authoritative-data-registers/glossary-list/#term-${encodeURIComponent(termId)}`}
+                        target="_blank"
+                    >
                         {display}
-                    </Link>
+                    </a>
                 );
             },
         },
