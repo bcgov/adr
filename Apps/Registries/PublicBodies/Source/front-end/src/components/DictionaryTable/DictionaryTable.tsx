@@ -1,5 +1,9 @@
 import { useMemo, useState } from "react";
-import { ProgressBar, TextField } from "@bcgov/design-system-react-components";
+import {
+    Button,
+    ProgressBar,
+    TextField,
+} from "@bcgov/design-system-react-components";
 import {
     flexRender,
     getCoreRowModel,
@@ -91,6 +95,7 @@ export default function DictionaryTable() {
         { header: "Required", accessorKey: "designatedAsRequired" },
     ];
 
+    const [layout, setLayout] = useState<"fixed" | "fluid">("fixed");
     const [globalFilter, setGlobalFilter] = useState("");
 
     const table = useReactTable({
@@ -106,7 +111,7 @@ export default function DictionaryTable() {
     if (error) return "An error has occurred: " + error.message;
 
     return (
-        <Main layout="fluid">
+        <Main layout={layout}>
             {isFetching && (
                 <ProgressBar
                     isIndeterminate
@@ -114,12 +119,24 @@ export default function DictionaryTable() {
                     valueLabel="Fetching data..."
                 />
             )}
-            <TextField
-                label="Search: "
-                type="search"
-                value={globalFilter}
-                onChange={(value) => setGlobalFilter(value)}
-            />
+            <div className="dictionary-search-bar">
+                <TextField
+                    label="Search: "
+                    type="search"
+                    value={globalFilter}
+                    onChange={(value) => setGlobalFilter(value)}
+                />
+                <Button
+                    variant="secondary"
+                    onPress={() =>
+                        setLayout(layout === "fixed" ? "fluid" : "fixed")
+                    }
+                >
+                    {layout === "fixed"
+                        ? "Expand table view"
+                        : "Collapse table view"}
+                </Button>
+            </div>
             <div className="dictionary-table-wrapper">
                 <table className="dictionary-table">
                     {/*
