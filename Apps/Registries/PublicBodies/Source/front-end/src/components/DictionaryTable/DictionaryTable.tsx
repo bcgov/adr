@@ -9,6 +9,7 @@ import {
 
 import { DEVHUB_URL } from "@/constants";
 import Main from "../Main/Main";
+import { HighlightedText } from "../HighlightedText/HighlightedText";
 import useDictionary from "@/hooks/useDictionary";
 import useGlossary from "@/hooks/useGlossary";
 import type { DictionaryField } from "@/models/dictionary";
@@ -76,7 +77,7 @@ export default function DictionaryTable() {
                         href={`${DEVHUB_URL}/docs/default/component/authoritative-data-registers/glossary-list/#term-${encodeURIComponent(termId)}`}
                         target="_blank"
                     >
-                        {display}
+                        <HighlightedText text={display} search={globalFilter} />
                     </a>
                 );
             },
@@ -166,9 +167,18 @@ export default function DictionaryTable() {
                             <tr key={row.id}>
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id}>
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext(),
+                                        {cell.column.id === "glossary" ? (
+                                            flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                            )
+                                        ) : (
+                                            <HighlightedText
+                                                text={String(
+                                                    cell.getValue() ?? "",
+                                                )}
+                                                search={globalFilter}
+                                            />
                                         )}
                                     </td>
                                 ))}
