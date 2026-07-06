@@ -1,11 +1,11 @@
 import "./HighlightedText.css";
 
-interface HighlightProps {
+interface HighlightedTextProps {
     text: string;
     search: string;
 }
 
-export function HighlightedText({ text, search }: HighlightProps) {
+export function HighlightedText({ text, search }: HighlightedTextProps) {
     if (!search.trim()) return <>{text}</>;
 
     // Escape special regex characters to prevent crashes
@@ -16,7 +16,9 @@ export function HighlightedText({ text, search }: HighlightProps) {
     return (
         <>
             {parts.map((part, index) =>
-                regex.test(part) ? <mark key={index}>{part}</mark> : part,
+                // Matches are at odd indices after the
+                // `.split()` when using a capturing group.
+                index % 2 === 1 ? <mark key={index}>{part}</mark> : part,
             )}
         </>
     );
