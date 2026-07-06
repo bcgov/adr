@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { TextField } from "@bcgov/design-system-react-components";
+import { ProgressBar, TextField } from "@bcgov/design-system-react-components";
 import { Link } from "wouter";
 import {
     flexRender,
@@ -91,7 +91,13 @@ export default function DictionaryTable() {
 
     return (
         <div>
-            {isFetching && <span>Fetching data...</span>}
+            {isFetching && (
+                <ProgressBar
+                    isIndeterminate
+                    size="medium"
+                    valueLabel="Fetching data..."
+                />
+            )}
             <TextField
                 label="Search: "
                 type="search"
