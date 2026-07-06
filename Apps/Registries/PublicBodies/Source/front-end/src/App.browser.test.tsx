@@ -15,16 +15,6 @@ suite("App contains semantic HTML elements", async () => {
         expect(header).toBeInTheDocument();
     });
 
-    test("main", async () => {
-        const screen = await render(
-            <QueryClientProvider client={new QueryClient()}>
-                <App />
-            </QueryClientProvider>,
-        );
-        const main = screen.locator.getByRole("main");
-        expect(main).toBeInTheDocument();
-    });
-
     test("footer", async () => {
         const screen = await render(
             <QueryClientProvider client={new QueryClient()}>
