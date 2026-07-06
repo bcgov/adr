@@ -55,11 +55,22 @@ export default function DictionaryTable() {
         { header: "Field Name", accessorKey: "fieldName" },
         {
             header: "Glossary",
-            accessorKey: "semanticTermRef",
-            cell: ({ getValue }: { getValue: () => unknown }) => {
-                const termId = termIdFromRef(getValue() as string | undefined);
+            id: "glossary",
+            accessorFn: (row: DictionaryRow) => {
+                const termId = termIdFromRef(row.semanticTermRef);
+                if (!termId) return "";
+                return glossaryByTermId.get(termId) ?? termId;
+            },
+            cell: ({
+                row,
+                getValue,
+            }: {
+                row: { original: DictionaryRow };
+                getValue: () => unknown;
+            }) => {
+                const termId = termIdFromRef(row.original.semanticTermRef);
                 if (!termId) return null;
-                const display = glossaryByTermId.get(termId) ?? termId;
+                const display = String(getValue() ?? termId);
                 return (
                     <a
                         href={`${DEVHUB_URL}/docs/default/component/authoritative-data-registers/glossary-list/#term-${encodeURIComponent(termId)}`}
