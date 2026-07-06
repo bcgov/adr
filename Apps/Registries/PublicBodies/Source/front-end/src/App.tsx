@@ -1,4 +1,8 @@
-import { Header, Footer } from "@bcgov/design-system-react-components";
+import {
+    Header,
+    Subheader,
+    Footer,
+} from "@bcgov/design-system-react-components";
 import { Link } from "wouter";
 
 import "./App.css";
@@ -8,11 +12,17 @@ function App() {
     return (
         <>
             <Header title="B.C. Public Bodies Register" />
-            <nav className="nav-links">
-                <Link href="/public-bodies">Public Bodies</Link>
-                <Link href="/dictionary">Dictionary</Link>
-                <Link href="/glossary">Glossary</Link>
-            </nav>
+            <Subheader>
+                <Link href="/public-bodies" className="nav-link">
+                    Public Bodies
+                </Link>
+                <Link href="/dictionary" className="nav-link">
+                    Dictionary
+                </Link>
+                <Link href="/glossary" className="nav-link">
+                    Glossary
+                </Link>
+            </Subheader>
             <main>
                 <PageRouter />
             </main>
