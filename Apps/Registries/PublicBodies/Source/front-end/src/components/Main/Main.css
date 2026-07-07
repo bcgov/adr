@@ -1,4 +1,5 @@
 main {
+    flex-grow: 1;
     flex: 1 1 auto;
     padding: var(--layout-padding-xlarge);
     width: 100%;
