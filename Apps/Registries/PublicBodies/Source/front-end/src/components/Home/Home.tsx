@@ -15,7 +15,7 @@ export default function Home() {
                 </a>{" "}
                 team in Connected Services BC.
             </p>
-            <p> Choose a view from the navigation bar above.</p>
+            <p>Choose a view from the navigation bar above.</p>
         </Main>
     );
 }
