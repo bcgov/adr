@@ -30,7 +30,12 @@ function termIdFromRef(ref: string | null | undefined): string | undefined {
 
 export default function DictionaryTable() {
     const { data, error, isFetching, isPending } = useDictionary();
-    const { data: glossaryData } = useGlossary();
+    const {
+        data: glossaryData,
+        error: glossaryError,
+        isFetching: isGlossaryFetching,
+        isPending: isGlossaryPending,
+    } = useGlossary();
 
     // Map of term-id → display term name, for resolving semanticTermRef links.
     const glossaryByTermId = useMemo(() => {
@@ -108,7 +113,7 @@ export default function DictionaryTable() {
         getFilteredRowModel: getFilteredRowModel(),
     });
 
-    if (isPending)
+    if (isPending || isGlossaryPending)
         return (
             <Main>
                 <ProgressBar
@@ -119,16 +124,18 @@ export default function DictionaryTable() {
             </Main>
         );
 
-    if (error)
+    if (error || glossaryError)
         return (
             <Main>
-                <p>An error has occurred: {error.message}</p>
+                <p>
+                    An error has occurred: {(error ?? glossaryError)?.message}
+                </p>
             </Main>
         );
 
     return (
         <Main layout={layout}>
-            {isFetching && (
+            {(isFetching || isGlossaryFetching) && (
                 <ProgressBar
                     isIndeterminate
                     size="medium"
