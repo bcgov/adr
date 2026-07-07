@@ -1,5 +1,5 @@
 import { Route, Switch } from "wouter";
-import Home from "./components/Home/Home";
+import Home from "@/components/Home/Home";
 import PublicBodiesList from "@/components/PublicBodiesList/PublicBodiesList";
 import PublicBodyHistory from "@/components/PublicBodyHistory/PublicBodyHistory";
 import DictionaryTable from "@/components/DictionaryTable/DictionaryTable";
