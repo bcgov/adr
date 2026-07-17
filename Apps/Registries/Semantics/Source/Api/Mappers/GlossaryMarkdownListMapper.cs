@@ -82,14 +82,12 @@ namespace Adr.Semantics.Mappers
 
                     if (!string.IsNullOrWhiteSpace(scopeText))
                     {
-                        stringBuilder.Append(" <sup>[").Append(scopeText).Append("]");
+                        stringBuilder.Append(" [").Append(scopeText).Append("]");
 
                         if (IsValidUrl(scopeUrl))
                         {
                             stringBuilder.Append("(").Append(scopeUrl).Append(")");
                         }
-
-                        stringBuilder.Append("</sup>");
                     }
 
                     stringBuilder
