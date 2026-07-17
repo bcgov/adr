@@ -87,7 +87,6 @@ namespace Adr.PublicBodies.Models
         [FieldDescription("The sector the public body belongs to.")]
         [SchemaAndTableName("dbo.PublicBodies")]
         [DataType("string")]
-        [Semantic("72a0f54d-6d36-447a-aede-8ad055dec205")] // reference-data
         public string Sector { get; set; } = "";
 
         /// <summary>
