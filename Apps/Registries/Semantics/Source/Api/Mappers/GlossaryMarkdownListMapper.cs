@@ -82,12 +82,25 @@ namespace Adr.Semantics.Mappers
 
                     if (!string.IsNullOrWhiteSpace(scopeText))
                     {
-                        stringBuilder.Append(" [").Append(scopeText).Append("]");
+                        // `Scope` is displayed wrapped in square brackets
+                        // whether or not `ScopeUrl` is available for a link.
+                        stringBuilder.Append(" [");
 
                         if (IsValidUrl(scopeUrl))
                         {
-                            stringBuilder.Append("(").Append(scopeUrl).Append(")");
+                            stringBuilder
+                                .Append("[")
+                                .Append(scopeText)
+                                .Append("](")
+                                .Append(scopeUrl)
+                                .Append(")");
                         }
+                        else
+                        {
+                            stringBuilder.Append(scopeText);
+                        }
+
+                        stringBuilder.Append("]");
                     }
 
                     stringBuilder
