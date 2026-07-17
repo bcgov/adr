@@ -1,14 +1,14 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: authoritative-data-registers
-  title: Authoritative Data Registers
+  name: connected-services-glossary
+  title: Connected Services Glossary
   description: Standards, dictionaries, and glossaries for authoritative data registers.
   annotations:
     github.com/project-slug: bcgov/adr
     backstage.io/techdocs-ref: dir:.
     bcgovpubcode.gov.bc.ca/ministry: CITZ
-    bcgovpubcode.gov.bc.ca/product_name: Authoritative Data Registers
+    bcgovpubcode.gov.bc.ca/product_name: Connected Services Glossary
     bcgovpubcode.gov.bc.ca/product_description: Standards, dictionaries, and glossaries for authoritative data registers.
     bcgovpubcode.gov.bc.ca/product_acronym: ADR
     bcgovpubcode.gov.bc.ca/product_owner: Colin Newall
