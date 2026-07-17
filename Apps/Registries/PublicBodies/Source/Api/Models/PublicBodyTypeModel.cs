@@ -54,6 +54,7 @@ namespace Adr.PublicBodies.Models
         [DataType("string")]
         [SystemOfRecord("Internal Database")]
         [Required("true")]
+        [Semantic("cdc079e5-839a-42a2-a47d-dc8aa6bc095d")] // public-body-type
         public required string Name { get; set; }
 
         /// <summary>

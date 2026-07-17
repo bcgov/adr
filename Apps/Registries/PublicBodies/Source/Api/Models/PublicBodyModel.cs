@@ -69,6 +69,7 @@ namespace Adr.PublicBodies.Models
         [DataType("string")]
         [Required("true")]
         [SystemOfRecord("Ministry Database")]
+        [Semantic("0e596bc1-8c35-41e0-a4b5-29d0705e8dfb")] // public-body
         public required string Name { get; set; }
 
         /// <summary>
