@@ -16,6 +16,7 @@ namespace Adr.PublicBodies.Models
         [SchemaAndTableName("dbo.PublicBodyParentChild")]
         [DataType("string")]
         [Required("true")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public required string ParentChildId { get; set; }
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace Adr.PublicBodies.Models
         [DataType("string")]
         [Required("true")]
         [KeyRelationships("Foreign key to PublicBody")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public required string ParentUniqueId { get; set; }
 
         /// <summary>
@@ -49,6 +51,7 @@ namespace Adr.PublicBodies.Models
         [DataType("string")]
         [Required("true")]
         [KeyRelationships("Foreign key to PublicBody")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public required string ChildUniqueId { get; set; }
 
         /// <summary>
