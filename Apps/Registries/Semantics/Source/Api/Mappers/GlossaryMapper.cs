@@ -23,7 +23,9 @@ namespace Adr.Semantics.Mappers
 
             this.Map(m => m.Keywords).Name("Keywords").TypeConverter<ListStringConverter>();
 
-            this.Map(m => m.Context).Name("Context");
+            this.Map(m => m.Scope).Name("Scope");
+
+            this.Map(m => m.ScopeUrl).Name("Scope URL");
 
             this.Map(m => m.Citations).Name("Citations");
 

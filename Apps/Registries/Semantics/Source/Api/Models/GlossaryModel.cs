@@ -37,9 +37,14 @@ namespace Adr.Semantics.Models
         public IList<string> Keywords { get; set; } = new List<string>();
 
         /// <summary>
-        /// Gets or sets the business context the term belongs to (e.g. Property Ownership, BC Services Card).
+        /// Gets or sets the scope text for the term.
         /// </summary>
-        public string Context { get; set; } = "";
+        public string Scope { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets the scope hyperlink URL for the term.
+        /// </summary>
+        public string ScopeUrl { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the citation / reference URL for the term.
