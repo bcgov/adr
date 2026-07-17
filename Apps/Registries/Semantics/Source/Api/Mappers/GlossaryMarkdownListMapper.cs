@@ -94,11 +94,6 @@ namespace Adr.Semantics.Mappers
 
                     stringBuilder
                         .Append("\n\n");
-
-                    if (!string.IsNullOrWhiteSpace(keywords))
-                    {
-                        stringBuilder.Append("Keywords: ").Append(keywords).Append("\n\n");
-                    }
                 }
             }
 
