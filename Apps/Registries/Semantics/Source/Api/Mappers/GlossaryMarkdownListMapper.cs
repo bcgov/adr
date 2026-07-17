@@ -68,50 +68,36 @@ namespace Adr.Semantics.Mappers
                             .Select(c => c.Trim())
                     );
 
+                    var definitionText = entry.Definition?.TrimEnd() ?? string.Empty;
+                    var scopeText = entry.Scope?.Trim();
+                    var scopeUrl = entry.ScopeUrl?.Trim();
+
                     stringBuilder
                         .Append("### ")
                         .Append(entry.Term.Trim())
                         .Append(" {#")
                         .Append(GetTermId(entry.StaticId, entry.Name))
                         .Append("}\n\n")
-                        .Append(entry.Definition)
+                        .Append(definitionText);
+
+                    if (!string.IsNullOrWhiteSpace(scopeText))
+                    {
+                        stringBuilder.Append(" <sup>[").Append(scopeText).Append("]");
+
+                        if (IsValidUrl(scopeUrl))
+                        {
+                            stringBuilder.Append("(").Append(scopeUrl).Append(")");
+                        }
+
+                        stringBuilder.Append("</sup>");
+                    }
+
+                    stringBuilder
                         .Append("\n\n");
 
                     if (!string.IsNullOrWhiteSpace(keywords))
                     {
                         stringBuilder.Append("Keywords: ").Append(keywords).Append("\n\n");
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(entry.Context))
-                    {
-                        var contextText = entry.Context.Trim();
-                        var urls = ExtractUrls(entry.Citations);
-
-                        if (urls.Count > 0)
-                        {
-                            stringBuilder.Append("Context: ");
-
-                            for (int i = 0; i < urls.Count; i++)
-                            {
-                                if (i > 0)
-                                {
-                                    stringBuilder.Append(", ");
-                                }
-
-                                stringBuilder
-                                    .Append("[")
-                                    .Append(contextText)
-                                    .Append("](")
-                                    .Append(urls[i])
-                                    .Append(")");
-                            }
-
-                            stringBuilder.Append("\n\n");
-                        }
-                        else
-                        {
-                            stringBuilder.Append("Context: ").Append(contextText).Append("\n\n");
-                        }
                     }
                 }
             }
@@ -149,31 +135,7 @@ namespace Adr.Semantics.Mappers
             return $"term-{name.ToLowerInvariant()}";
         }
 
-        private static List<string> ExtractUrls(string text)
-        {
-            var urls = new List<string>();
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                return urls;
-            }
-
-            var trimmed = text.Trim();
-
-            // Split by whitespace and newlines to find potential URLs
-            var parts = trimmed.Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var part in parts)
-            {
-                if (IsValidUrl(part))
-                {
-                    urls.Add(part);
-                }
-            }
-
-            return urls;
-        }
-
-        private static bool IsValidUrl(string text)
+        private static bool IsValidUrl(string? text)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
