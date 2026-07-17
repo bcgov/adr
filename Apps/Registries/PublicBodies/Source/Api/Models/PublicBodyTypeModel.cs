@@ -18,6 +18,7 @@ namespace Adr.PublicBodies.Models
         [DataType("string")]
         [SystemOfRecord("Internal Database")]
         [Required("true")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public required string Id { get; set; }
 
         /// <summary>
@@ -30,6 +31,7 @@ namespace Adr.PublicBodies.Models
         [DataType("string")]
         [SystemOfRecord("Internal Database")]
         [Required("true")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public required string StaticId { get; set; }
 
         /// <summary>
@@ -39,6 +41,7 @@ namespace Adr.PublicBodies.Models
         [FieldDescription("Identifier for the public body type.")]
         [SchemaAndTableName("dbo.PublicBodyType")]
         [DataType("string")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public string PublicBodyTypeId { get; set; } = "";
 
         /// <summary>

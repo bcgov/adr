@@ -17,6 +17,7 @@ namespace Adr.PublicBodies.Models
         [SchemaAndTableName("dbo.PublicBodies")]
         [DataType("string")]
         [Required("true")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public required string Id { get; set; }
 
         /// <summary>
@@ -37,6 +38,7 @@ namespace Adr.PublicBodies.Models
         [FieldDescription("Identifier for the public body.")]
         [SchemaAndTableName("dbo.PublicBodies")]
         [DataType("string")]
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public string PublicBodyId { get; set; } = "";
 
         /// <summary>
@@ -97,7 +99,7 @@ namespace Adr.PublicBodies.Models
         [DataType("string")]
         [DataSource("PublicBodyType table")]
         [KeyRelationships("Foreign key to PublicBodyType")]
-        [Semantic("72a0f54d-6d36-447a-aede-8ad055dec205")] // reference-data
+        [Semantic("ea050745-5a9f-4c7b-b4ef-2b750bed999b")] // immutable
         public string TypeId { get; set; } = "";
 
         /// <summary>
