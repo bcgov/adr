@@ -83,7 +83,7 @@ export default function DictionaryTable() {
                 const display = String(getValue() ?? termId);
                 return (
                     <a
-                        href={`${DEVHUB_URL}/docs/default/component/authoritative-data-registers/glossary-list/#term-${encodeURIComponent(termId)}`}
+                        href={`${DEVHUB_URL}/docs/default/component/connected-services-glossary/glossary-list/#term-${encodeURIComponent(termId)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
