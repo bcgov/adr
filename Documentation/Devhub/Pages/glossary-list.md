@@ -105,9 +105,9 @@ Consent is a voluntary agreement by an individual for their personal information
 
 A transfer of an estate or interest in land (other than by will) to a new owner through sale, lease, or other means. A transfer of title is the conveyance of an estate or interest in land in exchange for some financial consideration, typically a sale. [[Land Title and Survey Authority of British Columbia](https://ltsa.ca/property-owners/about-land-records/glossary/)]
 
-### Copyright {#term-}
+### Copyright {#term-e04f3d1f-72f3-4de4-9e6d-03866daaa754}
 
-Copyright is an exclusive legal right to reproduce, publish and sell a work or material. Copyright encompasses a wide range of materials including:written materials, such as books, manuals, reports and computer software;visual materials such as videos, photographs, pictures, posters and maps; andaudio materials such as music and voice recordings. [[Intellectual Property Management](https://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/intellectual-property/frequently-asked-questions)]
+Copyright is an exclusive legal right to reproduce, publish and sell a work or material. Copyright encompasses a wide range of materials including: written materials, such as books, manuals, reports and computer software; visual materials such as videos, photographs, pictures, posters and maps; and audio materials such as music and voice recordings. [[Intellectual Property Management](https://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/intellectual-property/frequently-asked-questions)]
 
 ### Corporation {#term-d35d9711-f47d-4fb4-99f1-afc54be2c143}
 
