@@ -3,13 +3,13 @@ kind: Component
 metadata:
   name: connected-services-glossary
   title: Connected Services Glossary
-  description: Standards, dictionaries, and glossaries for authoritative data registers.
+  description: Turning information into understanding
   annotations:
     github.com/project-slug: bcgov/adr
     backstage.io/techdocs-ref: dir:.
     bcgovpubcode.gov.bc.ca/ministry: CITZ
     bcgovpubcode.gov.bc.ca/product_name: Connected Services Glossary
-    bcgovpubcode.gov.bc.ca/product_description: Standards, dictionaries, and glossaries for authoritative data registers.
+    bcgovpubcode.gov.bc.ca/product_description: Turning information into understanding
     bcgovpubcode.gov.bc.ca/product_acronym: ADR
     bcgovpubcode.gov.bc.ca/product_owner: Colin Newall
     bcgovpubcode.gov.bc.ca/hosting_platform: Private-Cloud-Openshift
