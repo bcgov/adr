@@ -1,5 +1,5 @@
 ---
-title: Connected Services Glossary of Terms list
+title: Connected Services Glossary of Terms
 ---
 
 <!--
