@@ -5,12 +5,8 @@ repo_url: "https://github.com/bcgov/adr"
 edit_uri: edit/dev/Documentation/Devhub/Pages/
 nav:
   - Introduction: index.md
-  - Getting started: getting-started.md
-  - Configuration: configuration.md
-  - Tips and tricks: tips-and-tricks.md
-  - About us: about-us.md
-  - Connected Services Glossary of Terms table: glossary.md
-  - Connected Services Glossary of Terms list: glossary-list.md
+  - Connected Services Glossary of Terms: glossary.md
+  - Scoping Rules: scoping-rules.md
 plugins:
   - techdocs-core
   - git-revision-date-localized
