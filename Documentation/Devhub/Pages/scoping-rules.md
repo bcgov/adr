@@ -4,7 +4,7 @@ title: Scoping Rules
 
 # Scope & Rules for CS Glossary Terms
 
-The following scoping rules define what content is included in the CS Glossary of Terms and what is excluded. They help keep the glossary focused, consistent, and easy to use by establishing clear boundaries for the terms, concepts, and information it contains. 
+The following scoping rules define what content is included in the CS Glossary of Terms and what is excluded. They help keep the glossary focused, consistent, and easy to use by establishing clear boundaries for the terms, concepts, and information it contains.
 
 ## In Scope
 
