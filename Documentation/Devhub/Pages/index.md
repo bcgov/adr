@@ -1,14 +1,9 @@
-# Authoritative Data Registers
+---
+title: Introduction
+---
 
-Standards, dictionaries, and glossaries for authoritative data registers.
+# Introduction
 
-**This file is the homepage of your documentation. It is mandatory and must not be deleted.**
+This is the Connected Services Semantics content section maintained by the Authoritative Data Registers team in the Policy Division of Connected Services BC.
 
-## Suggested content
-
-* Clearly define the purpose and functionality of your service, project, or application 
-  * Leverage [Service Definition](https://github.com/BCDevOps/openshift-wiki/blob/0ff5d39f767e89b1b8fac8ccda9901b3e18a672a/docs/OCP/ServiceDefinition.md) structure that exists for several services already 
-* Highlight key features and advantages
-* Emphasize main functionalities
-* How to get support
-
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut auctor mi et augue tempor pulvinar. Sed et est aliquet, laoreet quam blandit, ornare metus. Cras vel elit ut arcu commodo vehicula et in purus. Phasellus neque lorem, euismod sed nunc quis, lacinia sollicitudin ligula. Maecenas ultrices mattis velit, quis eleifend sem molestie in. In nisl velit, cursus eget sollicitudin finibus, pulvinar in ex. Maecenas pretium nibh eu augue mollis porta. Maecenas porta purus a condimentum porta. Nunc felis quam, dignissim id pretium eget, suscipit eu nisl. Suspendisse vel volutpat sapien. Sed porttitor quam et neque mattis, nec ultrices nisi vehicula. In congue fringilla nisi, et luctus quam congue eget. Vestibulum varius purus tortor, non tempor mauris posuere et.
