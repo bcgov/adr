@@ -1,5 +1,5 @@
 site_name: "Connected Services Glossary"
-site_description: "Standards, dictionaries, and glossaries for authoritative data registers."
+site_description: "Turning information into understanding"
 docs_dir: "Documentation/Devhub/Pages"
 repo_url: "https://github.com/bcgov/adr"
 edit_uri: edit/dev/Documentation/Devhub/Pages/
