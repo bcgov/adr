@@ -1,4 +1,4 @@
-site_name: "Connected Services Glossary"
+site_name: "Connected Services Semantics"
 site_description: "Turning information into understanding"
 docs_dir: "Documentation/Devhub/Pages"
 repo_url: "https://github.com/bcgov/adr"
