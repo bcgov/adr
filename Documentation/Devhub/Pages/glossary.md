@@ -73,7 +73,7 @@ The entity responsible for confirming that a data exchange has the required lega
 
 ### Central government agencies {#term-59c70873-115e-40f5-87d8-34abe3072752}
 
-There are many independent or partially independent agencies, boards and commissions that are essential to effectively governing the province. Agencies include authorities, boards, commissions, corporations and councils. A public agency also includes any bodies established by the government on an interim basis to perform arbitration, regulation or similar functions. [[Government Structure](https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations)]
+There are many independent or partially independent agencies, boards and commissions that are essential to effectively governing the province. Agencies include authorities, boards, commissions, corporations and councils. A public agency also includes any bodies established by the government on an interim basis to perform arbitration, regulation or similar functions. [[Government Structure](https://www2.gov.bc.ca/gov/content?id=F024503C72F64D8380441972977188D6)]
 
 ### Certificate Authority {#term-f22f5bd4-08c5-4c82-86d3-a267014d5158}
 
@@ -85,7 +85,7 @@ The transport mode used for an exchange: Pull API, Push Webhook, Message Queue, 
 
 ### Child {#term-4cae3d1b-fbb0-4a76-8d38-548fffbd5cf0}
 
-A resident of B.C. who meets all of the following conditions:Is a child of a beneficiary or a person who stands in place of a parentWho is a minorDoes not have a spouseIs supported by the beneficiary [[Medical Services Plan](https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible#dependents)]
+A resident of B.C. who meets all of the following conditions:Is a child of a beneficiary or a person who stands in place of a parentWho is a minorDoes not have a spouseIs supported by the beneficiary [[Medical Services Plan](https://www2.gov.bc.ca/gov/content?id=A24BB960F5234630BCB9DE847EEFD07B)]
 
 ### Completeness {#term-cd363ff3-d8e6-4013-beaf-892fe3ab8583}
 
@@ -109,7 +109,7 @@ A transfer of an estate or interest in land (other than by will) to a new owner 
 
 ### Copyright {#term-e04f3d1f-72f3-4de4-9e6d-03866daaa754}
 
-Copyright is an exclusive legal right to reproduce, publish and sell a work or material. Copyright encompasses a wide range of materials including: written materials, such as books, manuals, reports and computer software; visual materials such as videos, photographs, pictures, posters and maps; and audio materials such as music and voice recordings. [[Intellectual Property Management](https://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/intellectual-property/frequently-asked-questions)]
+Copyright is an exclusive legal right to reproduce, publish and sell a work or material. Copyright encompasses a wide range of materials including: written materials, such as books, manuals, reports and computer software; visual materials such as videos, photographs, pictures, posters and maps; and audio materials such as music and voice recordings. [[Intellectual Property Management](https://www2.gov.bc.ca/gov/content?id=96CA7A9D26024B1A9EE81637DED592B8)]
 
 ### Corporation {#term-d35d9711-f47d-4fb4-99f1-afc54be2c143}
 
@@ -125,7 +125,7 @@ Any IM IT service, system, or infrastructure component that is deemed necessary 
 
 ### Crown corporations {#term-c702252b-5c28-4122-8a1c-1d75c0195165}
 
-Crown corporations are owned by the government, but operate at arm’s length from the public service and elected officials. [[Government Structure](https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations)]
+Crown corporations are owned by the government, but operate at arm’s length from the public service and elected officials. [[Government Structure](https://www2.gov.bc.ca/gov/content?id=F024503C72F64D8380441972977188D6)]
 
 ### Crown Land {#term-47904b3d-591e-4dda-a916-92eca9bde64d}
 
@@ -214,11 +214,11 @@ Older than 18 and younger than 25 years of age
 
 In full-time attendance at a recognized post-secondary institution (this includes trade, technical or high schools)
 
-Supported by a beneficiary who is the person’s parent or who stands in place of the person’s parent [[Medical Services Plan](https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible#dependents)]
+Supported by a beneficiary who is the person’s parent or who stands in place of the person’s parent [[Medical Services Plan](https://www2.gov.bc.ca/gov/content?id=A24BB960F5234630BCB9DE847EEFD07B)]
 
 ### Dependents {#term-f131d1cc-1788-4e0a-9eb5-1d5696f55b05}
 
-Dependents include a spouse, children and dependent post-secondary students. [[Medical Services Plan](https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible#dependents)]
+Dependents include a spouse, children and dependent post-secondary students. [[Medical Services Plan](https://www2.gov.bc.ca/gov/content?id=A24BB960F5234630BCB9DE847EEFD07B)]
 
 ### Document {#term-69821c3e-e020-4626-a059-962b92c02e86}
 
@@ -268,7 +268,7 @@ An element (such as an identifier, data structure, or stored record) is consider
 
 ### Independent boards, commissions and tribunals {#term-37f79c0d-0380-4183-82e9-e756294c7d8e}
 
-Independent boards, commissions and tribunals are established by the government to perform arbitration, regulation or similar functions. The provincial government appoints at least one representative to these agencies. [[Government Structure](https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations)]
+Independent boards, commissions and tribunals are established by the government to perform arbitration, regulation or similar functions. The provincial government appoints at least one representative to these agencies. [[Government Structure](https://www2.gov.bc.ca/gov/content?id=F024503C72F64D8380441972977188D6)]
 
 ### Integration {#term-8b6a24fe-a037-4b20-962f-5c3cbc02ad69}
 
@@ -327,7 +327,7 @@ Core, non-transactional data that describes key business entities (e.g., persons
 
 ### Metadata {#term-8983389a-7650-412b-bfde-524994c37b28}
 
-Metadata is a set of structured data that describes and gives additional detail about a Dataset. Metadata helps identify, manage, and share Datasets. [[Data and Information Management](https://www2.gov.bc.ca/gov/content/data/policy-standards/data-standards-and-guidelines/core-metadata-standard)]
+Metadata is a set of structured data that describes and gives additional detail about a Dataset. Metadata helps identify, manage, and share Datasets. [[Data and Information Management](https://www2.gov.bc.ca/gov/content?id=F528E060681144BBBB83246ECB238823)]
 
 ### Metadata Record {#term-a7ee752f-0722-4672-b0f4-652e442e8ee4}
 
@@ -347,7 +347,7 @@ A Minimum Viable Dataset (MVD) contains only data essential to its purpose. For 
 
 ### Ministries {#term-b0d6b711-018a-4813-b39c-5fd922d4bdb5}
 
-The B.C. Public Service is divided into ministries. Each ministry is responsible for a specific area of public policy, government function or service delivery. [[Government Structure](https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations)]
+The B.C. Public Service is divided into ministries. Each ministry is responsible for a specific area of public policy, government function or service delivery. [[Government Structure](https://www2.gov.bc.ca/gov/content?id=F024503C72F64D8380441972977188D6)]
 
 ### Mortgage {#term-b67147da-091b-422e-bf32-b00d1eb4bd11}
 
@@ -363,7 +363,7 @@ A security principle that ensures a person or system cannot deny having performe
 
 ### Open Data {#term-dd65b33f-ab63-4f32-9f04-e36af723a576}
 
-Data that has undergone an Open Data Assessment and is licensed under the Open Government Licence - British Columbia. Such Open Data is then made available to the public for copying, publishing, distribution, transmission and adaptation under the terms of the OGL-BC. [[BC Data Catalogue](https://www2.gov.bc.ca/gov/content/data/policy-standards/data-policies/open-data)]
+Data that has undergone an Open Data Assessment and is licensed under the Open Government Licence - British Columbia. Such Open Data is then made available to the public for copying, publishing, distribution, transmission and adaptation under the terms of the OGL-BC. [[BC Data Catalogue](https://www2.gov.bc.ca/gov/content?id=48A2761910D6462EB8762758C54224EA)]
 
 ## P {#terms-p}
 
@@ -377,11 +377,11 @@ Parcel Identifier (PID) is a nine-digit number that uniquely identifies a parcel
 
 ### Personal Health Number {#term-f0d40a49-1c4f-4ce1-af37-710022213d9c}
 
-Each B.C. resident enrolled with the Medical Services Plan (MSP) is given a unique lifetime identifier for health care called a Personal Health Number (PHN). Your PHN remains the same, regardless of any changes to personal status, and can be found on your BC Services Card. [[Medical Services Plan](https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/personal-health-identification)]
+Each B.C. resident enrolled with the Medical Services Plan (MSP) is given a unique lifetime identifier for health care called a Personal Health Number (PHN). Your PHN remains the same, regardless of any changes to personal status, and can be found on your BC Services Card. [[Medical Services Plan](https://www2.gov.bc.ca/gov/content?id=A24BB960F5234630BCB9DE847EEFD07B)]
 
 ### Professional regulatory authorities {#term-2da8d854-731d-43e2-9aec-fa5f6ef89c70}
 
-Professional regulatory authorities are government agencies or public organizations with authority delegated by law from the government. They provide oversight and certification to specified regulated occupations in B.C. [[Government Structure](https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations)]
+Professional regulatory authorities are government agencies or public organizations with authority delegated by law from the government. They provide oversight and certification to specified regulated occupations in B.C. [[Government Structure](https://www2.gov.bc.ca/gov/content?id=F024503C72F64D8380441972977188D6)]
 
 ### Program Authority {#term-4d464b52-a0fa-473b-8461-662e6004b0db}
 
@@ -393,11 +393,11 @@ A tax paid when one purchases or gains an interest in property that is registere
 
 ### Public Body {#term-0e596bc1-8c35-41e0-a4b5-29d0705e8dfb}
 
-A government-related organization or agency funded to deliver public services to citizens. For example, a government ministry, central government agency, Crown corporation, or regulator. [Government Structure]
+A government-related organization or agency funded to deliver public services to citizens. For example, a government ministry, central government agency, Crown corporation, or regulator. [Environment]
 
 ### Public Body Type {#term-cdc079e5-839a-42a2-a47d-dc8aa6bc095d}
 
-The category of the public body defined in public bodies definition. [Government Structure]
+The category of the public body defined in public bodies definition. [Environment]
 
 ## R {#terms-r}
 
@@ -437,7 +437,7 @@ Residency or "Ordinarily resident" in B.C. refers to the place where the applica
 •Bank or other financial accounts with a home branch in B.C.
 •Applying for government assistance, programs, and/or financial benefits in B.C.
 •The frequency, length, purpose, and intention of stays within and outside of B.C.
-Repeated instances of leaving BC, returning briefly, and then leaving again would most likely not be considered as ordinarily resident of B.C.. [[BC Employment and Assistance Policy](https://www2.gov.bc.ca/gov/content/governments/policies-for-government/bcea-policy-and-procedure-manual/application-and-intake/citizenship-requirements)]
+Repeated instances of leaving BC, returning briefly, and then leaving again would most likely not be considered as ordinarily resident of B.C.. [[BC Employment and Assistance Policy](https://www2.gov.bc.ca/gov/content?id=6B67449511354E07BB90147783A8A2B5)]
 
 ### Resident {#term-bb195bf0-b77c-4749-af98-10374de33640}
 
@@ -449,7 +449,7 @@ Makes their home in B.C.
 
 Physically present in B.C. at least six months in a calendar year
 
-Eligible B.C. residents (citizens of Canada or persons who are lawfully admitted to Canada for permanent residence) who are outside B.C. for vacation purposes only, are allowed a total absence of up to seven months in a calendar year [[Medical Services Plan](https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible#dependents)]
+Eligible B.C. residents (citizens of Canada or persons who are lawfully admitted to Canada for permanent residence) who are outside B.C. for vacation purposes only, are allowed a total absence of up to seven months in a calendar year [[Medical Services Plan](https://www2.gov.bc.ca/gov/content?id=A24BB960F5234630BCB9DE847EEFD07B)]
 
 ## S {#terms-s}
 
@@ -483,7 +483,7 @@ Unmarried couples are considered spouses if they meet either of the following cr
 
 ### Spouse {#term-0cd3330c-bcea-4bfc-bdd1-82fab972cb11}
 
-A resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant. [[Medical Services Plan](https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible#dependents)]
+A resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant. [[Medical Services Plan](https://www2.gov.bc.ca/gov/content?id=A24BB960F5234630BCB9DE847EEFD07B)]
 
 ### System of Record {#term-b2c5967a-33ea-47a5-88e1-7d20ec7f0994}
 
