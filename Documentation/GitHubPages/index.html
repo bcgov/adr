@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Bare-bones interactive ADR TechDocs prototype for information architecture validation." />
+  <title>Connected Services | B.C. government DevHub</title>
+  <style>
+:root {
+  --bc-navy: #003366;
+  --bc-navy-dark: #00264d;
+  --bc-blue: #1a5a96;
+  --bc-blue-hover: #174f83;
+  --bc-blue-light: #e8f1f8;
+  --bc-yellow: #fdbf14;
+  --bc-yellow-dark: #d89f00;
+  --text: #252525;
+  --muted: #5b616b;
+  --border: #d8d8d8;
+  --surface: #ffffff;
+  --surface-soft: #f6f6f6;
+  --info-bg: #eef6fb;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+  --focus: 0 0 0 3px #ffffff, 0 0 0 6px #2e5dd7;
+  --sidebar: 206px;
+  --radius: 3px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--text); font-family: "BC Sans", Arial, sans-serif; font-size: 16px; line-height: 1.55; background: var(--surface); }
+button, input { font: inherit; }
+a { color: var(--bc-blue); }
+a:hover { color: var(--bc-blue-hover); }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: none; box-shadow: var(--focus); }
+.svg-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.sr-only { position: absolute!important; width: 1px!important; height: 1px!important; padding: 0!important; margin: -1px!important; overflow: hidden!important; clip: rect(0,0,0,0)!important; white-space: nowrap!important; border: 0!important; }
+.skip-link { position: fixed; top: -100px; left: 16px; z-index: 9999; background: white; padding: 10px 14px; border: 3px solid var(--bc-yellow); color: var(--bc-navy); font-weight: 700; }
+.skip-link:focus { top: 16px; }
+.global-sidebar { position: fixed; inset: 0 auto 0 0; width: var(--sidebar); background: var(--bc-navy); color: white; z-index: 1000; overflow-y: auto; }
+.sidebar-brand { min-height: 122px; padding: 24px 17px 18px; display: flex; align-items: flex-start; justify-content: flex-start; }
+.bc-logo-link { display: inline-flex; align-items: center; max-width: 100%; }
+.bc-logo { display: block; width: 169px; max-width: 100%; height: auto; }
+.sidebar-close { display: none; color: white; }
+.global-nav { padding-top: 6px; border-top: 1px solid rgba(255,255,255,.25); }
+.global-nav-item { width: 100%; min-height: 52px; padding: 0 20px; border: 0; border-bottom: 1px solid rgba(255,255,255,.15); background: transparent; color: white; display: flex; align-items: center; gap: 12px; font-weight: 700; text-decoration: none; cursor: pointer; text-align: left; }
+.global-nav-item svg { width: 20px; height: 20px; flex: 0 0 20px; }
+.global-nav-item:hover { background: rgba(255,255,255,.09); color: white; }
+.global-nav-item.active { box-shadow: inset 0 3px 0 #61a7ff, inset 0 -3px 0 #61a7ff; background: rgba(255,255,255,.035); }
+.app-shell { margin-left: var(--sidebar); min-height: 100vh; }
+.mobile-topbar { display: none; }
+.devhub-header { padding: 42px 48px 34px; border-bottom: 1px solid #ececec; background: white; }
+.devhub-title-row { max-width: 1500px; margin: 0 auto; display: flex; gap: 20px; align-items: stretch; }
+.yellow-rule { width: 4px; background: var(--bc-yellow); flex: 0 0 4px; }
+.eyebrow { color: var(--bc-blue); font-weight: 700; font-size: 14px; letter-spacing: .025em; text-transform: uppercase; margin-bottom: 2px; }
+.devhub-title { font-size: clamp(30px, 3vw, 42px); line-height: 1.15; font-weight: 700; letter-spacing: -.01em; }
+.devhub-title-row p { margin: 8px 0 0; max-width: 1000px; color: #333; }
+.search-wrap { max-width: 1000px; margin: 28px auto 0; position: relative; display: flex; align-items: center; border: 1px solid #8d8d8d; border-radius: 999px; min-height: 58px; box-shadow: 0 4px 11px rgba(0,0,0,.12); background: white; }
+.search-wrap > svg { width: 24px; height: 24px; margin-left: 20px; color: #444; }
+.search-wrap input { border: 0; outline: 0; flex: 1; padding: 14px 16px; background: transparent; min-width: 0; }
+.search-wrap button { border: 0; background: transparent; padding: 14px 22px; color: #333; cursor: pointer; }
+.search-results { position: absolute; top: calc(100% + 8px); left: 14px; right: 14px; border: 1px solid var(--border); background: white; box-shadow: var(--shadow); z-index: 100; border-radius: var(--radius); display: none; max-height: 340px; overflow-y: auto; }
+.search-results.open { display: block; }
+.search-result { display: block; width: 100%; padding: 12px 16px; border: 0; border-bottom: 1px solid #ececec; text-align: left; background: white; cursor: pointer; }
+.search-result:hover, .search-result:focus { background: var(--bc-blue-light); }
+.search-result strong { display: block; color: var(--bc-blue); }
+.search-result span { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
+.search-empty { padding: 16px; color: var(--muted); }
+main { background: var(--surface-soft); min-height: calc(100vh - 240px); }
+.docs-shell { max-width: 1540px; margin: 0 auto; padding: 32px 48px 80px; display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 44px; align-items: start; }
+.local-nav { position: sticky; top: 24px; background: white; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,.08); max-height: calc(100vh - 48px); overflow-y: auto; }
+.local-nav-title { margin: 0; padding: 18px 18px 14px; font-size: 19px; color: var(--bc-navy); border-bottom: 4px solid var(--bc-yellow); }
+.local-nav-group { border-bottom: 1px solid #e6e6e6; padding-bottom: 7px; }
+.local-nav-group:last-child { border-bottom: 0; }
+.local-nav-group-label {
+  display: block;
+  padding: 13px 16px 9px;
+  color: #333;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  line-height: 1.35;
+}
+.local-nav a.local-nav-group-label:hover { background: #f2f7fb; color: var(--bc-navy); }
+.local-nav a.local-nav-group-label.section-active { color: var(--bc-navy); background: #f8fafc; }
+.local-nav a { display: block; padding: 7px 14px 7px 20px; color: var(--bc-blue); text-decoration: none; border-left: 4px solid transparent; line-height: 1.35; }
+.local-nav a.local-nav-child { padding-left: 30px; }
+.local-nav a.local-nav-level-1 { padding: 10px 14px 10px 18px; font-weight: 600; }
+.local-nav a.local-nav-level-2, .local-nav .local-nav-static.local-nav-level-2 { padding-left: 34px; }
+.local-nav a.local-nav-level-3 { padding-left: 50px; }
+.local-nav .local-nav-static { display: block; padding: 8px 14px 8px 20px; color: #333; line-height: 1.35; font-weight: 600; }
+.local-nav .local-nav-static.section-active { background: #f8fafc; color: var(--bc-navy); }
+.local-nav .local-nav-tree { padding: 6px 0 8px; border-bottom: 1px solid #e6e6e6; }
+.local-nav .local-nav-tree:last-child { border-bottom: 0; }
+.local-nav a:hover { background: #f2f7fb; }
+.local-nav a.active { background: var(--bc-blue-light); color: var(--bc-navy); border-left-color: var(--bc-yellow); font-weight: 700; }
+.local-nav-toggle { display: none; }
+.article { background: white; border: 1px solid #e1e1e1; padding: 38px 48px 48px; min-width: 0; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+.breadcrumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 14px; margin-bottom: 18px; color: var(--muted); }
+.breadcrumbs a { text-decoration: none; }
+.breadcrumbs svg { width: 14px; height: 14px; color: #777; }
+.article h1 { font-size: clamp(34px, 4vw, 48px); line-height: 1.12; margin: 0 0 14px; letter-spacing: -.018em; }
+.article h2 { font-size: clamp(25px, 2.5vw, 32px); line-height: 1.2; margin: 42px 0 14px; padding-top: 3px; }
+.article h2::before { content: ""; display: block; width: 34px; height: 4px; background: var(--bc-yellow); margin-bottom: 12px; }
+.article h3 { font-size: 21px; line-height: 1.3; margin: 25px 0 9px; }
+.article p { max-width: 880px; margin: 0 0 16px; }
+.article .lead { font-size: 20px; line-height: 1.5; color: #333; max-width: 950px; }
+.placeholder {
+  margin: 8px 0 0;
+  max-width: 920px;
+  color: #4a4a4a;
+}
+.placeholder strong { display: inline; color: inherit; }
+.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 22px 0 10px; }
+.card { border: 1px solid var(--border); background: white; padding: 24px; box-shadow: 0 2px 5px rgba(0,0,0,.09); min-width: 0; }
+.card h3 { margin: 0 0 9px; color: var(--bc-blue); }
+.card p { margin-bottom: 18px; }
+.path-card { border-top: 5px solid var(--bc-yellow); }
+.path-label { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.button-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 0; }
+.button { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 8px; border: 2px solid var(--bc-blue); padding: 9px 16px; border-radius: 2px; background: var(--bc-blue); color: white; text-decoration: none; font-weight: 700; cursor: pointer; }
+.button:hover { background: var(--bc-blue-hover); color: white; }
+.button.secondary { background: white; color: var(--bc-blue); }
+.button.secondary:hover { background: var(--bc-blue-light); }
+.button svg { width: 18px; height: 18px; }
+.resource-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 18px; }
+.resource-card { border: 1px solid var(--border); padding: 20px; background: white; }
+.resource-card h2, .resource-card h3 { margin-top: 0; }
+.resource-card h3 { color: var(--bc-navy); }
+.resource-card .placeholder { margin-top: 10px; }
+.accordion { border-top: 1px solid var(--border); margin-top: 22px; }
+.accordion-item { border-bottom: 1px solid var(--border); }
+.accordion-item summary { cursor: pointer; list-style: none; padding: 18px 44px 18px 4px; font-weight: 700; font-size: 19px; position: relative; color: var(--bc-navy); }
+.accordion-item summary::-webkit-details-marker { display: none; }
+.accordion-item summary::after { content: "+"; position: absolute; right: 12px; top: 14px; font-size: 28px; color: var(--bc-blue); font-weight: 400; }
+.accordion-item[open] summary::after { content: "−"; }
+.accordion-content { padding: 0 42px 20px 4px; }
+.next-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.page-nav { display: flex; justify-content: space-between; gap: 18px; border-top: 1px solid var(--border); margin-top: 48px; padding-top: 24px; }
+.page-nav a { display: flex; align-items: center; gap: 7px; font-weight: 700; text-decoration: none; max-width: 44%; }
+.page-nav .next { margin-left: auto; text-align: right; }
+.page-nav .prev svg { transform: rotate(180deg); }
+.page-nav svg { width: 18px; height: 18px; flex: 0 0 18px; }
+.toast { position: fixed; right: 24px; bottom: 24px; background: var(--bc-navy); color: white; padding: 12px 16px; box-shadow: var(--shadow); border-left: 5px solid var(--bc-yellow); opacity: 0; transform: translateY(16px); pointer-events: none; transition: .2s ease; z-index: 2000; max-width: 380px; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.icon-button { border: 0; background: transparent; padding: 8px; display: inline-grid; place-items: center; cursor: pointer; }
+.icon-button svg { width: 24px; height: 24px; }
+.sidebar-scrim { display: none; }
+@media (max-width: 1180px) { .docs-shell { grid-template-columns: 250px minmax(0,1fr); gap: 26px; padding-inline: 28px; } .article { padding: 32px; } }
+@media (max-width: 900px) {
+  :root { --sidebar: 286px; }
+  .mobile-topbar { display: flex; position: sticky; top: 0; z-index: 900; height: 62px; background: var(--bc-navy); color: white; align-items: center; padding: 0 12px; gap: 12px; box-shadow: 0 2px 5px rgba(0,0,0,.2); }
+  .mobile-wordmark { font-weight: 700; margin-left: auto; margin-right: 8px; }
+  .mobile-topbar .icon-button { color: white; }
+  .global-sidebar { transform: translateX(-101%); transition: transform .2s ease; width: var(--sidebar); }
+  .global-sidebar.open { transform: translateX(0); }
+  .sidebar-brand { min-height: 92px; }
+  .sidebar-close { display: inline-grid; }
+  .sidebar-scrim { display: block; position: fixed; inset: 0; z-index: 950; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+  .sidebar-scrim.open { opacity: 1; pointer-events: auto; }
+  .app-shell { margin-left: 0; }
+  .devhub-header { padding: 28px 22px; }
+  .docs-shell { display: block; padding: 22px 18px 60px; }
+  .local-nav-toggle { display: flex; width: 100%; align-items: center; justify-content: space-between; border: 1px solid var(--border); background: white; padding: 13px 14px; font-weight: 700; color: var(--bc-navy); margin-bottom: 14px; }
+  .local-nav-toggle svg { width: 18px; height: 18px; transition: transform .2s; }
+  .local-nav-toggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+  .local-nav { display: none; position: static; margin-bottom: 18px; max-height: none; }
+  .local-nav.open { display: block; }
+  .article { padding: 28px 24px 36px; }
+}
+@media (max-width: 650px) {
+  body { font-size: 15px; }
+  .devhub-title-row { gap: 12px; }
+  .devhub-header { padding-inline: 16px; }
+  .search-wrap { min-height: 52px; }
+  .search-wrap button { padding-inline: 14px; }
+  .article { padding: 24px 18px 32px; }
+  .article h1 { font-size: 34px; }
+  .article h2 { font-size: 26px; }
+  .card-grid, .resource-grid { grid-template-columns: 1fr; }
+  .page-nav { flex-direction: column; }
+  .page-nav a { max-width: 100%; }
+  .page-nav .next { margin-left: 0; text-align: left; }
+}
+
+.discovery-list {
+  margin-top: 18px;
+  max-width: 860px;
+}
+.discovery-resource {
+  padding: 18px 0;
+  border-top: 1px solid #d8d8d8;
+}
+.discovery-resource:first-child {
+  border-top: 0;
+  padding-top: 4px;
+}
+.discovery-resource h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  line-height: 1.3;
+}
+.discovery-resource p {
+  margin: 0 0 7px;
+  color: #4a4a4a;
+}
+.text-link {
+  color: var(--bc-blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.text-link:hover {
+  color: var(--bc-navy);
+  text-decoration-thickness: 2px;
+}
+
+
+.document-link-section {
+  padding-top: 10px;
+}
+.document-link {
+  font-size: 18px;
+}
+
+.resource-text-link {
+  margin: 10px 0 0;
+}
+
+.prototype-note { margin: 20px 0; padding: 16px 18px; border-left: 5px solid var(--bc-yellow); background: #fff8df; max-width: 920px; }
+.prototype-note strong { color: var(--bc-navy); }
+.info-callout { margin: 22px 0; padding: 18px 20px; border-left: 5px solid var(--bc-blue); background: var(--info-bg); max-width: 920px; }
+.info-callout p:last-child, .prototype-note p:last-child { margin-bottom: 0; }
+.topic-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; margin: 22px 0; max-width: 980px; }
+.topic-card { border: 1px solid var(--border); border-top: 4px solid var(--bc-yellow); padding: 20px; background: white; }
+.topic-card h3 { margin-top: 0; color: var(--bc-navy); }
+.topic-card p:last-child { margin-bottom: 0; }
+.text-action { display: inline-flex; align-items: center; gap: 6px; color: var(--bc-blue); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.text-action svg { width: 16px; height: 16px; }
+.clean-list { max-width: 900px; padding-left: 24px; }
+.clean-list li { margin: 6px 0; }
+.check-list { list-style: none; padding-left: 0; max-width: 900px; }
+.check-list li { position: relative; padding-left: 30px; margin: 9px 0; }
+.check-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--bc-blue); font-weight: 700; }
+.route-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; margin: 20px 0; max-width: 980px; }
+.route-card { border: 1px solid var(--border); padding: 22px; background: white; }
+.route-card h3 { margin-top: 0; color: var(--bc-navy); }
+.route-card .path-label { margin-bottom: 8px; }
+.step-list { counter-reset: steps; list-style: none; padding: 0; max-width: 920px; }
+.step-list > li { counter-increment: steps; position: relative; padding: 0 0 24px 54px; min-height: 48px; }
+.step-list > li::before { content: counter(steps); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--bc-navy); color: white; font-weight: 700; }
+.step-list > li:not(:last-child)::after { content: ''; position: absolute; left: 16px; top: 38px; bottom: 4px; width: 2px; background: #c9d7e5; }
+.step-list h3 { margin: 2px 0 6px; }
+.process-strip { display: grid; grid-template-columns: repeat(5, minmax(120px, 1fr)); gap: 10px; margin: 22px 0; max-width: 980px; }
+.process-step { border: 1px solid var(--border); border-top: 4px solid var(--bc-blue); padding: 14px; background: white; }
+.process-step .n { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; }
+.process-step strong { display: block; color: var(--bc-navy); margin: 4px 0; }
+.inline-links { display: flex; flex-wrap: wrap; gap: 12px 18px; margin: 14px 0 4px; }
+.consumer-stacked-links { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin: 14px 0 4px; }
+.muted { color: var(--muted); }
+.criteria-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 24px; max-width: 980px; padding-left: 20px; }
+.support-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; margin: 20px 0; max-width: 980px; }
+.support-card { border: 1px solid var(--border); padding: 20px; background: white; }
+.support-card h3 { margin-top: 0; color: var(--bc-navy); }
+.article .subtle-label { margin: 0 0 6px; color: var(--muted); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+.article code { background: #f2f2f2; padding: 2px 5px; border-radius: 3px; }
+@media (max-width: 760px) {
+  .topic-grid, .route-options, .criteria-list, .support-grid { grid-template-columns: 1fr; }
+  .process-strip { grid-template-columns: 1fr; }
+}
+
+
+/* Provider routing page improvements */
+.provider-purpose {
+  margin: 18px 0 24px;
+  padding: 16px 18px;
+  border-left: 5px solid var(--bc-blue);
+  background: var(--info-bg);
+  max-width: 920px;
+  font-size: 18px;
+  line-height: 1.45;
+}
+.provider-purpose strong { color: var(--bc-navy); }
+.provider-step {
+  max-width: 980px;
+  margin: 0;
+  padding: 26px 24px 24px;
+  border-top: 1px solid var(--border);
+  background: #fbfcfd;
+}
+.provider-step + .provider-step { margin-top: 14px; }
+.provider-step h2 {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 0;
+  padding-top: 0;
+}
+.provider-step h2::before { display: none; }
+.step-number {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  background: var(--bc-navy);
+  color: white;
+  font-size: 16px;
+  line-height: 1;
+  margin-top: -1px;
+}
+.decision-list {
+  list-style: none;
+  padding-left: 0;
+  max-width: 900px;
+  margin: 12px 0;
+}
+.decision-list li {
+  position: relative;
+  padding-left: 28px;
+  margin: 8px 0;
+}
+.decision-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--bc-blue);
+  font-weight: 700;
+}
+.provider-guidance-links { margin-top: 16px; }
+.provider-check-list li { margin: 12px 0; }
+.provider-note { margin-top: 14px; margin-bottom: 0; color: #3f3f3f; }
+.provider-next {
+  max-width: 980px;
+  margin-top: 24px;
+  padding-top: 6px;
+}
+.provider-decision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 18px 0 8px;
+  max-width: 980px;
+}
+.decision-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 100%;
+  border-top: 4px solid var(--bc-yellow);
+}
+.decision-card h3 { margin: 7px 0 8px; }
+.decision-card p { flex: 1; margin-bottom: 18px; }
+.decision-order {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--bc-blue-light);
+  color: var(--bc-navy);
+  font-weight: 700;
+  font-size: 14px;
+}
+.decision-action {
+  width: 100%;
+  justify-content: space-between;
+  text-align: left;
+}
+.provider-learn-more {
+  max-width: 980px;
+  margin-top: 26px;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  background: #f7f7f7;
+}
+.provider-learn-more h2 { margin-top: 0; font-size: 24px; }
+.provider-learn-more h2::before { display: none; }
+.provider-page-nav a {
+  min-height: 52px;
+  padding: 11px 14px;
+  border: 1px solid #b7c3cf;
+  border-radius: 3px;
+  background: white;
+  color: var(--bc-blue);
+}
+.provider-page-nav a:hover { background: var(--bc-blue-light); color: var(--bc-navy); }
+.provider-page-nav .nav-context { display: block; font-size: 14px; color: var(--muted); font-weight: 400; margin-bottom: 1px; }
+.provider-page-nav .nav-title { display: block; }
+
+.provider-intro {
+  max-width: 900px;
+  margin: -8px 0 24px;
+  color: #333;
+}
+.provider-radio-options {
+  border: 0;
+  padding: 0;
+  margin: 14px 0 10px;
+  max-width: 880px;
+}
+.provider-radio-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 10px 12px;
+  margin: 7px 0;
+  border: 1px solid #d8d8d8;
+  border-radius: 3px;
+  background: white;
+  cursor: pointer;
+}
+.provider-radio-option:hover { background: var(--bc-blue-light); }
+.provider-radio-option input {
+  margin: 4px 0 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--bc-blue);
+  flex: 0 0 auto;
+}
+.provider-radio-option:has(input:checked) {
+  border-color: var(--bc-blue);
+  background: var(--info-bg);
+}
+.provider-decision-grid .decision-card { min-height: 180px; }
+.provider-decision-grid .decision-card h3 { flex: 1; }
+.provider-secondary-action { width: auto; min-width: 250px; }
+.provider-after {
+  max-width: 980px;
+  margin-top: 26px;
+  padding-top: 8px;
+}
+.provider-after-links { margin-top: 12px; }
+
+
+
+@media (max-width: 1050px) {
+  .provider-decision-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 650px) {
+  .provider-step { padding: 22px 16px 20px; }
+  .provider-step h2 { gap: 10px; }
+  .step-number { flex-basis: 30px; width: 30px; height: 30px; }
+  .provider-purpose { font-size: 16px; }
+}
+
+
+.supporting-materials-list .discovery-resource {
+  border-top: 0;
+  padding: 7px 0;
+}
+.supporting-materials-list .discovery-resource:first-child {
+  padding-top: 4px;
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<svg aria-hidden="true" class="svg-sprite">
+  <symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1v-9Z" fill="currentColor"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm7 1v5h5M8 12h8M8 16h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-wizard" viewBox="0 0 24 24"><path d="M4 4h11v16H4zM8 8h9M8 12h9M8 16h6M18 3v6M15 6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="mobile-topbar">
+  <button class="icon-button" id="menu-open" aria-label="Open navigation" aria-controls="global-sidebar" aria-expanded="false"><svg><use href="#i-menu"></use></svg></button>
+  <span class="mobile-wordmark">B.C. government DevHub</span>
+</header>
+
+<aside class="global-sidebar" id="global-sidebar" aria-label="DevHub navigation">
+  <div class="sidebar-brand">
+    <a class="bc-logo-link" href="#overview" data-page="overview" aria-label="British Columbia government home"><img class="bc-logo" src="data:image/png;base64,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" alt="British Columbia" /></a>
+  </div>
+  <nav class="global-nav">
+    <button class="global-nav-item" data-global="search"><svg><use href="#i-search"></use></svg>Search</button>
+    <button class="global-nav-item" data-global="home"><svg><use href="#i-home"></use></svg>Home</button>
+    <button class="global-nav-item active" data-global="docs"><svg><use href="#i-doc"></use></svg>Docs</button>
+    <button class="global-nav-item" data-global="wizards"><svg><use href="#i-wizard"></use></svg>Wizards</button>
+  </nav>
+</aside>
+<div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+<div class="app-shell">
+  <header class="devhub-header">
+    <div class="devhub-title-row">
+      <div class="yellow-rule"></div>
+      <div>
+        <div class="eyebrow">Documentation</div>
+        <div class="devhub-title">Connected Services</div>
+        <p>This prototype is not the final design. It is being used to validate the content and user flow before further design work.</p>
+      </div>
+    </div>
+    <div class="search-wrap" role="search">
+      <svg><use href="#i-search"></use></svg>
+      <label class="sr-only" for="doc-search">Search ADR TechDocs</label>
+      <input id="doc-search" type="search" placeholder="Search ADR TechDocs" autocomplete="off" />
+      <button id="search-clear" type="button">Clear</button>
+      <div class="search-results" id="search-results" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <div class="docs-shell">
+      <button class="local-nav-toggle" id="local-nav-toggle" aria-expanded="false" aria-controls="local-nav">TechDocs navigation <svg><use href="#i-chevron"></use></svg></button>
+      <nav class="local-nav" id="local-nav" aria-label="ADR TechDocs navigation"></nav>
+      <article class="article" id="article"></article>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const PAGES = {"all-data": {"title": "All data", "nav": "All data", "group": "Connected Services", "intro": "Connected Services helps B.C. government teams find, understand, publish, and reuse data. Data can be described in different ways depending on its value, its role, and how it is managed.", "body": "\n<section>\n  <h2>How data can be described</h2>\n  <div class=\"topic-grid\">\n    <div class=\"topic-card\"><h3>High-value data</h3><p>High-value data is important and worth sharing or reusing. It supports government services, programs, or decisions.</p><a class=\"text-action\" href=\"#high-value\" data-page=\"high-value\">Learn more<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div>\n    <div class=\"topic-card\"><h3>Authoritative data</h3><p>Authoritative data is the trusted source for a defined purpose. Its scope, source, custodian, meaning, and limitations are documented so people know when to rely on it.</p><a class=\"text-action\" href=\"#authoritative\" data-page=\"authoritative\">Learn more<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div>\n    <div class=\"topic-card\"><h3>Data registers</h3><p>A data register is a structured way to manage and share authoritative data using agreed rules and standards. A register may contain authoritative data, but authoritative data does not have to live in a register.</p><a class=\"text-action\" href=\"#data-registers\" data-page=\"data-registers\">Learn more<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div>\n    <div class=\"topic-card\"><h3>Other data</h3><p>Data does not need to be high value or authoritative to be useful. Other datasets can still be published and shared through standard processes.</p><a class=\"text-action\" href=\"#other-data\" data-page=\"other-data\">Learn more<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div>\n  </div>\n  <div class=\"info-callout\"><strong>These concepts can overlap.</strong><p>A dataset can be high value, authoritative for a defined purpose, and stored in a register at the same time.</p></div>\n</section>\n<section>\n  <h2>What do you want to do?</h2>\n  <div class=\"route-options\">\n    <div class=\"route-card\"><div class=\"path-label\">Provider path</div><h3>Provide, publish or manage data</h3><p>Choose the right publishing or authoritative-data path based on the data you manage.</p><a class=\"text-action\" href=\"#provider\" data-page=\"provider\">Provide, publish or manage data<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div>\n    <div class=\"route-card\"><div class=\"path-label\">Consumer path</div><h3>Find and use data or APIs</h3><p>Search for data or APIs, understand what they mean, decide whether they fit your needs, and connect to them.</p><a class=\"text-action\" href=\"#consumer\" data-page=\"consumer\">Find and use data or APIs<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div>\n  </div>\n</section>"}, "consumer": {"title": "Find and use data or APIs", "nav": "Find and use data or APIs", "group": "Connected Services", "intro": "Use this page if you are looking for data or APIs for a government service, product, analysis, or integration. This page helps you find authoritative data, check if it fits your needs, understand definitions, and connect to it.", "body": "\n<section>\n  <h2>Find authoritative datasets</h2>\n  <div class=\"prototype-note\"><p><strong>Future state:</strong> Unified discovery of authoritative datasets through Connected Services / ITK is not available yet. Until that experience is implemented, this section should point users to the current approved discovery tools.</p></div>\n  <div class=\"consumer-stacked-links\"><a class=\"text-action\" href=\"#\" data-placeholder-action=\"Search tool TBD\">Search tool TBD<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div>\n</section>\n<section>\n  <h2>Evaluate whether the data fits your needs</h2>\n  <p>Authoritative does not mean “right for every use.” Check the context to understand what the data is authoritative for.</p>\n  <p><strong>Review:</strong></p>\n  <ul class=\"clean-list\">\n    <li><strong>Purpose and scope</strong> — what the data supports</li>\n    <li><strong>Source and custodian</strong> — who owns it</li>\n    <li><strong>Coverage</strong> — what is included or missing</li>\n    <li><strong>Freshness</strong> — how current it is</li>\n    <li><strong>Quality and limitations</strong> — known issues</li>\n    <li><strong>Definitions and business rules</strong> — what fields mean</li>\n    <li><strong>How the data changes</strong> — updates over time</li>\n    <li><strong>Access or reuse conditions</strong> — any limits on use</li>\n  </ul>\n</section>\n<section>\n  <h2>Understand the data</h2>\n  <p>Shared definitions help prevent misunderstandings when data moves between systems.</p>\n  <p><strong>Use:</strong></p>\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#semantics\" data-page=\"semantics\">Semantics<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#glossary\" data-page=\"glossary\">Connected Services Glossary<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n<section>\n  <h2>Review access and integration information</h2>\n  <p>Placeholder content: Final content for “Review access and integration information” will be added after discussion with APS.</p>\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Relevant API / SDX access or integration process\">Relevant API / SDX access or integration process<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Data access instructions on the dataset or API record\">Data access instructions on the dataset or API record<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n<section>\n  <h2>After you connect</h2>\n  <p>If your service or product relies on authoritative data, keep track of changes that could affect how you use it.</p>\n  <p>Check the dataset or API documentation for updates to:</p>\n  <ul class=\"clean-list\">\n    <li>Definitions or business rules</li>\n    <li>Data structure or fields</li>\n    <li>Update frequency</li>\n    <li>Known limitations</li>\n    <li>Access or integration requirements</li>\n  </ul>\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Dataset or API change information\">Dataset or API change information<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>"}, "provider": {"title": "Provide, publish or manage data", "nav": "Provide, publish or manage data", "group": "Connected Services", "intro": "Use this page to find the right guidance for data your team provides, publishes, or manages.", "body": "\n<p>Start by considering whether your data is <strong>high value</strong>. If it is, then consider whether it could also be <strong>authoritative for a defined purpose</strong>.</p>\n\n<section>\n  <h2>1. Is your data high value?</h2>\n  <p>High-value data is important and worth sharing or reusing because it supports government services, programs, or decisions.</p>\n\n  <p><strong>If your data is high value:</strong><br>\n  Continue to the next section to consider whether it could also be authoritative.</p>\n\n  <p><strong>If you are not sure:</strong><br>\n  Review the high-value data guidance.</p>\n\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#high-value\" data-page=\"high-value\">High-value data<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n\n  <p><strong>If your data is not high value:</strong><br>\n  It can still be useful and published through standard processes.</p>\n\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#other-data\" data-page=\"other-data\">Other data<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n\n<section>\n  <h2>2. Could your data be authoritative?</h2>\n  <p>High-value data may also be a potential candidate for authoritative designation.</p>\n\n  <p>Your data may be a potential candidate if it has:</p>\n  <ul class=\"clean-list\">\n    <li>A clear purpose and scope</li>\n    <li>A known source and custodian</li>\n    <li>A government program that relies on it</li>\n    <li>Other teams or services that reuse it</li>\n    <li>Documented definitions and quality</li>\n    <li>Consistent updates and maintenance</li>\n  </ul>\n\n  <p>These signs do not guarantee designation. They help indicate whether the dataset may be ready for assessment.</p>\n\n  <p><strong>If your data may be authoritative:</strong><br>\n  Review the Authoritative Data Designation Process to understand what information is needed and how assessment works.</p>\n\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#designation\" data-page=\"designation\">Authoritative Data Designation Process<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n\n  <p><strong>If you are not sure:</strong><br>\n  Learn more about what authoritative data means and when designation may apply.</p>\n\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#authoritative\" data-page=\"authoritative\">Authoritative data<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n\n<section>\n  <h2>3. After authoritative designation</h2>\n  <p>If data is designated authoritative, additional guidance can help you manage, describe, and share it consistently.</p>\n\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#data-registers\" data-page=\"data-registers\">Data registers<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#data-quality\" data-page=\"data-quality\">Data quality<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#semantics\" data-page=\"semantics\">Semantics<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}, "standard-publishing": {"title": "Standard data publishing guidance", "nav": "Standard data publishing guidance", "group": "Other Connected Services guidance", "intro": "TBD who owns this page and content.", "body": "<div class=\"prototype-note\"><strong>Placeholder only</strong><p>This page should explain how providers publish or manage data that does not follow the high-value or authoritative-data route. ADR TechDocs should link to the approved guidance rather than duplicate it.</p></div><p><a class=\"text-action\" href=\"#\" data-placeholder-action=\"Approved standard data publishing guidance\">Approved standard data publishing guidance<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></p>"}, "high-value": {"title": "High-value data", "nav": "High-value data", "group": "Other Connected Services guidance", "intro": "This content still needs an owner confirmed between ADR and DDS.", "body": "<div class=\"prototype-note\"><strong>Placeholder only.</strong><p>This page should explain how high-value data is identified, prepared, published, and maintained.</p><p>It should also explain that high-value data may or may not be authoritative.</p></div><p><a class=\"text-action\" href=\"#\" data-placeholder-action=\"High-value data guidance\">High-value data<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></p>"}, "authoritative": {"title": "Authoritative data", "nav": "Authoritative data", "group": "Authoritative data", "intro": "Authoritative data is data that has been recognized as authoritative for a defined purpose. The designation tells users which source they should rely on for that purpose and within the documented scope.", "body": "\n<section><h2>Why authoritative data matters</h2><p>Authoritative data helps teams use the same information and reduces confusion when similar data exists in multiple places.</p>\n<div class=\"support-grid\"><div class=\"support-card\"><h3>Without trusted data</h3><ul class=\"clean-list\"><li>Multiple versions of the same information</li><li>Duplicate collection and maintenance costs</li><li>Lower confidence in analytics and decisions</li><li>Barriers to Connected Services</li></ul></div><div class=\"support-card\"><h3>With trusted data</h3><ul class=\"clean-list\"><li>Clear accountability</li><li>One source of truth</li><li>Better service integration</li><li>Greater confidence in data reuse</li></ul></div></div></section>\n<section><h2>What ADR provides</h2><p>ADR provides the guidance, standards, and shared definitions that support authoritative data. This includes:</p><ul class=\"clean-list\"><li>Designation guidance</li><li>Data Register Standard</li><li>Data Quality Assessment Standard</li><li>Semantics and shared definitions</li><li>Support for maintaining authoritative information over time</li></ul></section>\n<section><h2>Who maintains authoritative data?</h2><p>The designated data custodian is responsible for keeping authoritative data current. ADR does not replace the source system or the teams who manage the data.</p><p>Custodians are accountable for:</p><ul class=\"clean-list\"><li>Updates</li><li>Definitions</li><li>Quality checks</li><li>Documenting limitations</li><li>Communicating changes</li></ul></section>\n<section><h2>The Authoritative Data Designation Process</h2><p>If you think your dataset may be authoritative for a defined purpose, begin with the Authoritative Data Designation Process.</p><p>The designation page explains:</p><ul class=\"clean-list\"><li>What information to prepare</li><li>How the assessment works</li><li>What happens after a decision</li></ul><p><a class=\"text-action\" href=\"#designation\" data-page=\"designation\">Designation<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></p></section>\n<section><h2>Related guidance</h2><div class=\"consumer-stacked-links related-guidance-links\"><a class=\"text-action\" href=\"#data-registers\" data-page=\"data-registers\">Data registers<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#semantics\" data-page=\"semantics\">Semantics<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#help\" data-page=\"help\">Help and support<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div></section>"}, "designation": {"title": "Designation", "nav": "Designation", "group": "Authoritative data", "intro": "The Authoritative Data Designation Process (ADDP) creates confidence in which data sources government should trust and reuse.", "body": "\n<section><h2>Authoritative Data Designation Process</h2><p>The ADDP purpose is to create confidence in which data sources government should trust and reuse. It provides clear accountability, consistent assessment, government-wide recognition, and improved discoverability. The outcome is “Trusted data” that ministries and programs can rely on.</p></section>\n<section><h2>Assessment criteria</h2><p>To be recognized as an authoritative data source, a dataset must demonstrate that it meets the following assessment criteria:</p>\n<ul class=\"criteria-list\"><li><strong>Clear purpose:</strong> Data collection has a defined and documented objective</li><li><strong>Verified Source:</strong> Recognized as the original and trusted source</li><li><strong>Assigned Custodian:</strong> Clear ownership and accountability</li><li><strong>High Value Data:</strong> Useful, relevant, and widely needed</li><li><strong>Upholds Indigenous Sovereignty:</strong> Respects data accessed, use, and sharing</li><li><strong>Machine Readable:</strong> Easy to process, integrate and reuse</li><li><strong>Complete Metadata:</strong> Includes context to understand and validate the data</li><li><strong>Security Classification:</strong> Properly classified for safe handling</li></ul></section>\n<section><h2>What authoritative designation means</h2><p>An authoritative designation is the formal recognition of a dataset as the official and trusted source of truth for a specific subject area within government. It confirms that the dataset has been assessed against the Assessment criteria, supports clear accountability, and can be confidently reused as a trusted source of data.</p><p>Designation does not guarantee:</p><ul class=\"clean-list\"><li>High data quality or freedom from errors</li><li>Completeness, accuracy, or suitability for every use case</li><li>Unrestricted access, use, or sharing</li><li>Exemption from privacy, legal, policy, or security requirements</li></ul><p>Known limitations, data quality issues, and conditions of use should be documented so users understand how the dataset can—and cannot—be relied upon.</p></section>\n<section><h2>Process</h2><h3>End-to-End Process</h3><p>The ADDP consists of five primary steps and one optional escalation path</p>\n<div class=\"process-strip\"><div class=\"process-step\"><div class=\"n\">Step 1</div><strong>Awareness</strong><span>A dataset is identified as a candidate</span></div><div class=\"process-step\"><div class=\"n\">Step 2</div><strong>Submission</strong><span>A proposal is submitted by a Data Provider</span></div><div class=\"process-step\"><div class=\"n\">Step 3</div><strong>Assessment</strong><span>The dataset is assessed against defined criteria</span></div><div class=\"process-step\"><div class=\"n\">Step 4</div><strong>Decision</strong><span>The dataset is approved, not approved, or requires updates</span></div><div class=\"process-step\"><div class=\"n\">Step 5</div><strong>Post-Decision</strong><span>The authoritative dataset is published and discoverable</span></div></div>\n</section>\n<section><h2>Key highlights</h2><ul class=\"clean-list\"><li>The process is flexible, reflecting varying levels of maturity and capacity – Data Providers and Data Governance Team can each propose candidates</li><li>Data Governance Team supports Data Providers, and coordinates data candidate progress</li><li>End-to-end collaboration between all participants</li><li>Executive escalation only if required (“minimum viable bureaucracy”)</li><li>Public-facing Authoritative Data Directory is the collection of BC Data Catalogue records marked authoritative</li></ul></section>\n<section><h2>Decision Points &amp; Escalation</h2><p>Escalation to the Executive Committee is exception-based and occurs only when resolution cannot be achieved through standard governance review. This can include situations where the scope of a dataset’s authority is unclear, multiple datasets are competing for authoritative status, or there are legislative, policy, privacy, security, or Indigenous data sovereignty implications.</p></section>\n<section><h2>Roles and Responsibilities</h2><ul class=\"clean-list\"><li><strong>Data Governance Team:</strong> Facilitates intake, assessment, and process integrity; coordinates reviews and records decisions</li><li><strong>Data Provider:</strong> Identifies and submits datasets, provides context, and remains accountable post-designation</li><li><strong>Executive Committee:</strong> Provides direction for complex or unresolved cases</li></ul></section>\n<section><h2>Supporting materials</h2><div class=\"discovery-list supporting-materials-list\"><div class=\"discovery-resource\"><a class=\"text-action\" href=\"#\" data-placeholder-action=\"3-ADDP Assessment Criteria.docx\">3-ADDP Assessment Criteria.docx<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div><div class=\"discovery-resource\"><a class=\"text-action\" href=\"#\" data-placeholder-action=\"4-ADDP Candidate Dataset Submission Form.docx\">4-ADDP Candidate Dataset Submission Form.docx<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div><div class=\"discovery-resource\"><a class=\"text-action\" href=\"#\" data-placeholder-action=\"5-ADDP Guidance for Data Providers.docx\">5-ADDP Guidance for Data Providers.docx<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div><div class=\"discovery-resource\"><a class=\"text-action\" href=\"#\" data-placeholder-action=\"6-ADDP FAQ.docx\">6-ADDP FAQ.docx<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div></div><div class=\"inline-links\"><a class=\"text-action\" href=\"#data-registers\" data-page=\"data-registers\">Data registers<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#data-quality\" data-page=\"data-quality\">Data quality<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#semantics\" data-page=\"semantics\">Semantics<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#help\" data-page=\"help\">Help and support<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div></section>"}, "data-registers": {"title": "Data registers", "nav": "Data registers", "group": "Data registers", "intro": "A data register is a standardized way to manage and share authoritative data. A data register contains authoritative data and follows the Data Register Standard so the data can be trusted, understood, shared, and reused consistently.", "body": "\n<section>\n  <h2>How data registers relate to authoritative data</h2>\n  <p>Authoritative data and data registers are related, but they are not the same thing.</p>\n  <ul class=\"clean-list\">\n    <li><strong>Authoritative data</strong> is recognized as the trusted source for a defined purpose.</li>\n    <li><strong>A data register</strong> is a standardized way to manage and share authoritative data.</li>\n  </ul>\n  <p>Authoritative data can exist outside a data register. If an authoritative dataset is not currently managed as a register, teams may consider whether it should become one.</p>\n</section>\n\n<section>\n  <h2>Before creating a data register</h2>\n  <p>First, check whether an authoritative source for the same information already exists.</p>\n  <p>A new data register should not duplicate authoritative data that is already maintained in another register. If an authoritative dataset already exists but is not currently a data register, there may be value in considering whether it should be upgraded to one.</p>\n  <p><strong>When considering a data register, think about:</strong></p>\n  <ul class=\"clean-list\">\n    <li>The purpose of the data</li>\n    <li>Who will use it</li>\n    <li>Whether it needs to be reused across services or systems</li>\n    <li>How the data will be maintained over time</li>\n    <li>Whether it needs to connect to other authoritative sources</li>\n    <li>Whether similar authoritative data already exists</li>\n  </ul>\n</section>\n\n<section>\n  <h2>What makes a data register</h2>\n\n  <h3>Governance</h3>\n  <p>The register has a clear purpose, an assigned data custodian, and follows the legislation, policy, and standards that apply to the data.</p>\n\n  <h3>Data accessibility</h3>\n  <p>The register includes complete metadata, can be discovered by users, and provides appropriate ways for authorized systems and users to access the data.</p>\n\n  <h3>Data quality</h3>\n  <p>The register uses documented and verifiable processes to support data integrity, including data quality assessment and reporting.</p>\n\n  <h3>Data architecture</h3>\n  <p>The register is designed as an authoritative source for a defined subject. It includes only the data needed for its purpose, uses stable identifiers, maintains a history of changes, and uses shared semantics.</p>\n\n  <h3>Security and privacy</h3>\n  <p>The register applies the appropriate security classification, access controls, privacy requirements, auditing, and other security standards.</p>\n</section>\n\n<section>\n  <h2>Related guidance</h2>\n  <p>Use the Data Register Standard and Guidelines when designing, creating, or maintaining a data register.</p>\n  <div class=\"consumer-stacked-links related-guidance-links\">\n    <a class=\"text-action\" href=\"#data-register-standard\" data-page=\"data-register-standard\">Data Register Standard<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Data Register Standard Guidelines\">Data Register Standard Guidelines<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#data-quality\" data-page=\"data-quality\">Data quality<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#semantics\" data-page=\"semantics\">Semantics<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#help\" data-page=\"help\">Help and support<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}, "data-register-standard": {"title": "Data Register Standard", "nav": "Data Register Standard", "group": "Data registers", "intro": "The Data Register Standard sets the requirements for data registers used to manage and share authoritative data. It supports the development of authoritative data that is trustworthy, secure, documented, discoverable, interoperable, and reusable.", "body": "\n<section>\n  <h2>What the Standard covers</h2>\n  <p>The requirements are organized into five areas:</p>\n  <ol class=\"clean-list\">\n    <li><strong>Governance</strong></li>\n    <li><strong>Data accessibility</strong></li>\n    <li><strong>Data quality</strong></li>\n    <li><strong>Data architecture</strong></li>\n    <li><strong>Security and privacy</strong></li>\n  </ol>\n  <p>The official Standard contains the detailed requirements that a data register must meet.</p>\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Official Data Register Standard\">Official Data Register Standard<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n\n<section>\n  <h2>Data Register Standard Guidelines</h2>\n  <p>The Data Register Standard Guidelines provide practical guidance for understanding and applying the Standard.</p>\n  <p>The Guidelines cover areas such as:</p>\n  <ul class=\"clean-list\">\n    <li>Defining and documenting the purpose of a register</li>\n    <li>Identifying the data custodian</li>\n    <li>Avoiding duplication of authoritative sources</li>\n    <li>Publishing metadata</li>\n    <li>Providing API-based access</li>\n    <li>Managing role-based access</li>\n    <li>Defining a Minimum Viable Dataset</li>\n    <li>Using stable and unique identifiers</li>\n    <li>Maintaining historical records</li>\n    <li>Using shared semantics</li>\n    <li>Linking to other data registers</li>\n    <li>Applying security and privacy controls</li>\n  </ul>\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Data Register Standard Guidelines\">Data Register Standard Guidelines<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n\n<section>\n  <h2>Standard and Guidelines</h2>\n  <p>Use the <strong>Standard</strong> to understand what requirements a data register must meet.</p>\n  <p>Use the <strong>Guidelines</strong> to understand ways those requirements can be applied in practice.</p>\n  <div class=\"info-callout\">\n    <strong>If there is a difference between the Standard and the Guidelines, the Data Register Standard is the authoritative document.</strong>\n  </div>\n</section>\n\n<section>\n  <h2>When to use them</h2>\n  <p>Use the Standard and Guidelines when:</p>\n  <ul class=\"clean-list\">\n    <li>Designing a new data register</li>\n    <li>Updating or improving an existing data register</li>\n    <li>Determining how authoritative data should be structured and maintained</li>\n    <li>Preparing data for reuse across services or systems</li>\n  </ul>\n</section>\n\n<section>\n  <h2>Related guidance</h2>\n  <div class=\"consumer-stacked-links related-guidance-links\">\n    <a class=\"text-action\" href=\"#data-quality\" data-page=\"data-quality\">Data quality<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#semantics\" data-page=\"semantics\">Semantics<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#authoritative\" data-page=\"authoritative\">Authoritative data<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#help\" data-page=\"help\">Help and support<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}, "data-quality": {"title": "Data quality", "nav": "Data quality", "group": "Data quality", "intro": "Data quality describes how reliable data is for its intended use. Quality depends on the purpose of the data and the context in which it will be used.", "body": "\n<section>\n  <h2>Why data quality matters</h2>\n  <p>Assessing data quality helps teams understand whether data can reliably support a service, program, analysis, or decision.</p>\n  <p>It can help teams:</p>\n  <ul class=\"clean-list\">\n    <li>Understand the strengths and limitations of a dataset</li>\n    <li>Decide whether the data is fit for its intended use</li>\n    <li>Identify data quality issues</li>\n    <li>Measure changes in quality over time</li>\n    <li>Prioritize areas for improvement</li>\n  </ul>\n</section>\n\n<section>\n  <h2>What is assessed</h2>\n  <p>The Data Quality Assessment Standard uses five core dimensions:</p>\n\n  <h3>Accuracy</h3>\n  <p>How well the data reflects real-world conditions or a trusted reference source.</p>\n\n  <h3>Completeness</h3>\n  <p>Whether the required data is present and whether the dataset covers the expected scope for its intended use.</p>\n\n  <h3>Timeliness</h3>\n  <p>Whether the data is current and made available within the expected timeframe.</p>\n\n  <h3>Uniqueness</h3>\n  <p>Whether the dataset avoids duplicate records that represent the same real-world entity.</p>\n\n  <h3>Validity</h3>\n  <p>Whether values follow the required rules, formats, structures, and allowed ranges.</p>\n</section>\n\n<section>\n  <h2>How data quality is communicated</h2>\n  <p>Data quality is reported through a <strong>Data Quality Scorecard</strong>.</p>\n  <p>The scorecard summarizes quality at the dataset level and shows scores for the individual quality dimensions. It should be included in the dataset's metadata and updated regularly.</p>\n  <p>A single overall score may not tell you everything you need to know. Review the dimensions that matter most for your intended use.</p>\n</section>\n\n<section>\n  <h2>When data quality should be assessed</h2>\n  <p>Data quality should be assessed:</p>\n  <ul class=\"clean-list\">\n    <li>Before a new dataset is implemented</li>\n    <li>Before a major release of an existing dataset</li>\n    <li>Periodically after implementation</li>\n    <li>When important changes are made to the data, its structure, source, or lineage</li>\n  </ul>\n</section>\n\n<section>\n  <h2>Related guidance</h2>\n  <div class=\"consumer-stacked-links related-guidance-links\">\n    <a class=\"text-action\" href=\"#data-quality-standard\" data-page=\"data-quality-standard\">Data Quality Assessment Standard<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Data Quality Assessment Standard Guidelines\">Data Quality Assessment Standard Guidelines<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#data-registers\" data-page=\"data-registers\">Data registers<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#help\" data-page=\"help\">Help and support<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}, "data-quality-standard": {"title": "Data Quality Assessment Standard", "nav": "Data Quality Assessment Standard", "group": "Data quality", "intro": "The Data Quality Assessment Standard sets the technical requirements for how data quality is defined, assessed, and communicated. It is intended for data delivery teams that collect or manage high-value data.", "body": "\n<section>\n  <h2>What the Standard requires</h2>\n  <p>The Standard uses a Data Quality Assessment Framework to support consistent assessment and reporting across datasets.</p>\n  <p>Data providers assess and score five dimensions:</p>\n  <ol class=\"clean-list\">\n    <li><strong>Accuracy</strong></li>\n    <li><strong>Completeness</strong></li>\n    <li><strong>Timeliness</strong></li>\n    <li><strong>Uniqueness</strong></li>\n    <li><strong>Validity</strong></li>\n  </ol>\n\n  <p>The Standard also requires teams to:</p>\n  <ul class=\"clean-list\">\n    <li>Score data quality on a scale from 1 to 10</li>\n    <li>Include the scores in the dataset's metadata as a Data Quality Scorecard</li>\n    <li>Update scores regularly based on data updates and important changes</li>\n    <li>Document how often the scorecard is updated</li>\n    <li>Report scores at both the dimension level and the overall dataset level</li>\n  </ul>\n\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Official Data Quality Assessment Standard\">Official Data Quality Assessment Standard<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n\n<section>\n  <h2>About the Data Quality Scorecard</h2>\n  <p>A Data Quality Scorecard is a snapshot of a dataset's measured quality.</p>\n  <p>It helps data users understand the dataset's strengths and limitations, and helps data providers identify areas that may need improvement.</p>\n  <p>Different users may care about different dimensions, so the dimension-level scores are important when deciding whether data is fit for a particular use.</p>\n</section>\n\n<section>\n  <h2>Assessment, not assurance</h2>\n  <p>The Standard explains how to assess and report data quality. It does not define how teams must prevent, correct, or remediate data quality issues.</p>\n</section>\n\n<section>\n  <h2>Data Quality Assessment Standard Guidelines</h2>\n  <p>The Guidelines provide practical guidance for understanding and applying the Standard.</p>\n  <p>They include guidance on:</p>\n  <ul class=\"clean-list\">\n    <li>Defining measurable data quality rules</li>\n    <li>Automating quality checks where appropriate</li>\n    <li>Measuring and scoring the five quality dimensions</li>\n    <li>Reporting scorecard results at different levels of detail</li>\n    <li>Embedding quality checks into the data lifecycle</li>\n    <li>Communicating data quality through metadata</li>\n    <li>Managing and improving quality over time</li>\n  </ul>\n\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Data Quality Assessment Standard Guidelines\">Data Quality Assessment Standard Guidelines<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n\n<section>\n  <h2>Standard and Guidelines</h2>\n  <p>Use the <strong>Standard</strong> to understand the requirements for assessing and reporting data quality.</p>\n  <p>Use the <strong>Guidelines</strong> for practical help applying those requirements.</p>\n  <div class=\"info-callout\">\n    <strong>If there is a difference between the Standard and the Guidelines, the Data Quality Assessment Standard is the authoritative document.</strong>\n  </div>\n</section>\n\n<section>\n  <h2>When to use them</h2>\n  <p>Use the Standard and Guidelines when:</p>\n  <ul class=\"clean-list\">\n    <li>Preparing a new high-value dataset</li>\n    <li>Preparing a major release of an existing dataset</li>\n    <li>Reassessing data quality over time</li>\n    <li>Data structure, source, lineage, or update patterns change</li>\n    <li>Communicating data quality to people who may use the dataset</li>\n  </ul>\n</section>\n\n<section>\n  <h2>Related guidance</h2>\n  <div class=\"consumer-stacked-links related-guidance-links\">\n    <a class=\"text-action\" href=\"#data-quality\" data-page=\"data-quality\">Data quality<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#data-registers\" data-page=\"data-registers\">Data registers<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#semantics\" data-page=\"semantics\">Semantics<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#help\" data-page=\"help\">Help and support<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}, "semantics": {"title": "Semantics", "nav": "Semantics", "group": "Semantics", "intro": "Connected Services needs shared meaning and consistent structure so data can be used across APIs, data registers, and integrations.", "body": "\n<section>\n  <p>Semantics is about the <strong>meaning of concepts, data, and their relationships</strong>. It helps people and systems interpret information consistently, even when it comes from different services or technologies.</p>\n</section>\n\n<section>\n  <h2>Why semantics matter</h2>\n  <p>Shared semantics help teams:</p>\n  <ul class=\"clean-list\">\n    <li>Understand what data represents</li>\n    <li>Use consistent definitions across systems</li>\n    <li>Reduce confusion when similar fields appear in different places</li>\n    <li>Make data easier to share and reuse</li>\n    <li>Know how data should be interpreted</li>\n  </ul>\n  <p>Without shared meaning, data can be misunderstood or used incorrectly.</p>\n</section>\n\n<section>\n  <h2>What semantics can include</h2>\n  <p>Semantics can be represented in different ways:</p>\n  <ul class=\"clean-list\">\n    <li><strong>Common vocabulary</strong> — shared language for concepts, terms, and words</li>\n    <li><strong>Taxonomy</strong> — organizes concepts into groups and shows broader or narrower relationships</li>\n    <li><strong>Glossary</strong> — provides defined meaning so people have a common understanding of terms</li>\n    <li><strong>Ontology</strong> — describes concepts and how they relate to each other</li>\n    <li><strong>Knowledge graph</strong> — represents connected concepts and relationships, often using an ontology</li>\n  </ul>\n  <p>These approaches work together to help people and systems understand the same concepts consistently.</p>\n</section>\n\n<section>\n  <h2>What does the data mean?</h2>\n  <p>Understanding data requires more than knowing the name of a field. Teams may need to understand:</p>\n  <ul class=\"clean-list\">\n    <li>What concept the data represents</li>\n    <li>How that concept is defined</li>\n    <li>Where it sits within a broader group or taxonomy</li>\n    <li>How it relates to other concepts</li>\n    <li>How the individual data field is structured and implemented</li>\n  </ul>\n  <p>Connected Services uses the <strong>Glossary of Terms</strong> to provide shared meaning and the <strong>Connected Services Data Dictionary</strong> to describe the structure of shared data elements.</p>\n</section>\n\n<section>\n  <h2>Related guidance</h2>\n  <div class=\"consumer-stacked-links related-guidance-links\">\n    <a class=\"text-action\" href=\"#data-dictionary\" data-page=\"data-dictionary\">Connected Services Data Dictionary<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#glossary\" data-page=\"glossary\">Connected Services Glossary of Terms<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#data-registers\" data-page=\"data-registers\">Data registers<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n    <a class=\"text-action\" href=\"#help\" data-page=\"help\">Help and support<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}, "data-dictionary": {"title": "Data dictionary", "nav": "Data dictionary", "group": "Semantics", "intro": "The Data Dictionary is the centralized technical reference for the structure of shared data elements used across Connected Services APIs and data registers. It helps teams describe and implement shared data consistently across systems.", "body": "\n<section>\n  <h2>What the Data Dictionary is for</h2>\n  <p>The Data Dictionary describes the technical structure of shared data fields.</p>\n  <p>A Data Dictionary entry can include:</p>\n  <ul class=\"clean-list\">\n    <li>Field name</li>\n    <li>Data type and format</li>\n    <li>Permissible values</li>\n    <li>Constraints</li>\n    <li>Source references</li>\n    <li>Related Glossary terms</li>\n  </ul>\n  <p>This information helps teams understand how a shared data element should be structured and implemented.</p>\n</section>\n\n<section>\n  <h2>How it relates to other documentation</h2>\n  <p>The Data Dictionary complements other Connected Services information, including:</p>\n  <ul class=\"clean-list\">\n    <li>API specifications</li>\n    <li>System data models</li>\n    <li>BC Data Catalogue records</li>\n    <li>Connected Services Glossary of Terms</li>\n  </ul>\n  <p>The Data Dictionary focuses on <strong>technical field structure</strong>. It does not replace API specifications, system documentation, or business definitions.</p>\n</section>\n\n<section>\n  <h2>Data Dictionary and Glossary</h2>\n  <p>The <strong>Data Dictionary defines structure</strong>.</p>\n  <p>The <strong>Glossary defines meaning</strong>.</p>\n  <p>A Data Dictionary entry can link to a Glossary term when a shared definition applies.</p>\n  <p>Not every Glossary term needs a corresponding Data Dictionary entry.</p>\n</section>\n\n<section>\n  <h2>Creating and updating entries</h2>\n  <p><strong>Future content:</strong> The exact workflow, storage model, permissions, and governance for creating or updating Data dictionary entries still need to be confirmed.</p>\n  <div class=\"consumer-stacked-links\">\n    \n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Instructions for creating or updating entries\">Instructions for creating or updating entries<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n\n\n<section>\n  <h2>Related guidance</h2>\n  <div class=\"consumer-stacked-links related-guidance-links\">\n    <a class=\"text-action\" href=\"#glossary\" data-page=\"glossary\">Connected Services Glossary of Terms<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}, "glossary": {"title": "Connected Services Glossary", "nav": "Connected Services Glossary", "group": "Semantics", "intro": "The Connected Services Glossary of Terms is the central reference for shared business and technical terms used across Connected Services. It provides clear, plain-language definitions so people, systems, and services can use the same terminology consistently.", "body": "\n<section>\n  <h2>What the Glossary is for</h2>\n  <p>The Glossary explains the <strong>meaning, scope, and context</strong> of shared concepts.</p>\n  <p>It helps teams:</p>\n  <ul class=\"clean-list\">\n    <li>Use consistent terminology</li>\n    <li>Understand what shared concepts mean</li>\n    <li>Reduce ambiguity between teams and systems</li>\n    <li>Interpret data and documentation consistently</li>\n  </ul>\n</section>\n\n<section>\n  <h2>What you can find in the Glossary</h2>\n  <p>Glossary entries can include:</p>\n  <ul class=\"clean-list\">\n    <li>A shared term or concept</li>\n    <li>A plain-language definition</li>\n    <li>Its scope and context</li>\n    <li>Related terms or concepts</li>\n  </ul>\n  <p>The Glossary focuses on <strong>business and conceptual meaning</strong> rather than the technical structure of individual data fields.</p>\n</section>\n\n<section>\n  <h2>Glossary and Data Dictionary</h2>\n  <p>Where appropriate, a Glossary term can be linked to Data Dictionary entries that use that concept. Not every Glossary term needs a corresponding Data Dictionary entry.</p>\n  <p>Together, they provide a shared semantic and structural reference for data used across Connected Services.</p>\n</section>\n\n<section>\n  <h2>Governance and changes</h2>\n  <p><strong>Placeholder:</strong> Confirm the final glossary governance and change-request workflow before publication.</p>\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Glossary Change Request\">Glossary Change Request<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n\n<section>\n  <h2>Related guidance</h2>\n  <div class=\"consumer-stacked-links related-guidance-links\">\n    <a class=\"text-action\" href=\"#\" data-placeholder-action=\"Connected Services Glossary of Terms\">Connected Services Glossary of Terms<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}, "help": {"title": "Help and support", "nav": "Help and support", "group": "Help and support", "intro": "Use this page if you are not sure which ADR guidance applies, need help with a potential authoritative-data candidate, or have questions about registers, quality, or semantics.", "body": "\n<section><h2>Contact the ADR team</h2><p>Contact ADR for help with:</p><ul class=\"clean-list\"><li>Understanding whether data may be a potential authoritative candidate.</li><li>The designation process, forms, or maintenance requirements.</li><li>Interpreting Data Register guidance.</li><li>Understanding Data Quality Assessment requirements.</li><li>Data dictionary or Connected Services Glossary questions.</li><li>Finding the correct ADR resource or next step.</li></ul><p><a class=\"text-action\" href=\"#\" data-placeholder-action=\"ADR team contact channel / email / request form\">ADR team contact channel / email / request form<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></p></section>\n<section><h2>Other Connected Services support</h2><p>Some questions are handled by other teams.</p><p>This page should route users to the right support channel rather than make them understand the organization structure.</p><p>Support may include:</p><ul class=\"clean-list\"><li>Standard data publishing or BC Data Catalogue support.</li><li>High-value data guidance.</li><li>API onboarding, access, or SDX integration support.</li><li>DevHub / ITK technical support.</li></ul><p><a class=\"text-action\" href=\"#\" data-placeholder-action=\"Connected Services support directory\">Connected Services support directory or relevant channels<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></p></section>\n<section><h2>Resources</h2><div class=\"consumer-stacked-links related-guidance-links\"><a class=\"text-action\" href=\"#designation\" data-page=\"designation\">Authoritative Data Designation Process<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#\" data-placeholder-action=\"Candidate Dataset Form\">Candidate Dataset Form<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#data-register-standard\" data-page=\"data-register-standard\">Data Register Standard<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#data-quality-standard\" data-page=\"data-quality-standard\">Data Quality Assessment Standard<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#data-dictionary\" data-page=\"data-dictionary\">Data dictionary<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a><a class=\"text-action\" href=\"#glossary\" data-page=\"glossary\">Connected Services Glossary<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a></div></section>\n"}, "other-data": {"title": "Other data", "nav": "Other data", "group": "Provide, publish or manage data", "intro": "", "body": "\n<section>\n  <p>TBD who owns this page and content.</p>\n  <div class=\"prototype-note\">\n    <strong>Placeholder content</strong>\n    <p>Data does not need to be high value or authoritative to be useful. Other datasets can still be published and shared through standard processes.</p>\n  </div>\n  <div class=\"consumer-stacked-links\">\n    <a class=\"text-action\" href=\"#standard-publishing\" data-page=\"standard-publishing\">Standard data publishing guidance<svg aria-hidden=\"true\"><use href=\"#i-chevron\"></use></svg></a>\n  </div>\n</section>\n"}};
+const NAV_TREE = [
+  {label: "All data", page: "all-data"},
+  {label: "Find and use data or APIs", page: "consumer"},
+  {label: "Provide, publish or manage data", page: "provider", children: [
+    {label: "High-value data", page: "high-value"},
+    {label: "Authoritative data", page: "authoritative", children: [
+      {label: "Designation", page: "designation"}
+    ]},
+    {label: "Data registers", page: "data-registers", children: [
+      {label: "Data Register Standard", page: "data-register-standard"},
+      {label: "Data quality", page: "data-quality"},
+      {label: "Data Quality Assessment Standard", page: "data-quality-standard"}
+    ]},
+    {label: "Other data", page: "other-data", children: [
+      {label: "Standard data publishing", page: "standard-publishing"}
+    ]}
+  ]},
+  {label: "Semantics", page: "semantics", children: [
+    {label: "Data dictionary", page: "data-dictionary"},
+    {label: "Connected Services Glossary", page: "glossary"}
+  ]},
+  {label: "Help and support", page: "help"}
+];
+const PAGE_ORDER = ["all-data", "consumer", "provider", "authoritative", "designation", "data-registers", "data-register-standard", "data-quality", "data-quality-standard", "other-data", "semantics", "data-dictionary", "glossary", "help"];
+const HIDDEN_ROUTES = new Set(['standard-publishing','high-value']);
+
+const article = document.getElementById('article');
+const localNav = document.getElementById('local-nav');
+const toast = document.getElementById('toast');
+const searchInput = document.getElementById('doc-search');
+const searchResults = document.getElementById('search-results');
+let currentPage = 'all-data';
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+}
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  window.clearTimeout(showToast.timer);
+  showToast.timer = window.setTimeout(() => toast.classList.remove('show'), 3000);
+}
+function navNodeContains(node, id) {
+  return node.page === id || (node.children || []).some(child => navNodeContains(child, id));
+}
+function renderNavNode(node, level=1) {
+  const containsCurrent = navNodeContains(node, currentPage);
+  const children = node.children || [];
+  const childHTML = children.map(child => renderNavNode(child, level + 1)).join('');
+  if (!node.page) {
+    return `<div class="local-nav-static local-nav-level-${level} ${containsCurrent ? 'section-active' : ''}">${escapeHTML(node.label)}</div>${childHTML}`;
+  }
+  const isCurrent = node.page === currentPage;
+  return `<a href="#${node.page}" data-page="${node.page}" class="local-nav-level-${level} ${isCurrent ? 'active' : containsCurrent ? 'section-active' : ''}" ${isCurrent ? 'aria-current="page"' : ''}>${escapeHTML(node.label)}</a>${childHTML}`;
+}
+function renderLocalNav() {
+  localNav.innerHTML = `<h2 class="local-nav-title">ADR TechDocs</h2><div class="local-nav-tree">${NAV_TREE.map(item => renderNavNode(item, 1)).join('')}</div>`;
+}
+function findNavPath(id, nodes=NAV_TREE, path=[]) {
+  for (const node of nodes) {
+    const nextPath = [...path, node];
+    if (node.page === id) return nextPath;
+    if (node.children) {
+      const found = findNavPath(id, node.children, nextPath);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+function renderBreadcrumbs(id, page) {
+  const separator = `<svg aria-hidden="true"><use href="#i-chevron"></use></svg>`;
+  const items = [
+    `<a href="#all-data" data-page="all-data">Documentation</a>`,
+    `<a href="#all-data" data-page="all-data">Connected Services</a>`
+  ];
+
+  const path = findNavPath(id) || [];
+  for (const node of path) {
+    // "Other data" is a navigation grouping rather than a standalone page.
+    if (!node.page) {
+      items.push(`<span>${escapeHTML(node.label)}</span>`);
+      continue;
+    }
+    if (node.page === id) {
+      items.push(`<span aria-current="page">${escapeHTML(page.title)}</span>`);
+    } else {
+      items.push(`<a href="#${node.page}" data-page="${node.page}">${escapeHTML(node.label)}</a>`);
+    }
+  }
+
+  // Fallback for any prototype-only route that is not represented in the visible tree.
+  if (!path.length) items.push(`<span aria-current="page">${escapeHTML(page.title)}</span>`);
+  return items.join(separator);
+}
+function renderPage(id, pushHash=true) {
+  if (!PAGES[id]) id = 'all-data';
+  currentPage = id;
+  const page = PAGES[id];
+  const idx = PAGE_ORDER.indexOf(id);
+  const prev = idx > 0 ? PAGE_ORDER[idx-1] : null;
+  const next = idx >= 0 && idx < PAGE_ORDER.length - 1 ? PAGE_ORDER[idx+1] : null;
+  article.innerHTML = `
+    <nav class="breadcrumbs" aria-label="Breadcrumb">${renderBreadcrumbs(id,page)}</nav>
+    ${id === 'consumer' ? `<p class="subtle-label page-type-label">Consumer page</p>` : ''}
+    <h1>${escapeHTML(page.title)}</h1>
+    ${id === 'provider' ? `<div class="provider-purpose"><strong>${escapeHTML(page.intro)}</strong></div>` : id === 'consumer' ? `<p class="lead">Use this page if you are looking for data or APIs for a government service, product, analysis, or integration. This page helps you <strong>find authoritative data</strong>, <strong>check if it fits your needs</strong>, <strong>understand definitions</strong>, and <strong>connect to it</strong>.</p>` : `<p class="lead">${escapeHTML(page.intro)}</p>`}
+    ${page.body}
+    ${idx >= 0 && id !== 'provider' ? `<nav class="page-nav ${id === 'provider' ? 'provider-page-nav' : ''}" aria-label="Page navigation">
+      ${prev ? `<a class="prev" href="#${prev}" data-page="${prev}"><svg aria-hidden="true"><use href="#i-chevron"></use></svg><span>${id === 'provider' ? `<span class="nav-title">Back to ${escapeHTML(PAGES[prev].title)}</span>` : `Previous<br>${escapeHTML(PAGES[prev].title)}`}</span></a>` : '<span></span>'}
+      ${next ? `<a class="next" href="#${next}" data-page="${next}"><span>${id === 'provider' ? `<span class="nav-title">Next: ${escapeHTML(PAGES[next].title)}</span>` : `Next<br>${escapeHTML(PAGES[next].title)}`}</span><svg aria-hidden="true"><use href="#i-chevron"></use></svg></a>` : ''}
+    </nav>` : ''}`;
+  renderLocalNav();
+  document.title = `${page.title} | B.C. government DevHub`;
+  if (pushHash && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+  window.scrollTo(0,0);
+  document.getElementById('main-content').focus({preventScroll:true});
+  closeMobileNavigation();
+}
+function handlePageClick(event) {
+  const link = event.target.closest('[data-page]');
+  if (!link) return;
+  event.preventDefault();
+  renderPage(link.dataset.page);
+}
+document.addEventListener('click', handlePageClick);
+
+
+document.addEventListener('click', event => {
+  const action = event.target.closest('[data-placeholder-action]');
+  if (!action) return;
+  event.preventDefault();
+  showToast(`${action.dataset.placeholderAction} is a placeholder destination in this prototype.`);
+});
+window.addEventListener('popstate', () => renderPage(location.hash.slice(1) || 'all-data', false));
+
+function stripHTML(html) {
+  const d = document.createElement('div');
+  d.innerHTML = html;
+  return d.textContent || '';
+}
+function renderSearch() {
+  const query = searchInput.value.trim().toLowerCase();
+  if (!query) { searchResults.classList.remove('open'); searchResults.innerHTML = ''; return; }
+  const ids = Object.keys(PAGES).filter(id => !HIDDEN_ROUTES.has(id));
+  const matches = ids.filter(id => {
+    const p = PAGES[id];
+    return `${p.title} ${p.nav} ${p.group} ${p.intro} ${stripHTML(p.body)}`.toLowerCase().includes(query);
+  }).slice(0,10);
+  searchResults.innerHTML = matches.length ? matches.map(id => `<button class="search-result" data-page="${id}"><strong>${escapeHTML(PAGES[id].title)}</strong><span>${escapeHTML(PAGES[id].group)}</span></button>`).join('') : '<div class="search-empty">No matching prototype pages.</div>';
+  searchResults.classList.add('open');
+}
+searchInput.addEventListener('input', renderSearch);
+document.getElementById('search-clear').addEventListener('click', () => { searchInput.value=''; renderSearch(); searchInput.focus(); });
+document.addEventListener('click', e => { if (!e.target.closest('.search-wrap')) searchResults.classList.remove('open'); });
+
+document.querySelectorAll('[data-global]').forEach(item => item.addEventListener('click', () => {
+  if (item.dataset.global === 'search') { searchInput.focus(); closeMobileNavigation(); }
+  else if (item.dataset.global !== 'docs') showToast(`${item.textContent.trim()} is outside this prototype.`);
+}));
+const sidebar = document.getElementById('global-sidebar');
+const scrim = document.getElementById('sidebar-scrim');
+const menuOpen = document.getElementById('menu-open');
+const localToggle = document.getElementById('local-nav-toggle');
+function openMobileNavigation() { sidebar.classList.add('open'); scrim.classList.add('open'); menuOpen.setAttribute('aria-expanded','true'); }
+function closeMobileNavigation() { sidebar.classList.remove('open'); scrim.classList.remove('open'); menuOpen.setAttribute('aria-expanded','false'); }
+menuOpen.addEventListener('click', openMobileNavigation);
+scrim.addEventListener('click', closeMobileNavigation);
+localToggle.addEventListener('click', () => {
+  const open = localNav.classList.toggle('open');
+  localToggle.setAttribute('aria-expanded', String(open));
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMobileNavigation(); searchResults.classList.remove('open'); } });
+renderPage(location.hash.slice(1) || 'all-data', false);
+</script>
+</body>
+</html>
