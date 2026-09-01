@@ -716,11 +716,14 @@ function showToast(message) {
 function navNodeContains(node, id) {
   return node.page === id || (node.children || []).some(child => navNodeContains(child, id));
 }
+function isValidPageId(value) {
+  return typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
+}
 function renderNavNode(node, level=1) {
   const containsCurrent = navNodeContains(node, currentPage);
   const children = node.children || [];
   const childHTML = children.map(child => renderNavNode(child, level + 1)).join('');
-  if (!node.page) {
+  if (!isValidPageId(node.page)) {
     return `<div class="local-nav-static local-nav-level-${level} ${containsCurrent ? 'section-active' : ''}">${escapeHTML(node.label)}</div>${childHTML}`;
   }
   const isCurrent = node.page === currentPage;
