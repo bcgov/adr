@@ -707,56 +707,6 @@ let previousPage = null;
 function escapeHTML(value) {
   return String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 }
-const ALLOWED_PAGE_ELEMENTS = new Set([
-  'a', 'div', 'h2', 'h3', 'li', 'nav', 'p', 'section', 'span', 'strong', 'svg', 'ul', 'use'
-]);
-const REMOVE_PAGE_ELEMENTS = new Set([
-  'base', 'embed', 'form', 'iframe', 'link', 'meta', 'object', 'script', 'style'
-]);
-const ALLOWED_PAGE_ATTRIBUTES = new Set([
-  'aria-hidden', 'aria-label', 'class', 'data-anchor', 'data-page', 'data-placeholder-action',
-  'href', 'id', 'rel', 'target'
-]);
-
-function isSafePageURL(value) {
-  try {
-    const url = new URL(value, location.href);
-    return value.startsWith('#') || url.protocol === 'https:' || url.protocol === 'http:';
-  } catch {
-    return false;
-  }
-}
-function sanitizePageBody(html) {
-  const template = document.createElement('template');
-  template.innerHTML = String(html);
-
-  for (const element of template.content.querySelectorAll('*')) {
-    const tagName = element.localName;
-    if (REMOVE_PAGE_ELEMENTS.has(tagName)) {
-      element.remove();
-      continue;
-    }
-    if (!ALLOWED_PAGE_ELEMENTS.has(tagName)) {
-      element.replaceWith(...element.childNodes);
-      continue;
-    }
-
-    for (const attribute of [...element.attributes]) {
-      if (!ALLOWED_PAGE_ATTRIBUTES.has(attribute.name)) element.removeAttribute(attribute.name);
-    }
-    if (element.hasAttribute('href') && !isSafePageURL(element.getAttribute('href'))) {
-      element.removeAttribute('href');
-    }
-    if (element.getAttribute('target') === '_blank') {
-      element.setAttribute('rel', 'noopener noreferrer');
-    } else {
-      element.removeAttribute('target');
-      element.removeAttribute('rel');
-    }
-  }
-
-  return template.innerHTML;
-}
 function showToast(message) {
   toast.textContent = message;
   toast.classList.add('show');
@@ -766,14 +716,11 @@ function showToast(message) {
 function navNodeContains(node, id) {
   return node.page === id || (node.children || []).some(child => navNodeContains(child, id));
 }
-function isValidPageId(value) {
-  return typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
-}
 function renderNavNode(node, level=1) {
   const containsCurrent = navNodeContains(node, currentPage);
   const children = node.children || [];
   const childHTML = children.map(child => renderNavNode(child, level + 1)).join('');
-  if (!isValidPageId(node.page)) {
+  if (!node.page) {
     return `<div class="local-nav-static local-nav-level-${level} ${containsCurrent ? 'section-active' : ''}">${escapeHTML(node.label)}</div>${childHTML}`;
   }
   const isCurrent = node.page === currentPage;
@@ -836,25 +783,22 @@ function renderPageFooter(id) {
 
   return links.length ? `<nav class="page-nav" aria-label="Page navigation">${links.join('')}</nav>` : '';
 }
-function renderPage(id, pushHash=true, anchor='') {
+function renderPage(id, anchor='') {
   if (!PAGES[id]) id = 'all-data';
   const origin = currentPage;
   if (origin && origin !== id) previousPage = origin;
   currentPage = id;
   const page = PAGES[id];
   const intro = page.intro ? (id === 'provider' ? `<div class="provider-purpose"><strong>${escapeHTML(page.intro)}</strong></div>` : `<p class="lead">${escapeHTML(page.intro)}</p>`) : '';
-  const pageBody = sanitizePageBody(page.body);
   article.innerHTML = `
     <nav class="breadcrumbs" aria-label="Breadcrumb">${renderBreadcrumbs(id,page)}</nav>
     ${page.label ? `<p class="subtle-label page-type-label">${escapeHTML(page.label)}</p>` : ''}
     <h1>${escapeHTML(page.title)}</h1>
     ${intro}
-    ${pageBody}
+    ${page.body}
     ${renderPageFooter(id)}`;
   renderLocalNav();
   document.title = `${page.title} | B.C. government DevHub`;
-  const routeHash = `#${id}${anchor ? `:${anchor}` : ''}`;
-  if (pushHash && location.hash !== routeHash) history.pushState(null, '', routeHash);
   document.getElementById('main-content').focus({preventScroll:true});
   window.requestAnimationFrame(() => {
     const target = anchor ? document.getElementById(anchor) : null;
@@ -867,7 +811,7 @@ function handlePageClick(event) {
   const link = event.target.closest('[data-page]');
   if (!link) return;
   event.preventDefault();
-  renderPage(link.dataset.page, true, link.dataset.anchor || '');
+  renderPage(link.dataset.page, link.dataset.anchor || '');
 }
 document.addEventListener('click', handlePageClick);
 
@@ -878,17 +822,6 @@ document.addEventListener('click', event => {
   event.preventDefault();
   showToast(`${action.dataset.placeholderAction} is a placeholder destination in this prototype.`);
 });
-function routeFromHash() {
-  const [id='all-data', anchor=''] = (location.hash.slice(1) || 'all-data').split(':', 2);
-  // Validate anchor: only allow alphanumeric, hyphens, underscores
-  const validAnchor = /^[a-zA-Z0-9_-]*$/.test(anchor) ? anchor : '';
-  return {id, validAnchor};
-}
-window.addEventListener('popstate', () => {
-  const route = routeFromHash();
-  renderPage(route.id, false, route.validAnchor);
-});
-
 function stripHTML(html) {
   const d = document.createElement('div');
   d.innerHTML = html;
@@ -926,8 +859,7 @@ localToggle.addEventListener('click', () => {
   localToggle.setAttribute('aria-expanded', String(open));
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMobileNavigation(); searchResults.classList.remove('open'); } });
-const initialRoute = routeFromHash();
-renderPage(initialRoute.id, false, initialRoute.validAnchor);
+renderPage('all-data');
 </script>
 </body>
 </html>
