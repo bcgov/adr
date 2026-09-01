@@ -826,11 +826,13 @@ document.addEventListener('click', event => {
 });
 function routeFromHash() {
   const [id='all-data', anchor=''] = (location.hash.slice(1) || 'all-data').split(':', 2);
-  return {id, anchor};
+  // Validate anchor: only allow alphanumeric, hyphens, underscores
+  const validAnchor = /^[a-zA-Z0-9_-]*$/.test(anchor) ? anchor : '';
+  return {id, validAnchor};
 }
 window.addEventListener('popstate', () => {
   const route = routeFromHash();
-  renderPage(route.id, false, route.anchor);
+  renderPage(route.id, false, route.validAnchor);
 });
 
 function stripHTML(html) {
@@ -871,7 +873,7 @@ localToggle.addEventListener('click', () => {
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMobileNavigation(); searchResults.classList.remove('open'); } });
 const initialRoute = routeFromHash();
-renderPage(initialRoute.id, false, initialRoute.anchor);
+renderPage(initialRoute.id, false, initialRoute.validAnchor);
 </script>
 </body>
 </html>
