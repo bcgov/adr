@@ -707,6 +707,56 @@ let previousPage = null;
 function escapeHTML(value) {
   return String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 }
+const ALLOWED_PAGE_ELEMENTS = new Set([
+  'a', 'div', 'h2', 'h3', 'li', 'nav', 'p', 'section', 'span', 'strong', 'svg', 'ul', 'use'
+]);
+const REMOVE_PAGE_ELEMENTS = new Set([
+  'base', 'embed', 'form', 'iframe', 'link', 'meta', 'object', 'script', 'style'
+]);
+const ALLOWED_PAGE_ATTRIBUTES = new Set([
+  'aria-hidden', 'aria-label', 'class', 'data-anchor', 'data-page', 'data-placeholder-action',
+  'href', 'id', 'rel', 'target'
+]);
+
+function isSafePageURL(value) {
+  try {
+    const url = new URL(value, location.href);
+    return value.startsWith('#') || url.protocol === 'https:' || url.protocol === 'http:';
+  } catch {
+    return false;
+  }
+}
+function sanitizePageBody(html) {
+  const template = document.createElement('template');
+  template.innerHTML = String(html);
+
+  for (const element of template.content.querySelectorAll('*')) {
+    const tagName = element.localName;
+    if (REMOVE_PAGE_ELEMENTS.has(tagName)) {
+      element.remove();
+      continue;
+    }
+    if (!ALLOWED_PAGE_ELEMENTS.has(tagName)) {
+      element.replaceWith(...element.childNodes);
+      continue;
+    }
+
+    for (const attribute of [...element.attributes]) {
+      if (!ALLOWED_PAGE_ATTRIBUTES.has(attribute.name)) element.removeAttribute(attribute.name);
+    }
+    if (element.hasAttribute('href') && !isSafePageURL(element.getAttribute('href'))) {
+      element.removeAttribute('href');
+    }
+    if (element.getAttribute('target') === '_blank') {
+      element.setAttribute('rel', 'noopener noreferrer');
+    } else {
+      element.removeAttribute('target');
+      element.removeAttribute('rel');
+    }
+  }
+
+  return template.innerHTML;
+}
 function showToast(message) {
   toast.textContent = message;
   toast.classList.add('show');
@@ -793,12 +843,13 @@ function renderPage(id, pushHash=true, anchor='') {
   currentPage = id;
   const page = PAGES[id];
   const intro = page.intro ? (id === 'provider' ? `<div class="provider-purpose"><strong>${escapeHTML(page.intro)}</strong></div>` : `<p class="lead">${escapeHTML(page.intro)}</p>`) : '';
+  const pageBody = sanitizePageBody(page.body);
   article.innerHTML = `
     <nav class="breadcrumbs" aria-label="Breadcrumb">${renderBreadcrumbs(id,page)}</nav>
     ${page.label ? `<p class="subtle-label page-type-label">${escapeHTML(page.label)}</p>` : ''}
     <h1>${escapeHTML(page.title)}</h1>
     ${intro}
-    ${page.body}
+    ${pageBody}
     ${renderPageFooter(id)}`;
   renderLocalNav();
   document.title = `${page.title} | B.C. government DevHub`;
