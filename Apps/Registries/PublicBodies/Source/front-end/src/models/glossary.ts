@@ -1,1 +1,9 @@
-export type { AdrSemanticsModelsGlossaryModel as GlossaryEntry } from "@/api/generated-semantics/types.gen";
+export type {
+    AdrSemanticsModelsGlossaryDraftModel as GlossaryDraft,
+    AdrSemanticsModelsGlossaryDraftPreviewModel as GlossaryDraftPreview,
+    AdrSemanticsModelsGlossaryInvalidTermModel as GlossaryInvalidTerm,
+    AdrSemanticsModelsGlossaryModel as GlossaryEntry,
+    AdrSemanticsModelsGlossaryTermEditModel as GlossaryTermEdit,
+    AdrSemanticsModelsGlossaryTermHistoryModel as GlossaryTermHistory,
+    AdrSemanticsModelsGlossaryVersionModel as GlossaryVersion,
+} from "@/api/generated-semantics/types.gen";

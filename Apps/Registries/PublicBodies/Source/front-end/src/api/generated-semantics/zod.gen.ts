@@ -2,14 +2,10 @@
 
 import * as z from 'zod';
 
-export const zAdrSemanticsModelsBaseAuditModel = z.object({
-    recordCreatedDatetime: z.iso.datetime().nullish(),
-    recordEndedDatetime: z.iso.datetime().nullish(),
-    recordCreatedUser: z.string().nullish(),
-    recordEndedUser: z.string().nullish()
-});
-
-export const zAdrSemanticsModelsDictionaryEntryFieldModel = zAdrSemanticsModelsBaseAuditModel.and(z.object({
+/**
+ * Represents a single Dictionary Entry information for a given openapi spec.
+ */
+export const zAdrSemanticsModelsDictionaryEntryFieldModel = z.object({
     fieldName: z.string().nullable(),
     fieldDescription: z.string().nullable(),
     schemaNameTableName: z.string().nullable(),
@@ -18,44 +14,109 @@ export const zAdrSemanticsModelsDictionaryEntryFieldModel = zAdrSemanticsModelsB
     keyRelationships: z.string().nullable(),
     systemOfRecord: z.string().nullable(),
     designatedAsRequired: z.string().nullable(),
-    semanticTermRef: z.string().nullable()
-}));
+    semanticTermRef: z.string().nullable(),
+    recordCreatedDatetime: z.iso.datetime().nullish(),
+    recordEndedDatetime: z.iso.datetime().nullish(),
+    recordCreatedUser: z.string().nullish(),
+    recordEndedUser: z.string().nullish()
+});
 
-export const zAdrSemanticsModelsDictionaryEntryModel = zAdrSemanticsModelsBaseAuditModel.and(z.object({
+/**
+ * Represents Dictionary Entry information for a given openapi spec.
+ */
+export const zAdrSemanticsModelsDictionaryEntryModel = z.object({
     id: z.string().nullable(),
     name: z.string().nullable(),
     source: z.string().nullable(),
-    fields: z.array(zAdrSemanticsModelsDictionaryEntryFieldModel).nullish()
-}));
+    fields: z.array(zAdrSemanticsModelsDictionaryEntryFieldModel).nullish(),
+    recordCreatedDatetime: z.iso.datetime().nullish(),
+    recordEndedDatetime: z.iso.datetime().nullish(),
+    recordCreatedUser: z.string().nullish(),
+    recordEndedUser: z.string().nullish()
+});
 
-export const zAdrSemanticsModelsDictionaryModel = zAdrSemanticsModelsBaseAuditModel.and(z.object({
+/**
+ * Represents Dictionary information.
+ */
+export const zAdrSemanticsModelsDictionaryModel = z.object({
     id: z.string().nullable(),
-    entries: z.array(zAdrSemanticsModelsDictionaryEntryModel).nullish()
-}));
+    entries: z.array(zAdrSemanticsModelsDictionaryEntryModel).nullish(),
+    recordCreatedDatetime: z.iso.datetime().nullish(),
+    recordEndedDatetime: z.iso.datetime().nullish(),
+    recordCreatedUser: z.string().nullish(),
+    recordEndedUser: z.string().nullish()
+});
 
 /**
  * BaseResponseModel<IEnumerable`1>
+ *
+ * Represents the result of a request.
  */
 export const zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsDictionaryModel = z.object({
     payload: z.array(zAdrSemanticsModelsDictionaryModel).nullable(),
     datetimeRequested: z.iso.datetime()
 });
 
-export const zAdrSemanticsModelsGlossaryModel = zAdrSemanticsModelsBaseAuditModel.and(z.object({
+/**
+ * Describes an unpublished glossary draft.
+ */
+export const zAdrSemanticsModelsGlossaryDraftModel = z.object({
+    id: z.uuid().optional(),
+    baseVersion: z.string().nullable(),
+    status: z.string().nullable(),
+    version: z.string().nullable(),
+    changeType: z.string().nullable(),
+    createdUtc: z.iso.datetime().optional(),
+    updatedUtc: z.iso.datetime().optional()
+});
+
+/**
+ * BaseResponseModel<IList`1>
+ *
+ * Represents the result of a request.
+ */
+export const zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericIListAdrSemanticsModelsGlossaryDraftModel = z.object({
+    payload: z.array(zAdrSemanticsModelsGlossaryDraftModel).nullable(),
+    datetimeRequested: z.iso.datetime()
+});
+
+/**
+ * Describes an invalid term submission that prevents draft publication.
+ */
+export const zAdrSemanticsModelsGlossaryInvalidTermModel = z.object({
+    name: z.string().nullable(),
+    invalidReasons: z.array(z.string()).nullable()
+});
+
+/**
+ * Represents Glossary information.
+ */
+export const zAdrSemanticsModelsGlossaryModel = z.object({
+    version: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     id: z.string().nullish(),
     name: z.string().nullish(),
     term: z.string().nullable(),
     definition: z.string().nullish(),
+    example: z.string().nullish(),
+    schemaType: z.string().nullish(),
+    schemaConstraints: z.record(z.string(), z.unknown()).nullish(),
     keywords: z.array(z.string()).nullish(),
-    context: z.string().nullish(),
+    scope: z.string().nullish(),
+    scopeUrl: z.string().nullish(),
     citations: z.string().nullish(),
     teamSource: z.string().nullish(),
     verifiedDefinitionFlag: z.boolean().optional(),
-    publishToDevHub: z.boolean().optional()
-}));
+    publishToDevHub: z.boolean().optional(),
+    recordCreatedDatetime: z.iso.datetime().nullish(),
+    recordEndedDatetime: z.iso.datetime().nullish(),
+    recordCreatedUser: z.string().nullish(),
+    recordEndedUser: z.string().nullish()
+});
 
 /**
  * BaseResponseModel<GlossaryModel>
+ *
+ * Represents the result of a request.
  */
 export const zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryModel = z.object({
     payload: zAdrSemanticsModelsGlossaryModel,
@@ -64,12 +125,215 @@ export const zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryModel
 
 /**
  * BaseResponseModel<IEnumerable`1>
+ *
+ * Represents the result of a request.
  */
 export const zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel = z.object({
     payload: z.array(zAdrSemanticsModelsGlossaryModel).nullable(),
     datetimeRequested: z.iso.datetime()
 });
 
+/**
+ * Describes a term added, changed, or deleted in a glossary draft.
+ */
+export const zAdrSemanticsModelsGlossaryDraftTermChangeModel = z.object({
+    term: zAdrSemanticsModelsGlossaryModel,
+    originalTerm: zAdrSemanticsModelsGlossaryModel.optional(),
+    changeType: z.string().nullable(),
+    breakingChange: z.boolean().optional()
+});
+
+/**
+ * Describes the effective content and version impact of a glossary draft.
+ */
+export const zAdrSemanticsModelsGlossaryDraftPreviewModel = z.object({
+    draft: zAdrSemanticsModelsGlossaryDraftModel,
+    terms: z.array(zAdrSemanticsModelsGlossaryModel).nullable(),
+    termChanges: z.array(zAdrSemanticsModelsGlossaryDraftTermChangeModel).nullable()
+});
+
+/**
+ * BaseResponseModel<GlossaryDraftPreviewModel>
+ *
+ * Represents the result of a request.
+ */
+export const zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPreviewModel = z.object({
+    payload: zAdrSemanticsModelsGlossaryDraftPreviewModel,
+    datetimeRequested: z.iso.datetime()
+});
+
+/**
+ * Reports the result of applying a stale draft's changes to the current glossary.
+ */
+export const zAdrSemanticsModelsGlossaryDraftRebaseResultModel = z.object({
+    status: z.string().nullable(),
+    preview: zAdrSemanticsModelsGlossaryDraftPreviewModel.optional(),
+    conflictingTerms: z.array(z.string()).nullish()
+});
+
+/**
+ * BaseResponseModel<GlossaryDraftRebaseResultModel>
+ *
+ * Represents the result of a request.
+ */
+export const zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftRebaseResultModel = z.object({
+    payload: zAdrSemanticsModelsGlossaryDraftRebaseResultModel,
+    datetimeRequested: z.iso.datetime()
+});
+
+/**
+ * Represents an editable glossary term without server-managed version metadata.
+ */
+export const zAdrSemanticsModelsGlossaryTermEditModel = z.object({
+    id: z.string().nullish(),
+    term: z.string().nullable(),
+    definition: z.string().nullish(),
+    example: z.string().nullish(),
+    schemaType: z.string().nullish(),
+    schemaConstraints: z.string().nullish(),
+    keywords: z.array(z.string()).nullish(),
+    scope: z.string().nullish(),
+    scopeUrl: z.string().nullish(),
+    citations: z.string().nullish(),
+    teamSource: z.string().nullish(),
+    verifiedDefinitionFlag: z.boolean().optional(),
+    publishToDevHub: z.boolean().optional(),
+    breakingChange: z.boolean().optional()
+});
+
+/**
+ * Describes a published glossary term revision or an invalid submission in its audit history.
+ */
+export const zAdrSemanticsModelsGlossaryTermHistoryModel = z.object({
+    status: z.string().nullable(),
+    version: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    term: zAdrSemanticsModelsGlossaryModel.optional(),
+    name: z.string().nullable(),
+    submittedId: z.string().nullish(),
+    sourceType: z.string().nullable(),
+    sourceReference: z.string().nullable(),
+    operation: z.string().nullable(),
+    breakingChange: z.boolean().optional(),
+    invalidReasons: z.array(z.string()).nullish(),
+    sourcePayload: z.string().nullish(),
+    glossaryVersions: z.array(z.string()).nullish(),
+    recordedUtc: z.iso.datetime().optional()
+});
+
+/**
+ * BaseResponseModel<IEnumerable`1>
+ *
+ * Represents the result of a request.
+ */
+export const zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryTermHistoryModel = z.object({
+    payload: z.array(zAdrSemanticsModelsGlossaryTermHistoryModel).nullable(),
+    datetimeRequested: z.iso.datetime()
+});
+
+/**
+ * Reports whether a draft term submission was accepted.
+ */
+export const zAdrSemanticsModelsGlossaryTermSubmissionResultModel = z.object({
+    isValid: z.boolean().optional(),
+    invalidReasons: z.array(z.string()).nullable(),
+    term: zAdrSemanticsModelsGlossaryModel.optional()
+});
+
+/**
+ * BaseResponseModel<GlossaryTermSubmissionResultModel>
+ *
+ * Represents the result of a request.
+ */
+export const zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryTermSubmissionResultModel = z.object({
+    payload: zAdrSemanticsModelsGlossaryTermSubmissionResultModel,
+    datetimeRequested: z.iso.datetime()
+});
+
+/**
+ * Identifies an immutable release of the glossary vocabulary.
+ */
+export const zAdrSemanticsModelsGlossaryVersionModel = z.object({
+    id: z.string().nullable(),
+    name: z.string().nullable(),
+    version: z.string().nullable(),
+    publishedAt: z.iso.date(),
+    isCurrent: z.boolean()
+});
+
+/**
+ * BaseResponseModel<IEnumerable`1>
+ *
+ * Represents the result of a request.
+ */
+export const zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryVersionModel = z.object({
+    payload: z.array(zAdrSemanticsModelsGlossaryVersionModel).nullable(),
+    datetimeRequested: z.iso.datetime()
+});
+
+/**
+ * Reports the result of publishing a glossary draft.
+ */
+export const zAdrSemanticsModelsGlossaryDraftPublishResultModel = z.object({
+    status: z.string().nullable(),
+    release: zAdrSemanticsModelsGlossaryVersionModel.optional(),
+    invalidTerms: z.array(zAdrSemanticsModelsGlossaryInvalidTermModel).nullish()
+});
+
+/**
+ * BaseResponseModel<GlossaryDraftPublishResultModel>
+ *
+ * Represents the result of a request.
+ */
+export const zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPublishResultModel = z.object({
+    payload: zAdrSemanticsModelsGlossaryDraftPublishResultModel,
+    datetimeRequested: z.iso.datetime()
+});
+
+/**
+ * GlossaryResponseModel<GlossaryModel>
+ *
+ * Represents a glossary response and identifies the vocabulary release used for its payload.
+ */
+export const zAdrSemanticsModelsGlossaryResponseModelAdrSemanticsModelsGlossaryModel = z.object({
+    payload: zAdrSemanticsModelsGlossaryModel,
+    datetimeRequested: z.iso.datetime(),
+    glossary: zAdrSemanticsModelsGlossaryVersionModel
+});
+
+/**
+ * GlossaryResponseModel<IEnumerable`1>
+ *
+ * Represents a glossary response and identifies the vocabulary release used for its payload.
+ */
+export const zAdrSemanticsModelsGlossaryResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel = z.object({
+    payload: z.array(zAdrSemanticsModelsGlossaryModel).nullable(),
+    datetimeRequested: z.iso.datetime(),
+    glossary: zAdrSemanticsModelsGlossaryVersionModel
+});
+
+/**
+ * Identifies a glossary draft to publish as a version.
+ */
+export const zAdrSemanticsModelsGlossaryVersionPublishModel = z.object({
+    draftId: z.uuid(),
+    ignoreInvalid: z.boolean().optional()
+});
+
+/**
+ * Represents Http Validation Problem Details.
+ */
+export const zMicrosoftAspNetCoreHttpHttpValidationProblemDetails = z.object({
+    errors: z.record(z.string(), z.array(z.string())).nullish(),
+    type: z.string().nullish(),
+    title: z.string().nullish(),
+    status: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
+    detail: z.string().nullish(),
+    instance: z.string().nullish()
+});
+
+/**
+ * Represents Problem Details used by the Semantics API.
+ */
 export const zMicrosoftAspNetCoreMvcProblemDetails = z.object({
     type: z.string().nullish(),
     title: z.string().nullish(),
@@ -78,10 +342,6 @@ export const zMicrosoftAspNetCoreMvcProblemDetails = z.object({
     instance: z.string().nullish()
 });
 
-export const zMicrosoftAspNetCoreHttpHttpValidationProblemDetails = zMicrosoftAspNetCoreMvcProblemDetails.and(z.object({
-    errors: z.record(z.string(), z.array(z.string())).nullish()
-}));
-
 export const zGetAllDictionariesData = z.object({
     body: z.never().optional(),
     path: z.never().optional(),
@@ -89,7 +349,7 @@ export const zGetAllDictionariesData = z.object({
 });
 
 /**
- * OK
+ * The request completed successfully.
  */
 export const zGetAllDictionariesResponse = zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsDictionaryModel;
 
@@ -100,9 +360,72 @@ export const zGetAllGlossaryData = z.object({
 });
 
 /**
- * OK
+ * The request completed successfully.
  */
-export const zGetAllGlossaryResponse = zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
+export const zGetAllGlossaryResponse = zAdrSemanticsModelsGlossaryResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
+
+export const zGetGlossaryVersionsData = z.object({
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryVersionsResponse = zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryVersionModel;
+
+export const zPublishGlossaryVersionData = z.object({
+    body: zAdrSemanticsModelsGlossaryVersionPublishModel,
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+/**
+ * The glossary resource was created successfully.
+ */
+export const zPublishGlossaryVersionResponse = zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPublishResultModel;
+
+export const zGetGlossaryVersionData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        glossaryVersion: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryVersionResponse = zAdrSemanticsModelsGlossaryResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
+
+export const zGetGlossarySchemaData = z.object({
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+/**
+ * Dictionary<String>
+ *
+ * Represents Dictionary.
+ */
+export const zGetGlossarySchemaResponse = z.record(z.string(), z.unknown());
+
+export const zGetGlossaryVersionSchemaData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        glossaryVersion: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * Dictionary<String>
+ *
+ * Represents Dictionary.
+ */
+export const zGetGlossaryVersionSchemaResponse = z.record(z.string(), z.unknown());
 
 export const zGetGlossaryMarkdownData = z.object({
     body: z.never().optional(),
@@ -111,9 +434,22 @@ export const zGetGlossaryMarkdownData = z.object({
 });
 
 /**
- * OK
+ * Represents String.
  */
 export const zGetGlossaryMarkdownResponse = z.string();
+
+export const zGetGlossaryVersionMarkdownData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        glossaryVersion: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * Represents String.
+ */
+export const zGetGlossaryVersionMarkdownResponse = z.string();
 
 export const zGetGlossaryMarkdownListData = z.object({
     body: z.never().optional(),
@@ -122,9 +458,92 @@ export const zGetGlossaryMarkdownListData = z.object({
 });
 
 /**
- * OK
+ * Represents String.
  */
 export const zGetGlossaryMarkdownListResponse = z.string();
+
+export const zGetGlossaryVersionMarkdownListData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        glossaryVersion: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * Represents String.
+ */
+export const zGetGlossaryVersionMarkdownListResponse = z.string();
+
+export const zGetGlossaryTermVersionsData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        term: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryTermVersionsResponse = zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
+
+export const zGetGlossaryTermHistoryData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        glossaryVersion: z.string(),
+        term: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryTermHistoryResponse = zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryTermHistoryModel;
+
+export const zGetGlossaryTermVersionData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        term: z.string(),
+        termVersion: z.int().gte(1).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryTermVersionResponse = zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryModel;
+
+export const zGetGlossaryTermVersionSchemaData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        term: z.string(),
+        termVersion: z.int().gte(1).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * Dictionary<String>
+ *
+ * Represents Dictionary.
+ */
+export const zGetGlossaryTermVersionSchemaResponse = z.record(z.string(), z.unknown());
+
+export const zGetGlossaryEntryByIdData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        id: z.uuid()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryEntryByIdResponse = zAdrSemanticsModelsGlossaryResponseModelAdrSemanticsModelsGlossaryModel;
 
 export const zGetGlossaryEntryByTermData = z.object({
     body: z.never().optional(),
@@ -135,6 +554,98 @@ export const zGetGlossaryEntryByTermData = z.object({
 });
 
 /**
- * OK
+ * The request completed successfully.
  */
-export const zGetGlossaryEntryByTermResponse = zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryModel;
+export const zGetGlossaryEntryByTermResponse = zAdrSemanticsModelsGlossaryResponseModelAdrSemanticsModelsGlossaryModel;
+
+export const zGetGlossaryVersionEntryByTermData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        glossaryVersion: z.string(),
+        term: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryVersionEntryByTermResponse = zAdrSemanticsModelsGlossaryResponseModelAdrSemanticsModelsGlossaryModel;
+
+export const zGetGlossaryDraftsData = z.object({
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        status: z.string().optional()
+    }).optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryDraftsResponse = zAdrSemanticsModelsBaseResponseModelSystemCollectionsGenericIListAdrSemanticsModelsGlossaryDraftModel;
+
+export const zCreateGlossaryDraftData = z.object({
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+/**
+ * The glossary resource was created successfully.
+ */
+export const zCreateGlossaryDraftResponse = zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPreviewModel;
+
+export const zGetGlossaryDraftData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        draftId: z.uuid()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zGetGlossaryDraftResponse = zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPreviewModel;
+
+export const zRebaseGlossaryDraftData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        draftId: z.uuid()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zRebaseGlossaryDraftResponse = zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftRebaseResultModel;
+
+export const zDeleteGlossaryDraftTermData = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        draftId: z.uuid(),
+        term: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zDeleteGlossaryDraftTermResponse = zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryTermSubmissionResultModel;
+
+export const zPutGlossaryDraftTermData = z.object({
+    body: zAdrSemanticsModelsGlossaryTermEditModel,
+    path: z.object({
+        draftId: z.uuid(),
+        term: z.string()
+    }),
+    query: z.never().optional()
+});
+
+/**
+ * The request completed successfully.
+ */
+export const zPutGlossaryDraftTermResponse = zAdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryTermSubmissionResultModel;

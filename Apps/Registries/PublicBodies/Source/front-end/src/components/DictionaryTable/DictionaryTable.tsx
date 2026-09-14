@@ -40,7 +40,7 @@ export default function DictionaryTable() {
     // Map of term-id → display term name, for resolving semanticTermRef links.
     const glossaryByTermId = useMemo(() => {
         const map = new Map<string, string>();
-        for (const entry of glossaryData ?? []) {
+        for (const entry of glossaryData?.payload ?? []) {
             if (entry.id && entry.term) {
                 map.set(entry.id, entry.term);
             }
