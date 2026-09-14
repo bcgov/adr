@@ -1,0 +1,14 @@
+{
+  "id": "connected-services",
+  "name": "Connected Services Semantics Glossary",
+  "imports": [
+    {
+      "publishedAt": "2026-07-23",
+      "asset": "Glossary_of_Terms_Data_Table.0.1.0.csv"
+    },
+    {
+      "publishedAt": "2026-09-09",
+      "asset": "Glossary_of_Terms_Data_Table.0.2.0.csv"
+    }
+  ]
+}

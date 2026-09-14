@@ -35,3 +35,8 @@ Thumbs.db
 
 # Log files
 *.log
+
+# Local embedded databases
+*.db
+*.db-shm
+*.db-wal
