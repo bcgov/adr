@@ -2,6 +2,36 @@
 
 The Semantics Service publishes the Connected Services glossary and derives data-dictionary views from configured API OpenAPI documents.
 
+## Run locally
+
+Install the .NET 10 SDK and Node.js 24 (the frontend `.nvmrc` version). Run the following from the repository root in three separate terminals:
+
+1. Start Public Bodies at <http://localhost:5000>:
+
+   ```bash
+   ASPNETCORE_ENVIRONMENT=Development dotnet run --project Apps/Registries/PublicBodies/Source/Api/PublicBodies.csproj --urls http://localhost:5000
+   ```
+
+2. Start Semantics at <http://localhost:5001>:
+
+   ```bash
+   ASPNETCORE_ENVIRONMENT=Development dotnet run --project Apps/Registries/Semantics/Source/Api/Semantics.csproj --urls http://localhost:5001
+   ```
+
+3. Install and start the frontend at <http://localhost:5173>:
+
+   ```bash
+   cd Apps/Registries/PublicBodies/Source/front-end
+   npm ci
+   npm run dev -- --port 5173 --strictPort
+   ```
+
+The frontend defaults to these local API URLs. If `.env.local` already overrides them, set `VITE_PUBLIC_BODIES_API_URL=http://localhost:5000` and `VITE_SEMANTICS_API_URL=http://localhost:5001`.
+
+The Dictionary loads Public Bodies' OpenAPI document from <http://localhost:5000/swagger/v1/swagger.json>, so start Public Bodies before opening the Dictionary. If the Dictionary was loaded while Public Bodies was unavailable, restart Semantics to clear the cached result. The glossary itself does not depend on Public Bodies; verify it at <http://localhost:5001/v1/Glossary>.
+
+Development configuration sets `GlossaryBaseUrl` to `http://localhost:5001/v1/Glossary`. Dictionary semantic links append `/id/{uuid}` to this base URL, resolving terms through the stable UUID lookup endpoint.
+
 ## Glossary releases
 
 The glossary is versioned as a vocabulary, and each term also has a monotonically increasing integer `version`. `GET /v1/Glossary` is a moving alias for the current glossary release and preserves the existing `payload` array. Every glossary response also includes release metadata:
