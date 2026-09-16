@@ -10,6 +10,23 @@ namespace Adr.Semantics.Models
     public class GlossaryModel : BaseAuditModel
     {
         /// <summary>
+        /// Gets or sets the monotonically increasing version of this term.
+        /// </summary>
+        public int Version { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source record number used while importing this term.
+        /// </summary>
+        [JsonIgnore]
+        internal int SourceRecordNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether this submission declares its content change to be breaking.
+        /// </summary>
+        [JsonIgnore]
+        public bool BreakingChange { get; set; }
+
+        /// <summary>
         /// Gets or sets the stable static identifier (GUID) for this term.
         /// Serialized as <c>id</c> so consumers can reference terms by their stable identifier.
         /// </summary>
@@ -30,6 +47,28 @@ namespace Adr.Semantics.Models
         /// Gets or sets the published definition (source definition).
         /// </summary>
         public string Definition { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets an optional example value for the term.
+        /// </summary>
+        public string Example { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets the OpenAPI schema type used to represent the term.
+        /// </summary>
+        public string SchemaType { get; set; } = "string";
+
+        /// <summary>
+        /// Gets or sets the serialized OpenAPI constraints read from the glossary source.
+        /// </summary>
+        [JsonIgnore]
+        public string SchemaConstraintsSource { get; set; } = "";
+
+        /// <summary>
+        /// Gets or sets the validated OpenAPI constraints for the term.
+        /// </summary>
+        public IDictionary<string, object> SchemaConstraints { get; set; } =
+            new Dictionary<string, object>();
 
         /// <summary>
         /// Gets or sets the keywords for the term.

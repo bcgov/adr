@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "title": "Spouse",
+  "description": "Unmarried couples are considered spouses if they meet either of the following criteria:\n1) demonstrate qualities consistent with a marriage-like relationship while residing together for 12 consecutive months, or\n2) if they declare that they are in a marriage-like relationship.\nMarried couples who can demonstrate they have separated are exempted from being considered spouses. \nSeparated means that they have legally separated, in divorce \nproceedings, severed financial interdependence or social and familial interdependence, etc.\n",
+  "x-bc-semantic-urn": "urn:bcgov:glossary:connected-services:spouse",
+  "x-bc-semantic-term-version": 1,
+  "x-bc-semantic-ref": "21240249-56a6-46f8-92d4-83ea0b12d586"
+}

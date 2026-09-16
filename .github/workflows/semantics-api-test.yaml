@@ -1,0 +1,54 @@
+---
+name: Semantics API - Test
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    paths:
+      - Apps/Directory.Build.props
+      - Apps/Registries/Semantics/**
+      - .github/workflows/semantics-api-test.yaml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-suite:
+    name: Test suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20.x
+          cache: npm
+          cache-dependency-path: Apps/Registries/Semantics/Tests/Spectral/package-lock.json
+
+      - name: Restore dependencies
+        run: dotnet restore Apps/Registries/Semantics/Tests/Api/Semantics.Tests.csproj
+
+      - name: Build
+        run: dotnet build Apps/Registries/Semantics/Tests/Api/Semantics.Tests.csproj --no-restore
+
+      - name: Test
+        run: dotnet test Apps/Registries/Semantics/Tests/Api/Semantics.Tests.csproj --no-build --no-restore
+
+      - name: Install Spectral test dependencies
+        run: npm ci
+        working-directory: Apps/Registries/Semantics/Tests/Spectral
+
+      - name: Test external glossary references with Spectral
+        run: npm test
+        working-directory: Apps/Registries/Semantics/Tests/Spectral

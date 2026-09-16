@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "title": "Spouse",
+  "description": "A resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.",
+  "x-bc-semantic-urn": "urn:bcgov:glossary:connected-services:msp-spouse",
+  "x-bc-semantic-term-version": 1,
+  "x-bc-semantic-ref": "0cd3330c-bcea-4bfc-bdd1-82fab972cb11"
+}

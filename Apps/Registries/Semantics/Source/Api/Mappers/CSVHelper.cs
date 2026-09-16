@@ -33,7 +33,7 @@ namespace Adr.Semantics.Models
         {
             if (text is null)
             {
-                return false;
+                throw new FormatException("A Yes/No value is required.");
             }
 
             string lowerText = text.Trim().ToLowerInvariant();
@@ -48,7 +48,21 @@ namespace Adr.Semantics.Models
                 return false;
             }
 
-            return false;
+            throw new FormatException($"'{text}' is not a valid Yes/No value.");
+        }
+    }
+
+    public class OptionalBooleanFromYesNoConverter : BooleanFromYesNoConverter
+    {
+        public override object ConvertFromString(
+            string? text,
+            IReaderRow row,
+            MemberMapData memberMapData
+        )
+        {
+            return string.IsNullOrWhiteSpace(text)
+                ? false
+                : base.ConvertFromString(text, row, memberMapData);
         }
     }
 }

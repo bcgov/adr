@@ -75,11 +75,13 @@ namespace Adr.Semantics.Configuration
                 .AddSwaggerGen(options =>
                 {
                     Array.ForEach(xmlDocs, d => options.IncludeXmlComments(d));
-                    options.UseAllOfForInheritance();
                     options.UseOneOfForPolymorphism();
                     options.SchemaFilter<SwaggerExcludeModelFilter>();
                     options.SchemaFilter<SwaggerGenericFilter>();
+                    options.SchemaFilter<OpenApiDocumentationFilter>();
                     options.DocumentFilter<SwaggerExcludeModelFilter>();
+                    options.DocumentFilter<OpenApiDocumentationFilter>();
+                    options.OperationFilter<OpenApiDocumentationFilter>();
                     options.CustomSchemaIds(type =>
                         type.ToString()
                             .Replace("`1", "")
@@ -95,7 +97,6 @@ namespace Adr.Semantics.Configuration
         /// Configures the http services.
         /// </summary>
         /// <param name="services">The service collection provider.</param>
-        /// <param name="logger">The logger to use.</param>
         public void ConfigureHttpServices(IServiceCollection services)
         {
             Logger.LogDebug("Configure Http Services...");
@@ -262,7 +263,6 @@ namespace Adr.Semantics.Configuration
         /// Enables response caching and sets default no cache.
         /// </summary>
         /// <param name="app">The application build provider.</param>
-        /// <param name="logger">The logger to use.</param>
         public void UseResponseCaching(IApplicationBuilder app)
         {
             Logger.LogDebug("Setting up Response Cache");

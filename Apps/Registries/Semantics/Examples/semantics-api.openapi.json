@@ -1,0 +1,2653 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "BC SemanticsDocumentation",
+    "description": "Provides API informatinon for Glossary and Dictionary semantics.",
+    "license": {
+      "name": "Apache 2.0(Maybe)",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "paths": {
+    "/v1/Dictionary": {
+      "summary": "Returns all dictionary information.",
+      "get": {
+        "tags": [
+          "Dictionary"
+        ],
+        "summary": "Returns all dictionary information.",
+        "description": "Returns all dictionary information. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetAllDictionaries",
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.DictionaryModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary": {
+      "summary": "Returns all glossary information.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns all glossary information.",
+        "description": "Returns all glossary information. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetAllGlossary",
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/versions": {
+      "summary": "Lists glossary versions or publishes a draft as a new version.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns metadata for all available glossary releases.",
+        "description": "Returns metadata for all available glossary releases. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryVersions",
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryVersionModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Publishes a glossary draft as a new glossary version.",
+        "description": "Publishes a glossary draft as a new glossary version. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "PublishGlossaryVersion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryVersionPublishModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryVersionPublishModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryVersionPublishModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The glossary resource was created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftPublishResultModel"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with the current glossary state.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftPublishResultModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request contains glossary content that failed validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftPublishResultModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/versions/{glossaryVersion}": {
+      "summary": "Returns all published terms from a specific glossary release.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns all published terms from a specific glossary release.",
+        "description": "Returns all published terms from a specific glossary release. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryVersion",
+        "parameters": [
+          {
+            "name": "glossaryVersion",
+            "in": "path",
+            "description": "The glossary semantic version.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/schema": {
+      "summary": "Returns the current glossary release as reusable OpenAPI schema components.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns the current glossary release as reusable OpenAPI schema components.",
+        "description": "Returns the current glossary release as reusable OpenAPI schema components. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossarySchema",
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/vnd.oai.openapi+json": {
+                "schema": {
+                  "title": "Dictionary<String>",
+                  "type": "object",
+                  "additionalProperties": {
+                    "description": "Represents Object."
+                  },
+                  "description": "Represents Dictionary.",
+                  "example": {
+                    "key": "example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          { }
+        ]
+      }
+    },
+    "/v1/Glossary/versions/{glossaryVersion}/schema": {
+      "summary": "Returns a specific glossary release as reusable OpenAPI schema components.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns a specific glossary release as reusable OpenAPI schema components.",
+        "description": "Returns a specific glossary release as reusable OpenAPI schema components. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryVersionSchema",
+        "parameters": [
+          {
+            "name": "glossaryVersion",
+            "in": "path",
+            "description": "The glossary semantic version.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/vnd.oai.openapi+json": {
+                "schema": {
+                  "title": "Dictionary<String>",
+                  "type": "object",
+                  "additionalProperties": {
+                    "description": "Represents Object."
+                  },
+                  "description": "Represents Dictionary.",
+                  "example": {
+                    "key": "example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/vnd.oai.openapi+json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          { }
+        ]
+      }
+    },
+    "/v1/Glossary/markdown": {
+      "summary": "Returns all glossary information rendered as a Markdown table.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns all glossary information rendered as a Markdown table.",
+        "description": "Returns all glossary information rendered as a Markdown table. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryMarkdown",
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "text/markdown": {
+                "schema": {
+                  "type": "string",
+                  "description": "Represents String.",
+                  "example": "example"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/versions/{glossaryVersion}/markdown": {
+      "summary": "Returns a specific glossary release rendered as a Markdown table.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns a specific glossary release rendered as a Markdown table.",
+        "description": "Returns a specific glossary release rendered as a Markdown table. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryVersionMarkdown",
+        "parameters": [
+          {
+            "name": "glossaryVersion",
+            "in": "path",
+            "description": "The glossary semantic version.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "text/markdown": {
+                "schema": {
+                  "type": "string",
+                  "description": "Represents String.",
+                  "example": "example"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "text/markdown": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/markdown-list": {
+      "summary": "Returns all glossary information rendered as a Markdown list.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns all glossary information rendered as a Markdown list.",
+        "description": "Returns all glossary information rendered as a Markdown list. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryMarkdownList",
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "text/markdown": {
+                "schema": {
+                  "type": "string",
+                  "description": "Represents String.",
+                  "example": "example"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/versions/{glossaryVersion}/markdown-list": {
+      "summary": "Returns a specific glossary release rendered as a Markdown list.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns a specific glossary release rendered as a Markdown list.",
+        "description": "Returns a specific glossary release rendered as a Markdown list. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryVersionMarkdownList",
+        "parameters": [
+          {
+            "name": "glossaryVersion",
+            "in": "path",
+            "description": "The glossary semantic version.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "text/markdown": {
+                "schema": {
+                  "type": "string",
+                  "description": "Represents String.",
+                  "example": "example"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "text/markdown": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/terms/{term}/versions": {
+      "summary": "Returns every persisted version of a glossary term.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns every persisted version of a glossary term.",
+        "description": "Returns every persisted version of a glossary term. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryTermVersions",
+        "parameters": [
+          {
+            "name": "term",
+            "in": "path",
+            "description": "The current human-readable term slug.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/versions/{glossaryVersion}/terms/{term}/versions": {
+      "summary": "Returns the published revisions and invalid submissions for a term selected from a\r\nspecific glossary release.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns the published revisions and invalid submissions for a term selected from a\r\nspecific glossary release.",
+        "description": "Returns the published revisions and invalid submissions for a term selected from a\r\nspecific glossary release. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryTermHistory",
+        "parameters": [
+          {
+            "name": "glossaryVersion",
+            "in": "path",
+            "description": "The glossary release containing the term.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          },
+          {
+            "name": "term",
+            "in": "path",
+            "description": "The term slug as it appears in that release.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryTermHistoryModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/terms/{term}/versions/{termVersion}": {
+      "summary": "Returns a persisted version of a glossary term.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns a persisted version of a glossary term.",
+        "description": "Returns a persisted version of a glossary term. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryTermVersion",
+        "parameters": [
+          {
+            "name": "term",
+            "in": "path",
+            "description": "The current human-readable term slug.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          },
+          {
+            "name": "termVersion",
+            "in": "path",
+            "description": "The monotonically increasing term version.",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "description": "Represents Int32.",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/terms/{term}/versions/{termVersion}/schema": {
+      "summary": "Returns a persisted term revision as a reusable OpenAPI Schema Object.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns a persisted term revision as a reusable OpenAPI Schema Object.",
+        "description": "Returns a persisted term revision as a reusable OpenAPI Schema Object. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryTermVersionSchema",
+        "parameters": [
+          {
+            "name": "term",
+            "in": "path",
+            "description": "The current human-readable term slug.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          },
+          {
+            "name": "termVersion",
+            "in": "path",
+            "description": "The monotonically increasing term version.",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "description": "Represents Int32.",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Dictionary<String>",
+                  "type": "object",
+                  "additionalProperties": {
+                    "description": "Represents Object."
+                  },
+                  "description": "Represents Dictionary.",
+                  "example": {
+                    "key": "example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          { }
+        ]
+      }
+    },
+    "/v1/Glossary/id/{id}": {
+      "summary": "Returns the current valid glossary entry identified by its stable UUID.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns the current valid glossary entry identified by its stable UUID.",
+        "description": "Returns the current valid glossary entry identified by its stable UUID. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryEntryById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifies the id used by this operation.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents Guid.",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryResponseModelAdr.Semantics.Models.GlossaryModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/{term}": {
+      "summary": "Returns a glossary entry by its human-readable slug.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns a glossary entry by its human-readable slug.",
+        "description": "Returns a glossary entry by its human-readable slug. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryEntryByTerm",
+        "parameters": [
+          {
+            "name": "term",
+            "in": "path",
+            "description": "The human-readable glossary term slug.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryResponseModelAdr.Semantics.Models.GlossaryModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/versions/{glossaryVersion}/terms/{term}": {
+      "summary": "Returns a glossary entry from a specific release by its human-readable slug.",
+      "get": {
+        "tags": [
+          "Glossary"
+        ],
+        "summary": "Returns a glossary entry from a specific release by its human-readable slug.",
+        "description": "Returns a glossary entry from a specific release by its human-readable slug. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryVersionEntryByTerm",
+        "parameters": [
+          {
+            "name": "glossaryVersion",
+            "in": "path",
+            "description": "The glossary semantic version.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          },
+          {
+            "name": "term",
+            "in": "path",
+            "description": "The human-readable glossary term slug.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryResponseModelAdr.Semantics.Models.GlossaryModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/drafts": {
+      "summary": "Creates a new draft based on the current glossary release.",
+      "post": {
+        "tags": [
+          "GlossaryDraft"
+        ],
+        "summary": "Creates a new draft based on the current glossary release.",
+        "description": "Creates a new draft based on the current glossary release. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "CreateGlossaryDraft",
+        "responses": {
+          "201": {
+            "description": "The glossary resource was created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftPreviewModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "GlossaryDraft"
+        ],
+        "summary": "Returns glossary draft metadata, optionally filtered by lifecycle status.",
+        "description": "Returns glossary draft metadata, optionally filtered by lifecycle status. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryDrafts",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Optional case-insensitive lifecycle status: Draft, Published, or Stale.",
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.IListAdr.Semantics.Models.GlossaryDraftModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/drafts/{draftId}": {
+      "summary": "Returns a draft, its calculated draft version, and its effective terms.",
+      "get": {
+        "tags": [
+          "GlossaryDraft"
+        ],
+        "summary": "Returns a draft, its calculated draft version, and its effective terms.",
+        "description": "Returns a draft, its calculated draft version, and its effective terms. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "GetGlossaryDraft",
+        "parameters": [
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The unique identifier of the glossary draft.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents Guid.",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftPreviewModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/drafts/{draftId}/rebase": {
+      "summary": "Applies a stale draft's changes to the current glossary release.",
+      "post": {
+        "tags": [
+          "GlossaryDraft"
+        ],
+        "summary": "Applies a stale draft's changes to the current glossary release.",
+        "description": "Applies a stale draft's changes to the current glossary release. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "RebaseGlossaryDraft",
+        "parameters": [
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The unique identifier of the glossary draft.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents Guid.",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftRebaseResultModel"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with the current glossary state.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftRebaseResultModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Glossary/drafts/{draftId}/terms/{term}": {
+      "summary": "Adds or replaces a term in a draft and records the submission for audit.",
+      "put": {
+        "tags": [
+          "GlossaryDraft"
+        ],
+        "summary": "Adds or replaces a term in a draft and records the submission for audit.",
+        "description": "Adds or replaces a term in a draft and records the submission for audit. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "PutGlossaryDraftTerm",
+        "parameters": [
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The unique identifier of the glossary draft.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents Guid.",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            }
+          },
+          {
+            "name": "term",
+            "in": "path",
+            "description": "The human-readable glossary term slug.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryTermEditModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryTermEditModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryTermEditModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryTermSubmissionResultModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request contains glossary content that failed validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryTermSubmissionResultModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with the current glossary state.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "GlossaryDraft"
+        ],
+        "summary": "Removes a term from a draft and records the deletion for audit.",
+        "description": "Removes a term from a draft and records the deletion for audit. The response contains the requested semantic data or explains why the request could not be completed.",
+        "operationId": "DeleteGlossaryDraftTerm",
+        "parameters": [
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The unique identifier of the glossary draft.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents Guid.",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            }
+          },
+          {
+            "name": "term",
+            "in": "path",
+            "description": "The human-readable glossary term slug.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Represents String.",
+              "example": "example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryTermSubmissionResultModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested glossary resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with the current glossary state.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ],
+                  "description": "Represents Problem Details.",
+                  "example": {
+                    "type": "example"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftPreviewModel": {
+        "title": "BaseResponseModel<GlossaryDraftPreviewModel>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryDraftPreviewModel"
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": {
+            "draft": {
+              "baseVersion": "example",
+              "changeType": "example",
+              "status": "example",
+              "version": "example"
+            },
+            "termChanges": [ ],
+            "terms": [ ]
+          }
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftPublishResultModel": {
+        "title": "BaseResponseModel<GlossaryDraftPublishResultModel>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryDraftPublishResultModel"
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": {
+            "status": "example"
+          }
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryDraftRebaseResultModel": {
+        "title": "BaseResponseModel<GlossaryDraftRebaseResultModel>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryDraftRebaseResultModel"
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": {
+            "status": "example"
+          }
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryModel": {
+        "title": "BaseResponseModel<GlossaryModel>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": {
+            "term": "example"
+          }
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelAdr.Semantics.Models.GlossaryTermSubmissionResultModel": {
+        "title": "BaseResponseModel<GlossaryTermSubmissionResultModel>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryTermSubmissionResultModel"
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": {
+            "invalidReasons": [ ]
+          }
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.IListAdr.Semantics.Models.GlossaryDraftModel": {
+        "title": "BaseResponseModel<IList`1>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "title": "IList<GlossaryDraftModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryDraftModel"
+            },
+            "description": "Gets or sets the payload information.",
+            "nullable": true
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": [ ]
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.DictionaryModel": {
+        "title": "BaseResponseModel<IEnumerable`1>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "title": "IEnumerable<DictionaryModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.DictionaryModel"
+            },
+            "description": "Gets or sets the payload information.",
+            "nullable": true
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": [ ]
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryModel": {
+        "title": "BaseResponseModel<IEnumerable`1>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "title": "IEnumerable<GlossaryModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+            },
+            "description": "Gets or sets the payload information.",
+            "nullable": true
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": [ ]
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryTermHistoryModel": {
+        "title": "BaseResponseModel<IEnumerable`1>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "title": "IEnumerable<GlossaryTermHistoryModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryTermHistoryModel"
+            },
+            "description": "Gets or sets the payload information.",
+            "nullable": true
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": [ ]
+        }
+      },
+      "Adr.Semantics.Models.BaseResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryVersionModel": {
+        "title": "BaseResponseModel<IEnumerable`1>",
+        "required": [
+          "datetimeRequested",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "title": "IEnumerable<GlossaryVersionModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryVersionModel"
+            },
+            "description": "Gets or sets the payload information.",
+            "nullable": true
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of a request.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "payload": [ ]
+        }
+      },
+      "Adr.Semantics.Models.DictionaryEntryFieldModel": {
+        "required": [
+          "dataSource",
+          "dataType",
+          "designatedAsRequired",
+          "fieldDescription",
+          "fieldName",
+          "keyRelationships",
+          "schemaNameTableName",
+          "semanticTermRef",
+          "systemOfRecord"
+        ],
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "type": "string",
+            "description": "Gets or sets the field name.",
+            "nullable": true
+          },
+          "fieldDescription": {
+            "type": "string",
+            "description": "Gets or sets the field description.",
+            "nullable": true
+          },
+          "schemaNameTableName": {
+            "type": "string",
+            "description": "Gets or sets the schema name and table name.",
+            "nullable": true
+          },
+          "dataSource": {
+            "type": "string",
+            "description": "Gets or sets the data source.",
+            "nullable": true
+          },
+          "dataType": {
+            "type": "string",
+            "description": "Gets or sets the data type.",
+            "nullable": true
+          },
+          "keyRelationships": {
+            "type": "string",
+            "description": "Gets or sets the key relationships.",
+            "nullable": true
+          },
+          "systemOfRecord": {
+            "type": "string",
+            "description": "Gets or sets the system of record.",
+            "nullable": true
+          },
+          "designatedAsRequired": {
+            "type": "string",
+            "description": "Gets or sets a value indicating whether the field is designated as required.",
+            "nullable": true
+          },
+          "semanticTermRef": {
+            "type": "string",
+            "description": "Gets or sets a hyperlink to the glossary term this field references.\r\nEmpty when the field has no semantic reference.",
+            "nullable": true
+          },
+          "recordCreatedDatetime": {
+            "title": "Nullable<DateTime>",
+            "type": "string",
+            "description": "Gets or sets the record created datetime",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordEndedDatetime": {
+            "title": "Nullable<DateTime>",
+            "type": "string",
+            "description": "Gets or sets the record ended datetime",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordCreatedUser": {
+            "type": "string",
+            "description": "Gets or sets the record created user",
+            "nullable": true
+          },
+          "recordEndedUser": {
+            "type": "string",
+            "description": "Gets or sets the record ended user",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a single Dictionary Entry information for a given openapi spec.",
+        "example": {
+          "dataSource": "example",
+          "dataType": "example",
+          "designatedAsRequired": "example",
+          "fieldDescription": "example",
+          "fieldName": "example",
+          "keyRelationships": "example",
+          "schemaNameTableName": "example",
+          "semanticTermRef": "example",
+          "systemOfRecord": "example"
+        }
+      },
+      "Adr.Semantics.Models.DictionaryEntryModel": {
+        "required": [
+          "id",
+          "name",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets or sets the id of this record",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the name for the dictionary",
+            "nullable": true
+          },
+          "source": {
+            "type": "string",
+            "description": "Gets or sets the source for the dictionary",
+            "nullable": true
+          },
+          "fields": {
+            "title": "IList<DictionaryEntryFieldModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.DictionaryEntryFieldModel"
+            },
+            "description": "Gets or sets the fields for the dictionary entry.",
+            "nullable": true
+          },
+          "recordCreatedDatetime": {
+            "title": "Nullable<DateTime>",
+            "type": "string",
+            "description": "Gets or sets the record created datetime",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordEndedDatetime": {
+            "title": "Nullable<DateTime>",
+            "type": "string",
+            "description": "Gets or sets the record ended datetime",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordCreatedUser": {
+            "type": "string",
+            "description": "Gets or sets the record created user",
+            "nullable": true
+          },
+          "recordEndedUser": {
+            "type": "string",
+            "description": "Gets or sets the record ended user",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents Dictionary Entry information for a given openapi spec.",
+        "example": {
+          "id": "example",
+          "name": "example",
+          "source": "example"
+        }
+      },
+      "Adr.Semantics.Models.DictionaryModel": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets or sets the id of this record.",
+            "nullable": true
+          },
+          "entries": {
+            "title": "IList<DictionaryEntryModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.DictionaryEntryModel"
+            },
+            "description": "Gets or sets the parsed openapi spec entries that make up this dictionary.",
+            "nullable": true
+          },
+          "recordCreatedDatetime": {
+            "title": "Nullable<DateTime>",
+            "type": "string",
+            "description": "Gets or sets the record created datetime",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordEndedDatetime": {
+            "title": "Nullable<DateTime>",
+            "type": "string",
+            "description": "Gets or sets the record ended datetime",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordCreatedUser": {
+            "type": "string",
+            "description": "Gets or sets the record created user",
+            "nullable": true
+          },
+          "recordEndedUser": {
+            "type": "string",
+            "description": "Gets or sets the record ended user",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents Dictionary information.",
+        "example": {
+          "id": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryDraftModel": {
+        "required": [
+          "baseVersion",
+          "changeType",
+          "status",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets or sets the draft identifier.",
+            "format": "uuid"
+          },
+          "baseVersion": {
+            "type": "string",
+            "description": "Gets or sets the glossary version on which the draft is based.",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Gets or sets the draft status.",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "description": "Gets or sets the calculated draft or published version.",
+            "nullable": true
+          },
+          "changeType": {
+            "type": "string",
+            "description": "Gets or sets the aggregate semantic change.",
+            "nullable": true
+          },
+          "createdUtc": {
+            "type": "string",
+            "description": "Gets or sets when the draft was created.",
+            "format": "date-time"
+          },
+          "updatedUtc": {
+            "type": "string",
+            "description": "Gets or sets when the draft was last updated.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Describes an unpublished glossary draft.",
+        "example": {
+          "baseVersion": "example",
+          "changeType": "example",
+          "status": "example",
+          "version": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryDraftPreviewModel": {
+        "required": [
+          "draft",
+          "termChanges",
+          "terms"
+        ],
+        "type": "object",
+        "properties": {
+          "draft": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryDraftModel"
+          },
+          "terms": {
+            "title": "IEnumerable<GlossaryModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+            },
+            "description": "Gets or sets the effective published terms.",
+            "nullable": true
+          },
+          "termChanges": {
+            "title": "IEnumerable<GlossaryDraftTermChangeModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryDraftTermChangeModel"
+            },
+            "description": "Gets or sets terms that differ from the draft's base release.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Describes the effective content and version impact of a glossary draft.",
+        "example": {
+          "draft": {
+            "baseVersion": "example",
+            "changeType": "example",
+            "status": "example",
+            "version": "example"
+          },
+          "termChanges": [ ],
+          "terms": [ ]
+        }
+      },
+      "Adr.Semantics.Models.GlossaryDraftPublishResultModel": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Gets or sets the publication result status.",
+            "nullable": true
+          },
+          "release": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryVersionModel"
+          },
+          "invalidTerms": {
+            "title": "IReadOnlyList<GlossaryInvalidTermModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryInvalidTermModel"
+            },
+            "description": "Gets or sets unresolved invalid term submissions.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Reports the result of publishing a glossary draft.",
+        "example": {
+          "status": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryDraftRebaseResultModel": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Gets or sets Rebased or Conflict.",
+            "nullable": true
+          },
+          "preview": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryDraftPreviewModel"
+          },
+          "conflictingTerms": {
+            "title": "IReadOnlyList<String>",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Represents String."
+            },
+            "description": "Gets or sets terms changed differently in both releases.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Reports the result of applying a stale draft's changes to the current glossary.",
+        "example": {
+          "status": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryDraftTermChangeModel": {
+        "required": [
+          "changeType",
+          "term"
+        ],
+        "type": "object",
+        "properties": {
+          "term": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+          },
+          "originalTerm": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+          },
+          "changeType": {
+            "type": "string",
+            "description": "Gets or sets New, Bugfix, Breaking Change, or Deleted.",
+            "nullable": true
+          },
+          "breakingChange": {
+            "type": "boolean",
+            "description": "Gets or sets whether the latest saved term submission declares a breaking change."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Describes a term added, changed, or deleted in a glossary draft.",
+        "example": {
+          "changeType": "example",
+          "term": {
+            "term": "example"
+          }
+        }
+      },
+      "Adr.Semantics.Models.GlossaryInvalidTermModel": {
+        "required": [
+          "invalidReasons",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the submitted term slug.",
+            "nullable": true
+          },
+          "invalidReasons": {
+            "title": "IReadOnlyList<String>",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Represents String."
+            },
+            "description": "Gets or sets the validation reasons.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Describes an invalid term submission that prevents draft publication.",
+        "example": {
+          "invalidReasons": [ ],
+          "name": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryModel": {
+        "required": [
+          "term"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "description": "Gets or sets the monotonically increasing version of this term.",
+            "format": "int32"
+          },
+          "id": {
+            "type": "string",
+            "description": "Gets or sets the stable static identifier (GUID) for this term.\r\nSerialized as `id` so consumers can reference terms by their stable identifier.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the URL-friendly name (slug) for this term.",
+            "nullable": true
+          },
+          "term": {
+            "type": "string",
+            "description": "Gets or sets the term used by the glossary service.",
+            "nullable": true
+          },
+          "definition": {
+            "type": "string",
+            "description": "Gets or sets the published definition (source definition).",
+            "nullable": true
+          },
+          "example": {
+            "type": "string",
+            "description": "Gets or sets an optional example value for the term.",
+            "nullable": true
+          },
+          "schemaType": {
+            "type": "string",
+            "description": "Gets or sets the OpenAPI schema type used to represent the term.",
+            "nullable": true
+          },
+          "schemaConstraints": {
+            "title": "IDictionary<String>",
+            "type": "object",
+            "additionalProperties": {
+              "description": "Represents Object."
+            },
+            "description": "Gets or sets the validated OpenAPI constraints for the term.",
+            "nullable": true
+          },
+          "keywords": {
+            "title": "IList<String>",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Represents String."
+            },
+            "description": "Gets or sets the keywords for the term.",
+            "nullable": true
+          },
+          "scope": {
+            "type": "string",
+            "description": "Gets or sets the scope text for the term.",
+            "nullable": true
+          },
+          "scopeUrl": {
+            "type": "string",
+            "description": "Gets or sets the scope hyperlink URL for the term.",
+            "nullable": true
+          },
+          "citations": {
+            "type": "string",
+            "description": "Gets or sets the citation / reference URL for the term.",
+            "nullable": true
+          },
+          "teamSource": {
+            "type": "string",
+            "description": "Gets or sets the internal team source (transitional).",
+            "nullable": true
+          },
+          "verifiedDefinitionFlag": {
+            "type": "boolean",
+            "description": "Gets or sets a flag indicating whether the definition has been verified (internal - transitional)."
+          },
+          "publishToDevHub": {
+            "type": "boolean",
+            "description": "Gets or sets a flag indicating whether this term should be published to DevHub (internal - transitional)."
+          },
+          "recordCreatedDatetime": {
+            "title": "Nullable<DateTime>",
+            "type": "string",
+            "description": "Gets or sets the record created datetime",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordEndedDatetime": {
+            "title": "Nullable<DateTime>",
+            "type": "string",
+            "description": "Gets or sets the record ended datetime",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordCreatedUser": {
+            "type": "string",
+            "description": "Gets or sets the record created user",
+            "nullable": true
+          },
+          "recordEndedUser": {
+            "type": "string",
+            "description": "Gets or sets the record ended user",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents Glossary information.",
+        "example": {
+          "term": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryResponseModelAdr.Semantics.Models.GlossaryModel": {
+        "title": "GlossaryResponseModel<GlossaryModel>",
+        "required": [
+          "datetimeRequested",
+          "glossary",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          },
+          "glossary": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryVersionModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a glossary response and identifies the vocabulary release used for its payload.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "glossary": {
+            "id": "example",
+            "isCurrent": true,
+            "name": "example",
+            "publishedAt": "2026-09-14",
+            "version": "example"
+          },
+          "payload": {
+            "term": "example"
+          }
+        }
+      },
+      "Adr.Semantics.Models.GlossaryResponseModelSystem.Collections.Generic.ListAdr.Semantics.Models.GlossaryModel": {
+        "title": "GlossaryResponseModel<IEnumerable`1>",
+        "required": [
+          "datetimeRequested",
+          "glossary",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "title": "IEnumerable<GlossaryModel>",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+            },
+            "description": "Gets or sets the payload information.",
+            "nullable": true
+          },
+          "datetimeRequested": {
+            "type": "string",
+            "description": "Gets or sets the payload information.",
+            "format": "date-time"
+          },
+          "glossary": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryVersionModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a glossary response and identifies the vocabulary release used for its payload.",
+        "example": {
+          "datetimeRequested": "2026-09-14T12:00:00Z",
+          "glossary": {
+            "id": "example",
+            "isCurrent": true,
+            "name": "example",
+            "publishedAt": "2026-09-14",
+            "version": "example"
+          },
+          "payload": [ ]
+        }
+      },
+      "Adr.Semantics.Models.GlossaryTermEditModel": {
+        "required": [
+          "term"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets or sets the optional stable term UUID.",
+            "nullable": true
+          },
+          "term": {
+            "type": "string",
+            "description": "Gets or sets the displayed term.",
+            "nullable": true
+          },
+          "definition": {
+            "type": "string",
+            "description": "Gets or sets the published definition.",
+            "nullable": true
+          },
+          "example": {
+            "type": "string",
+            "description": "Gets or sets an example value.",
+            "nullable": true
+          },
+          "schemaType": {
+            "type": "string",
+            "description": "Gets or sets the OpenAPI schema type.",
+            "nullable": true
+          },
+          "schemaConstraints": {
+            "type": "string",
+            "description": "Gets or sets the serialized OpenAPI constraints.",
+            "nullable": true
+          },
+          "keywords": {
+            "title": "IList<String>",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Represents String."
+            },
+            "description": "Gets or sets the search keywords.",
+            "nullable": true
+          },
+          "scope": {
+            "type": "string",
+            "description": "Gets or sets the scope used by the glossary service.",
+            "nullable": true
+          },
+          "scopeUrl": {
+            "type": "string",
+            "description": "Gets or sets the scope URL.",
+            "nullable": true
+          },
+          "citations": {
+            "type": "string",
+            "description": "Gets or sets the citations.",
+            "nullable": true
+          },
+          "teamSource": {
+            "type": "string",
+            "description": "Gets or sets the team source.",
+            "nullable": true
+          },
+          "verifiedDefinitionFlag": {
+            "type": "boolean",
+            "description": "Gets or sets whether the definition is verified."
+          },
+          "publishToDevHub": {
+            "type": "boolean",
+            "description": "Gets or sets whether the term is published."
+          },
+          "breakingChange": {
+            "type": "boolean",
+            "description": "Gets or sets whether this update must be treated as a breaking change."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents an editable glossary term without server-managed version metadata.",
+        "example": {
+          "term": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryTermHistoryModel": {
+        "required": [
+          "name",
+          "operation",
+          "sourceReference",
+          "sourceType",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Gets or sets Published or Invalid.",
+            "nullable": true
+          },
+          "version": {
+            "title": "Nullable<Int32>",
+            "type": "integer",
+            "description": "Gets or sets the published term version, when this entry is a revision.",
+            "format": "int32",
+            "nullable": true
+          },
+          "term": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the submitted term slug.",
+            "nullable": true
+          },
+          "submittedId": {
+            "type": "string",
+            "description": "Gets or sets the submitted UUID.",
+            "nullable": true
+          },
+          "sourceType": {
+            "type": "string",
+            "description": "Gets or sets the source type, such as CSV or API.",
+            "nullable": true
+          },
+          "sourceReference": {
+            "type": "string",
+            "description": "Gets or sets the source asset or draft reference.",
+            "nullable": true
+          },
+          "operation": {
+            "type": "string",
+            "description": "Gets or sets the submitted operation.",
+            "nullable": true
+          },
+          "breakingChange": {
+            "type": "boolean",
+            "description": "Gets or sets whether the submission declared a breaking change."
+          },
+          "invalidReasons": {
+            "title": "IReadOnlyList<String>",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Represents String."
+            },
+            "description": "Gets or sets the reasons an invalid submission was rejected.",
+            "nullable": true
+          },
+          "sourcePayload": {
+            "type": "string",
+            "description": "Gets or sets the original submitted data for an invalid entry.",
+            "nullable": true
+          },
+          "glossaryVersions": {
+            "title": "IReadOnlyList<String>",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Represents String."
+            },
+            "description": "Gets or sets the glossary releases that contain this term revision.",
+            "nullable": true
+          },
+          "recordedUtc": {
+            "type": "string",
+            "description": "Gets or sets when this revision or invalid submission was recorded.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Describes a published glossary term revision or an invalid submission in its audit history.",
+        "example": {
+          "name": "example",
+          "operation": "example",
+          "sourceReference": "example",
+          "sourceType": "example",
+          "status": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryTermSubmissionResultModel": {
+        "required": [
+          "invalidReasons"
+        ],
+        "type": "object",
+        "properties": {
+          "isValid": {
+            "type": "boolean",
+            "description": "Gets or sets whether the submission was valid."
+          },
+          "invalidReasons": {
+            "title": "IReadOnlyList<String>",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Represents String."
+            },
+            "description": "Gets or sets the validation reasons.",
+            "nullable": true
+          },
+          "term": {
+            "$ref": "#/components/schemas/Adr.Semantics.Models.GlossaryModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Reports whether a draft term submission was accepted.",
+        "example": {
+          "invalidReasons": [ ]
+        }
+      },
+      "Adr.Semantics.Models.GlossaryVersionModel": {
+        "required": [
+          "id",
+          "isCurrent",
+          "name",
+          "publishedAt",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets or sets the stable, human-readable glossary identifier.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the display name of the glossary.",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "description": "Gets or sets the semantic version assigned to this glossary release.",
+            "nullable": true
+          },
+          "publishedAt": {
+            "type": "string",
+            "description": "Gets or sets the date on which this glossary release was published.",
+            "format": "date"
+          },
+          "isCurrent": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether this is the current glossary release."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Identifies an immutable release of the glossary vocabulary.",
+        "example": {
+          "id": "example",
+          "isCurrent": true,
+          "name": "example",
+          "publishedAt": "2026-09-14",
+          "version": "example"
+        }
+      },
+      "Adr.Semantics.Models.GlossaryVersionPublishModel": {
+        "required": [
+          "draftId"
+        ],
+        "type": "object",
+        "properties": {
+          "draftId": {
+            "type": "string",
+            "description": "Gets or sets the draft identifier.",
+            "format": "uuid"
+          },
+          "ignoreInvalid": {
+            "type": "boolean",
+            "description": "Gets or sets whether unresolved invalid term submissions may be ignored."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Identifies a glossary draft to publish as a version.",
+        "example": {
+          "draftId": "123e4567-e89b-12d3-a456-426614174000"
+        }
+      },
+      "Microsoft.AspNetCore.Http.HttpValidationProblemDetails": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "title": "IDictionary<String>",
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Represents String."
+              },
+              "description": "Represents String[]."
+            },
+            "description": "Represents I Dictionary used by the glossary service.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Represents String used by the glossary service.",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "description": "Represents String used by the glossary service.",
+            "nullable": true
+          },
+          "status": {
+            "title": "Nullable<Int32>",
+            "type": "integer",
+            "description": "Represents Nullable used by the glossary service.",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "description": "Represents String used by the glossary service.",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "description": "Represents String used by the glossary service.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {
+          "description": "Represents Object."
+        },
+        "description": "Represents Http Validation Problem Details.",
+        "example": {
+          "errors": {
+            "key": [ ]
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Represents String used by the glossary service.",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "description": "Represents String used by the glossary service.",
+            "nullable": true
+          },
+          "status": {
+            "title": "Nullable<Int32>",
+            "type": "integer",
+            "description": "Represents Nullable used by the glossary service.",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "description": "Represents String used by the glossary service.",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "description": "Represents String used by the glossary service.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {
+          "description": "Represents Object."
+        },
+        "description": "Represents Problem Details used by the Semantics API.",
+        "example": {
+          "type": "example"
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Dictionary",
+      "description": "Operations for semantic dictionaries derived from API descriptions."
+    },
+    {
+      "name": "Glossary",
+      "description": "Operations for published glossary content and releases."
+    },
+    {
+      "name": "GlossaryDraft",
+      "description": "Operations for staging and reviewing glossary changes."
+    }
+  ]
+}

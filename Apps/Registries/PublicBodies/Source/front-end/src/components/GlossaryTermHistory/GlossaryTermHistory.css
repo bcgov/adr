@@ -1,0 +1,23 @@
+.term-history-list {
+    margin-block-start: 1.5rem;
+}
+
+.selected-version {
+    background: var(--surface-color-background-light-blue, #e9f0f8);
+    border-radius: 0.25rem;
+    color: var(--typography-color-primary, #2d2d2d);
+    padding: 0.25rem 0.5rem;
+}
+
+.history-metadata {
+    border-block-start: 1px solid var(--surface-color-border-default, #d8d8d8);
+    padding-block-start: 1rem;
+}
+
+.history-source-payload {
+    background: var(--surface-color-background-secondary, #f2f2f2);
+    max-height: 24rem;
+    overflow: auto;
+    padding: 0.75rem;
+    white-space: pre-wrap;
+}

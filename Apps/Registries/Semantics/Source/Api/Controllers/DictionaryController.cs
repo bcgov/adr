@@ -25,7 +25,7 @@ namespace Adr.Semantics.Controllers
         /// Initializes a new instance of the <see cref="DictionaryController"/> class.
         /// </summary>
         /// <param name="logger">Injected Logger Provider.</param>
-        /// <param name="ministryService">Dictionary service.</param>
+        /// <param name="dictionaryService">Dictionary service.</param>
         public DictionaryController(
             ILogger<DictionaryController> logger,
             IDictionaryService dictionaryService
