@@ -4,113 +4,793 @@ export type ClientOptions = {
     baseUrl: 'http://localhost:5001' | (string & {});
 };
 
-export type AdrSemanticsModelsBaseAuditModel = {
+/**
+ * BaseResponseModel<GlossaryDraftPreviewModel>
+ *
+ * Represents the result of a request.
+ */
+export type AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPreviewModel = {
+    payload: AdrSemanticsModelsGlossaryDraftPreviewModel;
     /**
-     * Nullable<DateTime>
+     * Gets or sets the payload information.
      */
-    recordCreatedDatetime?: string | null;
+    datetimeRequested: string;
+};
+
+/**
+ * BaseResponseModel<GlossaryDraftPublishResultModel>
+ *
+ * Represents the result of a request.
+ */
+export type AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPublishResultModel = {
+    payload: AdrSemanticsModelsGlossaryDraftPublishResultModel;
     /**
-     * Nullable<DateTime>
+     * Gets or sets the payload information.
      */
-    recordEndedDatetime?: string | null;
-    recordCreatedUser?: string | null;
-    recordEndedUser?: string | null;
+    datetimeRequested: string;
+};
+
+/**
+ * BaseResponseModel<GlossaryDraftRebaseResultModel>
+ *
+ * Represents the result of a request.
+ */
+export type AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftRebaseResultModel = {
+    payload: AdrSemanticsModelsGlossaryDraftRebaseResultModel;
+    /**
+     * Gets or sets the payload information.
+     */
+    datetimeRequested: string;
 };
 
 /**
  * BaseResponseModel<GlossaryModel>
+ *
+ * Represents the result of a request.
  */
 export type AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryModel = {
     payload: AdrSemanticsModelsGlossaryModel;
+    /**
+     * Gets or sets the payload information.
+     */
+    datetimeRequested: string;
+};
+
+/**
+ * BaseResponseModel<GlossaryTermSubmissionResultModel>
+ *
+ * Represents the result of a request.
+ */
+export type AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryTermSubmissionResultModel = {
+    payload: AdrSemanticsModelsGlossaryTermSubmissionResultModel;
+    /**
+     * Gets or sets the payload information.
+     */
+    datetimeRequested: string;
+};
+
+/**
+ * BaseResponseModel<IList`1>
+ *
+ * Represents the result of a request.
+ */
+export type AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericIListAdrSemanticsModelsGlossaryDraftModel = {
+    /**
+     * IList<GlossaryDraftModel>
+     *
+     * Gets or sets the payload information.
+     */
+    payload: Array<AdrSemanticsModelsGlossaryDraftModel> | null;
+    /**
+     * Gets or sets the payload information.
+     */
     datetimeRequested: string;
 };
 
 /**
  * BaseResponseModel<IEnumerable`1>
+ *
+ * Represents the result of a request.
  */
 export type AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsDictionaryModel = {
     /**
      * IEnumerable<DictionaryModel>
+     *
+     * Gets or sets the payload information.
      */
     payload: Array<AdrSemanticsModelsDictionaryModel> | null;
+    /**
+     * Gets or sets the payload information.
+     */
     datetimeRequested: string;
 };
 
 /**
  * BaseResponseModel<IEnumerable`1>
+ *
+ * Represents the result of a request.
  */
 export type AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel = {
     /**
      * IEnumerable<GlossaryModel>
+     *
+     * Gets or sets the payload information.
      */
     payload: Array<AdrSemanticsModelsGlossaryModel> | null;
+    /**
+     * Gets or sets the payload information.
+     */
     datetimeRequested: string;
 };
 
-export type AdrSemanticsModelsDictionaryEntryFieldModel = AdrSemanticsModelsBaseAuditModel & {
-    fieldName: string | null;
-    fieldDescription: string | null;
-    schemaNameTableName: string | null;
-    dataSource: string | null;
-    dataType: string | null;
-    keyRelationships: string | null;
-    systemOfRecord: string | null;
-    designatedAsRequired: string | null;
-    semanticTermRef: string | null;
+/**
+ * BaseResponseModel<IEnumerable`1>
+ *
+ * Represents the result of a request.
+ */
+export type AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryTermHistoryModel = {
+    /**
+     * IEnumerable<GlossaryTermHistoryModel>
+     *
+     * Gets or sets the payload information.
+     */
+    payload: Array<AdrSemanticsModelsGlossaryTermHistoryModel> | null;
+    /**
+     * Gets or sets the payload information.
+     */
+    datetimeRequested: string;
 };
 
-export type AdrSemanticsModelsDictionaryEntryModel = AdrSemanticsModelsBaseAuditModel & {
+/**
+ * BaseResponseModel<IEnumerable`1>
+ *
+ * Represents the result of a request.
+ */
+export type AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryVersionModel = {
+    /**
+     * IEnumerable<GlossaryVersionModel>
+     *
+     * Gets or sets the payload information.
+     */
+    payload: Array<AdrSemanticsModelsGlossaryVersionModel> | null;
+    /**
+     * Gets or sets the payload information.
+     */
+    datetimeRequested: string;
+};
+
+/**
+ * Represents a single Dictionary Entry information for a given openapi spec.
+ */
+export type AdrSemanticsModelsDictionaryEntryFieldModel = {
+    /**
+     * Gets or sets the field name.
+     */
+    fieldName: string | null;
+    /**
+     * Gets or sets the field description.
+     */
+    fieldDescription: string | null;
+    /**
+     * Gets or sets the schema name and table name.
+     */
+    schemaNameTableName: string | null;
+    /**
+     * Gets or sets the data source.
+     */
+    dataSource: string | null;
+    /**
+     * Gets or sets the data type.
+     */
+    dataType: string | null;
+    /**
+     * Gets or sets the key relationships.
+     */
+    keyRelationships: string | null;
+    /**
+     * Gets or sets the system of record.
+     */
+    systemOfRecord: string | null;
+    /**
+     * Gets or sets a value indicating whether the field is designated as required.
+     */
+    designatedAsRequired: string | null;
+    /**
+     * Gets or sets a hyperlink to the glossary term this field references.
+     * Empty when the field has no semantic reference.
+     */
+    semanticTermRef: string | null;
+    /**
+     * Nullable<DateTime>
+     *
+     * Gets or sets the record created datetime
+     */
+    recordCreatedDatetime?: string | null;
+    /**
+     * Nullable<DateTime>
+     *
+     * Gets or sets the record ended datetime
+     */
+    recordEndedDatetime?: string | null;
+    /**
+     * Gets or sets the record created user
+     */
+    recordCreatedUser?: string | null;
+    /**
+     * Gets or sets the record ended user
+     */
+    recordEndedUser?: string | null;
+};
+
+/**
+ * Represents Dictionary Entry information for a given openapi spec.
+ */
+export type AdrSemanticsModelsDictionaryEntryModel = {
+    /**
+     * Gets or sets the id of this record
+     */
     id: string | null;
+    /**
+     * Gets or sets the name for the dictionary
+     */
     name: string | null;
+    /**
+     * Gets or sets the source for the dictionary
+     */
     source: string | null;
     /**
      * IList<DictionaryEntryFieldModel>
+     *
+     * Gets or sets the fields for the dictionary entry.
      */
     fields?: Array<AdrSemanticsModelsDictionaryEntryFieldModel> | null;
+    /**
+     * Nullable<DateTime>
+     *
+     * Gets or sets the record created datetime
+     */
+    recordCreatedDatetime?: string | null;
+    /**
+     * Nullable<DateTime>
+     *
+     * Gets or sets the record ended datetime
+     */
+    recordEndedDatetime?: string | null;
+    /**
+     * Gets or sets the record created user
+     */
+    recordCreatedUser?: string | null;
+    /**
+     * Gets or sets the record ended user
+     */
+    recordEndedUser?: string | null;
 };
 
-export type AdrSemanticsModelsDictionaryModel = AdrSemanticsModelsBaseAuditModel & {
+/**
+ * Represents Dictionary information.
+ */
+export type AdrSemanticsModelsDictionaryModel = {
+    /**
+     * Gets or sets the id of this record.
+     */
     id: string | null;
     /**
      * IList<DictionaryEntryModel>
+     *
+     * Gets or sets the parsed openapi spec entries that make up this dictionary.
      */
     entries?: Array<AdrSemanticsModelsDictionaryEntryModel> | null;
+    /**
+     * Nullable<DateTime>
+     *
+     * Gets or sets the record created datetime
+     */
+    recordCreatedDatetime?: string | null;
+    /**
+     * Nullable<DateTime>
+     *
+     * Gets or sets the record ended datetime
+     */
+    recordEndedDatetime?: string | null;
+    /**
+     * Gets or sets the record created user
+     */
+    recordCreatedUser?: string | null;
+    /**
+     * Gets or sets the record ended user
+     */
+    recordEndedUser?: string | null;
 };
 
-export type AdrSemanticsModelsGlossaryModel = AdrSemanticsModelsBaseAuditModel & {
+/**
+ * Describes an unpublished glossary draft.
+ */
+export type AdrSemanticsModelsGlossaryDraftModel = {
+    /**
+     * Gets or sets the draft identifier.
+     */
+    id?: string;
+    /**
+     * Gets or sets the glossary version on which the draft is based.
+     */
+    baseVersion: string | null;
+    /**
+     * Gets or sets the draft status.
+     */
+    status: string | null;
+    /**
+     * Gets or sets the calculated draft or published version.
+     */
+    version: string | null;
+    /**
+     * Gets or sets the aggregate semantic change.
+     */
+    changeType: string | null;
+    /**
+     * Gets or sets when the draft was created.
+     */
+    createdUtc?: string;
+    /**
+     * Gets or sets when the draft was last updated.
+     */
+    updatedUtc?: string;
+};
+
+/**
+ * Describes the effective content and version impact of a glossary draft.
+ */
+export type AdrSemanticsModelsGlossaryDraftPreviewModel = {
+    draft: AdrSemanticsModelsGlossaryDraftModel;
+    /**
+     * IEnumerable<GlossaryModel>
+     *
+     * Gets or sets the effective published terms.
+     */
+    terms: Array<AdrSemanticsModelsGlossaryModel> | null;
+    /**
+     * IEnumerable<GlossaryDraftTermChangeModel>
+     *
+     * Gets or sets terms that differ from the draft's base release.
+     */
+    termChanges: Array<AdrSemanticsModelsGlossaryDraftTermChangeModel> | null;
+};
+
+/**
+ * Reports the result of publishing a glossary draft.
+ */
+export type AdrSemanticsModelsGlossaryDraftPublishResultModel = {
+    /**
+     * Gets or sets the publication result status.
+     */
+    status: string | null;
+    release?: AdrSemanticsModelsGlossaryVersionModel;
+    /**
+     * IReadOnlyList<GlossaryInvalidTermModel>
+     *
+     * Gets or sets unresolved invalid term submissions.
+     */
+    invalidTerms?: Array<AdrSemanticsModelsGlossaryInvalidTermModel> | null;
+};
+
+/**
+ * Reports the result of applying a stale draft's changes to the current glossary.
+ */
+export type AdrSemanticsModelsGlossaryDraftRebaseResultModel = {
+    /**
+     * Gets or sets Rebased or Conflict.
+     */
+    status: string | null;
+    preview?: AdrSemanticsModelsGlossaryDraftPreviewModel;
+    /**
+     * IReadOnlyList<String>
+     *
+     * Gets or sets terms changed differently in both releases.
+     */
+    conflictingTerms?: Array<string> | null;
+};
+
+/**
+ * Describes a term added, changed, or deleted in a glossary draft.
+ */
+export type AdrSemanticsModelsGlossaryDraftTermChangeModel = {
+    term: AdrSemanticsModelsGlossaryModel;
+    originalTerm?: AdrSemanticsModelsGlossaryModel;
+    /**
+     * Gets or sets New, Bugfix, Breaking Change, or Deleted.
+     */
+    changeType: string | null;
+    /**
+     * Gets or sets whether the latest saved term submission declares a breaking change.
+     */
+    breakingChange?: boolean;
+};
+
+/**
+ * Describes an invalid term submission that prevents draft publication.
+ */
+export type AdrSemanticsModelsGlossaryInvalidTermModel = {
+    /**
+     * Gets or sets the submitted term slug.
+     */
+    name: string | null;
+    /**
+     * IReadOnlyList<String>
+     *
+     * Gets or sets the validation reasons.
+     */
+    invalidReasons: Array<string> | null;
+};
+
+/**
+ * Represents Glossary information.
+ */
+export type AdrSemanticsModelsGlossaryModel = {
+    /**
+     * Gets or sets the monotonically increasing version of this term.
+     */
+    version?: number;
+    /**
+     * Gets or sets the stable static identifier (GUID) for this term.
+     * Serialized as `id` so consumers can reference terms by their stable identifier.
+     */
     id?: string | null;
+    /**
+     * Gets or sets the URL-friendly name (slug) for this term.
+     */
     name?: string | null;
+    /**
+     * Gets or sets the term used by the glossary service.
+     */
     term: string | null;
+    /**
+     * Gets or sets the published definition (source definition).
+     */
     definition?: string | null;
     /**
-     * IList<String>
+     * Gets or sets an optional example value for the term.
      */
-    keywords?: Array<string> | null;
-    context?: string | null;
-    citations?: string | null;
-    teamSource?: string | null;
-    verifiedDefinitionFlag?: boolean;
-    publishToDevHub?: boolean;
-};
-
-export type MicrosoftAspNetCoreHttpHttpValidationProblemDetails = MicrosoftAspNetCoreMvcProblemDetails & {
+    example?: string | null;
+    /**
+     * Gets or sets the OpenAPI schema type used to represent the term.
+     */
+    schemaType?: string | null;
     /**
      * IDictionary<String>
+     *
+     * Gets or sets the validated OpenAPI constraints for the term.
+     */
+    schemaConstraints?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * IList<String>
+     *
+     * Gets or sets the keywords for the term.
+     */
+    keywords?: Array<string> | null;
+    /**
+     * Gets or sets the scope text for the term.
+     */
+    scope?: string | null;
+    /**
+     * Gets or sets the scope hyperlink URL for the term.
+     */
+    scopeUrl?: string | null;
+    /**
+     * Gets or sets the citation / reference URL for the term.
+     */
+    citations?: string | null;
+    /**
+     * Gets or sets the internal team source (transitional).
+     */
+    teamSource?: string | null;
+    /**
+     * Gets or sets a flag indicating whether the definition has been verified (internal - transitional).
+     */
+    verifiedDefinitionFlag?: boolean;
+    /**
+     * Gets or sets a flag indicating whether this term should be published to DevHub (internal - transitional).
+     */
+    publishToDevHub?: boolean;
+    /**
+     * Nullable<DateTime>
+     *
+     * Gets or sets the record created datetime
+     */
+    recordCreatedDatetime?: string | null;
+    /**
+     * Nullable<DateTime>
+     *
+     * Gets or sets the record ended datetime
+     */
+    recordEndedDatetime?: string | null;
+    /**
+     * Gets or sets the record created user
+     */
+    recordCreatedUser?: string | null;
+    /**
+     * Gets or sets the record ended user
+     */
+    recordEndedUser?: string | null;
+};
+
+/**
+ * GlossaryResponseModel<GlossaryModel>
+ *
+ * Represents a glossary response and identifies the vocabulary release used for its payload.
+ */
+export type AdrSemanticsModelsGlossaryResponseModelAdrSemanticsModelsGlossaryModel = {
+    payload: AdrSemanticsModelsGlossaryModel;
+    /**
+     * Gets or sets the payload information.
+     */
+    datetimeRequested: string;
+    glossary: AdrSemanticsModelsGlossaryVersionModel;
+};
+
+/**
+ * GlossaryResponseModel<IEnumerable`1>
+ *
+ * Represents a glossary response and identifies the vocabulary release used for its payload.
+ */
+export type AdrSemanticsModelsGlossaryResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel = {
+    /**
+     * IEnumerable<GlossaryModel>
+     *
+     * Gets or sets the payload information.
+     */
+    payload: Array<AdrSemanticsModelsGlossaryModel> | null;
+    /**
+     * Gets or sets the payload information.
+     */
+    datetimeRequested: string;
+    glossary: AdrSemanticsModelsGlossaryVersionModel;
+};
+
+/**
+ * Represents an editable glossary term without server-managed version metadata.
+ */
+export type AdrSemanticsModelsGlossaryTermEditModel = {
+    /**
+     * Gets or sets the optional stable term UUID.
+     */
+    id?: string | null;
+    /**
+     * Gets or sets the displayed term.
+     */
+    term: string | null;
+    /**
+     * Gets or sets the published definition.
+     */
+    definition?: string | null;
+    /**
+     * Gets or sets an example value.
+     */
+    example?: string | null;
+    /**
+     * Gets or sets the OpenAPI schema type.
+     */
+    schemaType?: string | null;
+    /**
+     * Gets or sets the serialized OpenAPI constraints.
+     */
+    schemaConstraints?: string | null;
+    /**
+     * IList<String>
+     *
+     * Gets or sets the search keywords.
+     */
+    keywords?: Array<string> | null;
+    /**
+     * Gets or sets the scope used by the glossary service.
+     */
+    scope?: string | null;
+    /**
+     * Gets or sets the scope URL.
+     */
+    scopeUrl?: string | null;
+    /**
+     * Gets or sets the citations.
+     */
+    citations?: string | null;
+    /**
+     * Gets or sets the team source.
+     */
+    teamSource?: string | null;
+    /**
+     * Gets or sets whether the definition is verified.
+     */
+    verifiedDefinitionFlag?: boolean;
+    /**
+     * Gets or sets whether the term is published.
+     */
+    publishToDevHub?: boolean;
+    /**
+     * Gets or sets whether this update must be treated as a breaking change.
+     */
+    breakingChange?: boolean;
+};
+
+/**
+ * Describes a published glossary term revision or an invalid submission in its audit history.
+ */
+export type AdrSemanticsModelsGlossaryTermHistoryModel = {
+    /**
+     * Gets or sets Published or Invalid.
+     */
+    status: string | null;
+    /**
+     * Nullable<Int32>
+     *
+     * Gets or sets the published term version, when this entry is a revision.
+     */
+    version?: number | null;
+    term?: AdrSemanticsModelsGlossaryModel;
+    /**
+     * Gets or sets the submitted term slug.
+     */
+    name: string | null;
+    /**
+     * Gets or sets the submitted UUID.
+     */
+    submittedId?: string | null;
+    /**
+     * Gets or sets the source type, such as CSV or API.
+     */
+    sourceType: string | null;
+    /**
+     * Gets or sets the source asset or draft reference.
+     */
+    sourceReference: string | null;
+    /**
+     * Gets or sets the submitted operation.
+     */
+    operation: string | null;
+    /**
+     * Gets or sets whether the submission declared a breaking change.
+     */
+    breakingChange?: boolean;
+    /**
+     * IReadOnlyList<String>
+     *
+     * Gets or sets the reasons an invalid submission was rejected.
+     */
+    invalidReasons?: Array<string> | null;
+    /**
+     * Gets or sets the original submitted data for an invalid entry.
+     */
+    sourcePayload?: string | null;
+    /**
+     * IReadOnlyList<String>
+     *
+     * Gets or sets the glossary releases that contain this term revision.
+     */
+    glossaryVersions?: Array<string> | null;
+    /**
+     * Gets or sets when this revision or invalid submission was recorded.
+     */
+    recordedUtc?: string;
+};
+
+/**
+ * Reports whether a draft term submission was accepted.
+ */
+export type AdrSemanticsModelsGlossaryTermSubmissionResultModel = {
+    /**
+     * Gets or sets whether the submission was valid.
+     */
+    isValid?: boolean;
+    /**
+     * IReadOnlyList<String>
+     *
+     * Gets or sets the validation reasons.
+     */
+    invalidReasons: Array<string> | null;
+    term?: AdrSemanticsModelsGlossaryModel;
+};
+
+/**
+ * Identifies an immutable release of the glossary vocabulary.
+ */
+export type AdrSemanticsModelsGlossaryVersionModel = {
+    /**
+     * Gets or sets the stable, human-readable glossary identifier.
+     */
+    id: string | null;
+    /**
+     * Gets or sets the display name of the glossary.
+     */
+    name: string | null;
+    /**
+     * Gets or sets the semantic version assigned to this glossary release.
+     */
+    version: string | null;
+    /**
+     * Gets or sets the date on which this glossary release was published.
+     */
+    publishedAt: string;
+    /**
+     * Gets or sets a value indicating whether this is the current glossary release.
+     */
+    isCurrent: boolean;
+};
+
+/**
+ * Identifies a glossary draft to publish as a version.
+ */
+export type AdrSemanticsModelsGlossaryVersionPublishModel = {
+    /**
+     * Gets or sets the draft identifier.
+     */
+    draftId: string;
+    /**
+     * Gets or sets whether unresolved invalid term submissions may be ignored.
+     */
+    ignoreInvalid?: boolean;
+};
+
+/**
+ * Represents Http Validation Problem Details.
+ */
+export type MicrosoftAspNetCoreHttpHttpValidationProblemDetails = {
+    /**
+     * IDictionary<String>
+     *
+     * Represents I Dictionary used by the glossary service.
      */
     errors?: {
         [key: string]: Array<string>;
     } | null;
-    [key: string]: unknown;
-};
-
-export type MicrosoftAspNetCoreMvcProblemDetails = {
+    /**
+     * Represents String used by the glossary service.
+     */
     type?: string | null;
+    /**
+     * Represents String used by the glossary service.
+     */
     title?: string | null;
     /**
      * Nullable<Int32>
+     *
+     * Represents Nullable used by the glossary service.
      */
     status?: number | null;
+    /**
+     * Represents String used by the glossary service.
+     */
     detail?: string | null;
+    /**
+     * Represents String used by the glossary service.
+     */
+    instance?: string | null;
+    [key: string]: unknown;
+};
+
+/**
+ * Represents Problem Details used by the Semantics API.
+ */
+export type MicrosoftAspNetCoreMvcProblemDetails = {
+    /**
+     * Represents String used by the glossary service.
+     */
+    type?: string | null;
+    /**
+     * Represents String used by the glossary service.
+     */
+    title?: string | null;
+    /**
+     * Nullable<Int32>
+     *
+     * Represents Nullable used by the glossary service.
+     */
+    status?: number | null;
+    /**
+     * Represents String used by the glossary service.
+     */
+    detail?: string | null;
+    /**
+     * Represents String used by the glossary service.
+     */
     instance?: string | null;
     [key: string]: unknown;
 };
@@ -124,7 +804,7 @@ export type GetAllDictionariesData = {
 
 export type GetAllDictionariesResponses = {
     /**
-     * OK
+     * The request completed successfully.
      */
     200: AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsDictionaryModel;
 };
@@ -140,12 +820,145 @@ export type GetAllGlossaryData = {
 
 export type GetAllGlossaryResponses = {
     /**
-     * OK
+     * The request completed successfully.
      */
-    200: AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
+    200: AdrSemanticsModelsGlossaryResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
 };
 
 export type GetAllGlossaryResponse = GetAllGlossaryResponses[keyof GetAllGlossaryResponses];
+
+export type GetGlossaryVersionsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/Glossary/versions';
+};
+
+export type GetGlossaryVersionsResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryVersionModel;
+};
+
+export type GetGlossaryVersionsResponse = GetGlossaryVersionsResponses[keyof GetGlossaryVersionsResponses];
+
+export type PublishGlossaryVersionData = {
+    body: AdrSemanticsModelsGlossaryVersionPublishModel;
+    path?: never;
+    query?: never;
+    url: '/v1/Glossary/versions';
+};
+
+export type PublishGlossaryVersionErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+    /**
+     * The request conflicts with the current glossary state.
+     */
+    409: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPublishResultModel;
+    /**
+     * The request contains glossary content that failed validation.
+     */
+    422: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPublishResultModel;
+};
+
+export type PublishGlossaryVersionError = PublishGlossaryVersionErrors[keyof PublishGlossaryVersionErrors];
+
+export type PublishGlossaryVersionResponses = {
+    /**
+     * The glossary resource was created successfully.
+     */
+    201: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPublishResultModel;
+};
+
+export type PublishGlossaryVersionResponse = PublishGlossaryVersionResponses[keyof PublishGlossaryVersionResponses];
+
+export type GetGlossaryVersionData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        glossaryVersion: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/versions/{glossaryVersion}';
+};
+
+export type GetGlossaryVersionErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryVersionError = GetGlossaryVersionErrors[keyof GetGlossaryVersionErrors];
+
+export type GetGlossaryVersionResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsGlossaryResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
+};
+
+export type GetGlossaryVersionResponse = GetGlossaryVersionResponses[keyof GetGlossaryVersionResponses];
+
+export type GetGlossarySchemaData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/Glossary/schema';
+};
+
+export type GetGlossarySchemaResponses = {
+    /**
+     * Dictionary<String>
+     *
+     * Represents Dictionary.
+     */
+    200: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetGlossarySchemaResponse = GetGlossarySchemaResponses[keyof GetGlossarySchemaResponses];
+
+export type GetGlossaryVersionSchemaData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        glossaryVersion: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/versions/{glossaryVersion}/schema';
+};
+
+export type GetGlossaryVersionSchemaErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryVersionSchemaError = GetGlossaryVersionSchemaErrors[keyof GetGlossaryVersionSchemaErrors];
+
+export type GetGlossaryVersionSchemaResponses = {
+    /**
+     * Dictionary<String>
+     *
+     * Represents Dictionary.
+     */
+    200: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetGlossaryVersionSchemaResponse = GetGlossaryVersionSchemaResponses[keyof GetGlossaryVersionSchemaResponses];
 
 export type GetGlossaryMarkdownData = {
     body?: never;
@@ -156,12 +969,42 @@ export type GetGlossaryMarkdownData = {
 
 export type GetGlossaryMarkdownResponses = {
     /**
-     * OK
+     * Represents String.
      */
     200: string;
 };
 
 export type GetGlossaryMarkdownResponse = GetGlossaryMarkdownResponses[keyof GetGlossaryMarkdownResponses];
+
+export type GetGlossaryVersionMarkdownData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        glossaryVersion: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/versions/{glossaryVersion}/markdown';
+};
+
+export type GetGlossaryVersionMarkdownErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryVersionMarkdownError = GetGlossaryVersionMarkdownErrors[keyof GetGlossaryVersionMarkdownErrors];
+
+export type GetGlossaryVersionMarkdownResponses = {
+    /**
+     * Represents String.
+     */
+    200: string;
+};
+
+export type GetGlossaryVersionMarkdownResponse = GetGlossaryVersionMarkdownResponses[keyof GetGlossaryVersionMarkdownResponses];
 
 export type GetGlossaryMarkdownListData = {
     body?: never;
@@ -172,16 +1015,215 @@ export type GetGlossaryMarkdownListData = {
 
 export type GetGlossaryMarkdownListResponses = {
     /**
-     * OK
+     * Represents String.
      */
     200: string;
 };
 
 export type GetGlossaryMarkdownListResponse = GetGlossaryMarkdownListResponses[keyof GetGlossaryMarkdownListResponses];
 
+export type GetGlossaryVersionMarkdownListData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        glossaryVersion: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/versions/{glossaryVersion}/markdown-list';
+};
+
+export type GetGlossaryVersionMarkdownListErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryVersionMarkdownListError = GetGlossaryVersionMarkdownListErrors[keyof GetGlossaryVersionMarkdownListErrors];
+
+export type GetGlossaryVersionMarkdownListResponses = {
+    /**
+     * Represents String.
+     */
+    200: string;
+};
+
+export type GetGlossaryVersionMarkdownListResponse = GetGlossaryVersionMarkdownListResponses[keyof GetGlossaryVersionMarkdownListResponses];
+
+export type GetGlossaryTermVersionsData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        term: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/terms/{term}/versions';
+};
+
+export type GetGlossaryTermVersionsErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryTermVersionsError = GetGlossaryTermVersionsErrors[keyof GetGlossaryTermVersionsErrors];
+
+export type GetGlossaryTermVersionsResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryModel;
+};
+
+export type GetGlossaryTermVersionsResponse = GetGlossaryTermVersionsResponses[keyof GetGlossaryTermVersionsResponses];
+
+export type GetGlossaryTermHistoryData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        glossaryVersion: string;
+        /**
+         * Represents String.
+         */
+        term: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/versions/{glossaryVersion}/terms/{term}/versions';
+};
+
+export type GetGlossaryTermHistoryErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryTermHistoryError = GetGlossaryTermHistoryErrors[keyof GetGlossaryTermHistoryErrors];
+
+export type GetGlossaryTermHistoryResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericListAdrSemanticsModelsGlossaryTermHistoryModel;
+};
+
+export type GetGlossaryTermHistoryResponse = GetGlossaryTermHistoryResponses[keyof GetGlossaryTermHistoryResponses];
+
+export type GetGlossaryTermVersionData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        term: string;
+        /**
+         * Represents Int32.
+         */
+        termVersion: number;
+    };
+    query?: never;
+    url: '/v1/Glossary/terms/{term}/versions/{termVersion}';
+};
+
+export type GetGlossaryTermVersionErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryTermVersionError = GetGlossaryTermVersionErrors[keyof GetGlossaryTermVersionErrors];
+
+export type GetGlossaryTermVersionResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryModel;
+};
+
+export type GetGlossaryTermVersionResponse = GetGlossaryTermVersionResponses[keyof GetGlossaryTermVersionResponses];
+
+export type GetGlossaryTermVersionSchemaData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        term: string;
+        /**
+         * Represents Int32.
+         */
+        termVersion: number;
+    };
+    query?: never;
+    url: '/v1/Glossary/terms/{term}/versions/{termVersion}/schema';
+};
+
+export type GetGlossaryTermVersionSchemaErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryTermVersionSchemaError = GetGlossaryTermVersionSchemaErrors[keyof GetGlossaryTermVersionSchemaErrors];
+
+export type GetGlossaryTermVersionSchemaResponses = {
+    /**
+     * Dictionary<String>
+     *
+     * Represents Dictionary.
+     */
+    200: {
+        [key: string]: unknown;
+    };
+};
+
+export type GetGlossaryTermVersionSchemaResponse = GetGlossaryTermVersionSchemaResponses[keyof GetGlossaryTermVersionSchemaResponses];
+
+export type GetGlossaryEntryByIdData = {
+    body?: never;
+    path: {
+        /**
+         * Represents Guid.
+         */
+        id: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/id/{id}';
+};
+
+export type GetGlossaryEntryByIdErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryEntryByIdError = GetGlossaryEntryByIdErrors[keyof GetGlossaryEntryByIdErrors];
+
+export type GetGlossaryEntryByIdResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsGlossaryResponseModelAdrSemanticsModelsGlossaryModel;
+};
+
+export type GetGlossaryEntryByIdResponse = GetGlossaryEntryByIdResponses[keyof GetGlossaryEntryByIdResponses];
+
 export type GetGlossaryEntryByTermData = {
     body?: never;
     path: {
+        /**
+         * Represents String.
+         */
         term: string;
     };
     query?: never;
@@ -190,7 +1232,7 @@ export type GetGlossaryEntryByTermData = {
 
 export type GetGlossaryEntryByTermErrors = {
     /**
-     * Not Found
+     * Represents Problem Details.
      */
     404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
 };
@@ -199,9 +1241,224 @@ export type GetGlossaryEntryByTermError = GetGlossaryEntryByTermErrors[keyof Get
 
 export type GetGlossaryEntryByTermResponses = {
     /**
-     * OK
+     * The request completed successfully.
      */
-    200: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryModel;
+    200: AdrSemanticsModelsGlossaryResponseModelAdrSemanticsModelsGlossaryModel;
 };
 
 export type GetGlossaryEntryByTermResponse = GetGlossaryEntryByTermResponses[keyof GetGlossaryEntryByTermResponses];
+
+export type GetGlossaryVersionEntryByTermData = {
+    body?: never;
+    path: {
+        /**
+         * Represents String.
+         */
+        glossaryVersion: string;
+        /**
+         * Represents String.
+         */
+        term: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/versions/{glossaryVersion}/terms/{term}';
+};
+
+export type GetGlossaryVersionEntryByTermErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryVersionEntryByTermError = GetGlossaryVersionEntryByTermErrors[keyof GetGlossaryVersionEntryByTermErrors];
+
+export type GetGlossaryVersionEntryByTermResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsGlossaryResponseModelAdrSemanticsModelsGlossaryModel;
+};
+
+export type GetGlossaryVersionEntryByTermResponse = GetGlossaryVersionEntryByTermResponses[keyof GetGlossaryVersionEntryByTermResponses];
+
+export type GetGlossaryDraftsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Represents String.
+         */
+        status?: string;
+    };
+    url: '/v1/Glossary/drafts';
+};
+
+export type GetGlossaryDraftsResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelSystemCollectionsGenericIListAdrSemanticsModelsGlossaryDraftModel;
+};
+
+export type GetGlossaryDraftsResponse = GetGlossaryDraftsResponses[keyof GetGlossaryDraftsResponses];
+
+export type CreateGlossaryDraftData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v1/Glossary/drafts';
+};
+
+export type CreateGlossaryDraftResponses = {
+    /**
+     * The glossary resource was created successfully.
+     */
+    201: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPreviewModel;
+};
+
+export type CreateGlossaryDraftResponse = CreateGlossaryDraftResponses[keyof CreateGlossaryDraftResponses];
+
+export type GetGlossaryDraftData = {
+    body?: never;
+    path: {
+        /**
+         * Represents Guid.
+         */
+        draftId: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/drafts/{draftId}';
+};
+
+export type GetGlossaryDraftErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type GetGlossaryDraftError = GetGlossaryDraftErrors[keyof GetGlossaryDraftErrors];
+
+export type GetGlossaryDraftResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftPreviewModel;
+};
+
+export type GetGlossaryDraftResponse = GetGlossaryDraftResponses[keyof GetGlossaryDraftResponses];
+
+export type RebaseGlossaryDraftData = {
+    body?: never;
+    path: {
+        /**
+         * Represents Guid.
+         */
+        draftId: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/drafts/{draftId}/rebase';
+};
+
+export type RebaseGlossaryDraftErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+    /**
+     * The request conflicts with the current glossary state.
+     */
+    409: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftRebaseResultModel;
+};
+
+export type RebaseGlossaryDraftError = RebaseGlossaryDraftErrors[keyof RebaseGlossaryDraftErrors];
+
+export type RebaseGlossaryDraftResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryDraftRebaseResultModel;
+};
+
+export type RebaseGlossaryDraftResponse = RebaseGlossaryDraftResponses[keyof RebaseGlossaryDraftResponses];
+
+export type DeleteGlossaryDraftTermData = {
+    body?: never;
+    path: {
+        /**
+         * Represents Guid.
+         */
+        draftId: string;
+        /**
+         * Represents String.
+         */
+        term: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/drafts/{draftId}/terms/{term}';
+};
+
+export type DeleteGlossaryDraftTermErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+    /**
+     * Represents Problem Details.
+     */
+    409: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+};
+
+export type DeleteGlossaryDraftTermError = DeleteGlossaryDraftTermErrors[keyof DeleteGlossaryDraftTermErrors];
+
+export type DeleteGlossaryDraftTermResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryTermSubmissionResultModel;
+};
+
+export type DeleteGlossaryDraftTermResponse = DeleteGlossaryDraftTermResponses[keyof DeleteGlossaryDraftTermResponses];
+
+export type PutGlossaryDraftTermData = {
+    body: AdrSemanticsModelsGlossaryTermEditModel;
+    path: {
+        /**
+         * Represents Guid.
+         */
+        draftId: string;
+        /**
+         * Represents String.
+         */
+        term: string;
+    };
+    query?: never;
+    url: '/v1/Glossary/drafts/{draftId}/terms/{term}';
+};
+
+export type PutGlossaryDraftTermErrors = {
+    /**
+     * Represents Problem Details.
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+    /**
+     * Represents Problem Details.
+     */
+    409: MicrosoftAspNetCoreMvcProblemDetails | MicrosoftAspNetCoreHttpHttpValidationProblemDetails;
+    /**
+     * The request contains glossary content that failed validation.
+     */
+    422: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryTermSubmissionResultModel;
+};
+
+export type PutGlossaryDraftTermError = PutGlossaryDraftTermErrors[keyof PutGlossaryDraftTermErrors];
+
+export type PutGlossaryDraftTermResponses = {
+    /**
+     * The request completed successfully.
+     */
+    200: AdrSemanticsModelsBaseResponseModelAdrSemanticsModelsGlossaryTermSubmissionResultModel;
+};
+
+export type PutGlossaryDraftTermResponse = PutGlossaryDraftTermResponses[keyof PutGlossaryDraftTermResponses];

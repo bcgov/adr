@@ -1,0 +1,53 @@
+extends:
+  - spectral:oas
+
+rules:
+  semantic-schema-references-resolve:
+    description: Semantic references must resolve in every OpenAPI Schema Object location.
+    message: An external semantic reference did not resolve to the expected Schema Object.
+    severity: error
+    resolved: true
+    given:
+      - $.paths['/example/{semanticPath}'].parameters[0].schema
+      - $.paths['/example/{semanticPath}'].post.parameters[0].schema
+      - $.paths['/example/{semanticPath}'].post.parameters[1].schema
+      - $.paths['/example/{semanticPath}'].post.parameters[2].schema
+      - $.paths['/example/{semanticPath}'].post.requestBody.content.application/json.schema
+      - $.paths['/example/{semanticPath}'].post.responses['200'].headers['X-Semantic-Response'].schema
+      - $.paths['/example/{semanticPath}'].post.responses['200'].content.application/json.schema
+      - $.components.schemas.SemanticValue
+      - $.components.schemas.SemanticObject.properties.value
+      - $.components.schemas.SemanticArray.items
+      - $.components.schemas.SemanticComposition.allOf[0]
+      - $.components.schemas.SemanticMap.additionalProperties
+      - $.components.parameters.SemanticParameter.schema
+      - $.components.headers.SemanticHeader.schema
+      - $.components.requestBodies.SemanticRequestBody.content.application/json.schema
+      - $.components.responses.SemanticResponse.headers['X-Reusable-Semantic'].schema
+      - $.components.responses.SemanticResponse.content.application/json.schema
+    then:
+      - field: type
+        function: enumeration
+        functionOptions:
+          values:
+            - string
+      - field: title
+        function: enumeration
+        functionOptions:
+          values:
+            - Access Control
+      - field: x-bc-semantic-urn
+        function: enumeration
+        functionOptions:
+          values:
+            - urn:bcgov:glossary:connected-services:access-control
+      - field: x-bc-semantic-term-version
+        function: enumeration
+        functionOptions:
+          values:
+            - 1
+      - field: x-bc-semantic-ref
+        function: enumeration
+        functionOptions:
+          values:
+            - a3ac060a-be57-4e70-af4c-bb7bd91bc7aa

@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: Standalone glossary term reference example
+  version: 1.0.0
+paths:
+  /example/{semanticPath}:
+    parameters:
+      - name: semanticPath
+        in: path
+        required: true
+        schema:
+          $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+    post:
+      parameters:
+        - name: semanticQuery
+          in: query
+          schema:
+            $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+        - name: X-Semantic-Request
+          in: header
+          schema:
+            $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+        - name: semanticCookie
+          in: cookie
+          schema:
+            $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+      responses:
+        "200":
+          description: Example response using a Connected Services glossary term
+          headers:
+            X-Semantic-Response:
+              schema:
+                $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+          content:
+            application/json:
+              schema:
+                $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+components:
+  schemas:
+    SemanticValue:
+      $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+    SemanticObject:
+      type: object
+      properties:
+        value:
+          $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+    SemanticArray:
+      type: array
+      items:
+        $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+    SemanticComposition:
+      allOf:
+        - $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+    SemanticMap:
+      type: object
+      additionalProperties:
+        $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+  parameters:
+    SemanticParameter:
+      name: reusableSemantic
+      in: query
+      schema:
+        $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+  headers:
+    SemanticHeader:
+      schema:
+        $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+  requestBodies:
+    SemanticRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+  responses:
+    SemanticResponse:
+      description: Reusable response containing a semantic value
+      headers:
+        X-Reusable-Semantic:
+          schema:
+            $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"
+      content:
+        application/json:
+          schema:
+            $ref: "http://localhost:5001/v1/Glossary/terms/access-control/versions/1/schema"

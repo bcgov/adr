@@ -42,6 +42,7 @@ namespace Adr.Semantics.Configuration.Addons.Swagger
         public void Configure(SwaggerGenOptions options)
         {
             options.OperationFilter<OperationFilter>();
+            options.OperationFilter<AllowAnonymousOperationFilter>();
             options.IgnoreObsoleteActions();
             options.IgnoreObsoleteProperties();
 

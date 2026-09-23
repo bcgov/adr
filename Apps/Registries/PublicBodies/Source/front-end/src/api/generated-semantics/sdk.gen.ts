@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetAllDictionariesData, GetAllDictionariesResponses, GetAllGlossaryData, GetAllGlossaryResponses, GetGlossaryEntryByTermData, GetGlossaryEntryByTermErrors, GetGlossaryEntryByTermResponses, GetGlossaryMarkdownData, GetGlossaryMarkdownListData, GetGlossaryMarkdownListResponses, GetGlossaryMarkdownResponses } from './types.gen';
+import type { CreateGlossaryDraftData, CreateGlossaryDraftResponses, DeleteGlossaryDraftTermData, DeleteGlossaryDraftTermErrors, DeleteGlossaryDraftTermResponses, GetAllDictionariesData, GetAllDictionariesResponses, GetAllGlossaryData, GetAllGlossaryResponses, GetGlossaryDraftData, GetGlossaryDraftErrors, GetGlossaryDraftResponses, GetGlossaryDraftsData, GetGlossaryDraftsResponses, GetGlossaryEntryByIdData, GetGlossaryEntryByIdErrors, GetGlossaryEntryByIdResponses, GetGlossaryEntryByTermData, GetGlossaryEntryByTermErrors, GetGlossaryEntryByTermResponses, GetGlossaryMarkdownData, GetGlossaryMarkdownListData, GetGlossaryMarkdownListResponses, GetGlossaryMarkdownResponses, GetGlossarySchemaData, GetGlossarySchemaResponses, GetGlossaryTermHistoryData, GetGlossaryTermHistoryErrors, GetGlossaryTermHistoryResponses, GetGlossaryTermVersionData, GetGlossaryTermVersionErrors, GetGlossaryTermVersionResponses, GetGlossaryTermVersionSchemaData, GetGlossaryTermVersionSchemaErrors, GetGlossaryTermVersionSchemaResponses, GetGlossaryTermVersionsData, GetGlossaryTermVersionsErrors, GetGlossaryTermVersionsResponses, GetGlossaryVersionData, GetGlossaryVersionEntryByTermData, GetGlossaryVersionEntryByTermErrors, GetGlossaryVersionEntryByTermResponses, GetGlossaryVersionErrors, GetGlossaryVersionMarkdownData, GetGlossaryVersionMarkdownErrors, GetGlossaryVersionMarkdownListData, GetGlossaryVersionMarkdownListErrors, GetGlossaryVersionMarkdownListResponses, GetGlossaryVersionMarkdownResponses, GetGlossaryVersionResponses, GetGlossaryVersionSchemaData, GetGlossaryVersionSchemaErrors, GetGlossaryVersionSchemaResponses, GetGlossaryVersionsData, GetGlossaryVersionsResponses, PublishGlossaryVersionData, PublishGlossaryVersionErrors, PublishGlossaryVersionResponses, PutGlossaryDraftTermData, PutGlossaryDraftTermErrors, PutGlossaryDraftTermResponses, RebaseGlossaryDraftData, RebaseGlossaryDraftErrors, RebaseGlossaryDraftResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -18,12 +18,186 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: Record<string, unknown>;
 };
 
+/**
+ * Returns all dictionary information.
+ *
+ * Returns all dictionary information. The response contains the requested semantic data or explains why the request could not be completed.
+ */
 export const getAllDictionaries = <ThrowOnError extends boolean = false>(options?: Options<GetAllDictionariesData, ThrowOnError>) => (options?.client ?? client).get<GetAllDictionariesResponses, unknown, ThrowOnError>({ url: '/v1/Dictionary', ...options });
 
+/**
+ * Returns all glossary information.
+ *
+ * Returns all glossary information. The response contains the requested semantic data or explains why the request could not be completed.
+ */
 export const getAllGlossary = <ThrowOnError extends boolean = false>(options?: Options<GetAllGlossaryData, ThrowOnError>) => (options?.client ?? client).get<GetAllGlossaryResponses, unknown, ThrowOnError>({ url: '/v1/Glossary', ...options });
 
+/**
+ * Returns metadata for all available glossary releases.
+ *
+ * Returns metadata for all available glossary releases. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryVersions = <ThrowOnError extends boolean = false>(options?: Options<GetGlossaryVersionsData, ThrowOnError>) => (options?.client ?? client).get<GetGlossaryVersionsResponses, unknown, ThrowOnError>({ url: '/v1/Glossary/versions', ...options });
+
+/**
+ * Publishes a glossary draft as a new glossary version.
+ *
+ * Publishes a glossary draft as a new glossary version. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const publishGlossaryVersion = <ThrowOnError extends boolean = false>(options: Options<PublishGlossaryVersionData, ThrowOnError>) => (options.client ?? client).post<PublishGlossaryVersionResponses, PublishGlossaryVersionErrors, ThrowOnError>({
+    url: '/v1/Glossary/versions',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Returns all published terms from a specific glossary release.
+ *
+ * Returns all published terms from a specific glossary release. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryVersion = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryVersionData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryVersionResponses, GetGlossaryVersionErrors, ThrowOnError>({ url: '/v1/Glossary/versions/{glossaryVersion}', ...options });
+
+/**
+ * Returns the current glossary release as reusable OpenAPI schema components.
+ *
+ * Returns the current glossary release as reusable OpenAPI schema components. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossarySchema = <ThrowOnError extends boolean = false>(options?: Options<GetGlossarySchemaData, ThrowOnError>) => (options?.client ?? client).get<GetGlossarySchemaResponses, unknown, ThrowOnError>({ url: '/v1/Glossary/schema', ...options });
+
+/**
+ * Returns a specific glossary release as reusable OpenAPI schema components.
+ *
+ * Returns a specific glossary release as reusable OpenAPI schema components. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryVersionSchema = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryVersionSchemaData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryVersionSchemaResponses, GetGlossaryVersionSchemaErrors, ThrowOnError>({ url: '/v1/Glossary/versions/{glossaryVersion}/schema', ...options });
+
+/**
+ * Returns all glossary information rendered as a Markdown table.
+ *
+ * Returns all glossary information rendered as a Markdown table. The response contains the requested semantic data or explains why the request could not be completed.
+ */
 export const getGlossaryMarkdown = <ThrowOnError extends boolean = false>(options?: Options<GetGlossaryMarkdownData, ThrowOnError>) => (options?.client ?? client).get<GetGlossaryMarkdownResponses, unknown, ThrowOnError>({ url: '/v1/Glossary/markdown', ...options });
 
+/**
+ * Returns a specific glossary release rendered as a Markdown table.
+ *
+ * Returns a specific glossary release rendered as a Markdown table. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryVersionMarkdown = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryVersionMarkdownData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryVersionMarkdownResponses, GetGlossaryVersionMarkdownErrors, ThrowOnError>({ url: '/v1/Glossary/versions/{glossaryVersion}/markdown', ...options });
+
+/**
+ * Returns all glossary information rendered as a Markdown list.
+ *
+ * Returns all glossary information rendered as a Markdown list. The response contains the requested semantic data or explains why the request could not be completed.
+ */
 export const getGlossaryMarkdownList = <ThrowOnError extends boolean = false>(options?: Options<GetGlossaryMarkdownListData, ThrowOnError>) => (options?.client ?? client).get<GetGlossaryMarkdownListResponses, unknown, ThrowOnError>({ url: '/v1/Glossary/markdown-list', ...options });
 
+/**
+ * Returns a specific glossary release rendered as a Markdown list.
+ *
+ * Returns a specific glossary release rendered as a Markdown list. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryVersionMarkdownList = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryVersionMarkdownListData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryVersionMarkdownListResponses, GetGlossaryVersionMarkdownListErrors, ThrowOnError>({ url: '/v1/Glossary/versions/{glossaryVersion}/markdown-list', ...options });
+
+/**
+ * Returns every persisted version of a glossary term.
+ *
+ * Returns every persisted version of a glossary term. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryTermVersions = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryTermVersionsData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryTermVersionsResponses, GetGlossaryTermVersionsErrors, ThrowOnError>({ url: '/v1/Glossary/terms/{term}/versions', ...options });
+
+/**
+ * Returns the published revisions and invalid submissions for a term selected from a
+ * specific glossary release.
+ *
+ * Returns the published revisions and invalid submissions for a term selected from a
+ * specific glossary release. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryTermHistory = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryTermHistoryData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryTermHistoryResponses, GetGlossaryTermHistoryErrors, ThrowOnError>({ url: '/v1/Glossary/versions/{glossaryVersion}/terms/{term}/versions', ...options });
+
+/**
+ * Returns a persisted version of a glossary term.
+ *
+ * Returns a persisted version of a glossary term. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryTermVersion = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryTermVersionData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryTermVersionResponses, GetGlossaryTermVersionErrors, ThrowOnError>({ url: '/v1/Glossary/terms/{term}/versions/{termVersion}', ...options });
+
+/**
+ * Returns a persisted term revision as a reusable OpenAPI Schema Object.
+ *
+ * Returns a persisted term revision as a reusable OpenAPI Schema Object. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryTermVersionSchema = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryTermVersionSchemaData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryTermVersionSchemaResponses, GetGlossaryTermVersionSchemaErrors, ThrowOnError>({ url: '/v1/Glossary/terms/{term}/versions/{termVersion}/schema', ...options });
+
+/**
+ * Returns the current valid glossary entry identified by its stable UUID.
+ *
+ * Returns the current valid glossary entry identified by its stable UUID. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryEntryById = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryEntryByIdData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryEntryByIdResponses, GetGlossaryEntryByIdErrors, ThrowOnError>({ url: '/v1/Glossary/id/{id}', ...options });
+
+/**
+ * Returns a glossary entry by its human-readable slug.
+ *
+ * Returns a glossary entry by its human-readable slug. The response contains the requested semantic data or explains why the request could not be completed.
+ */
 export const getGlossaryEntryByTerm = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryEntryByTermData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryEntryByTermResponses, GetGlossaryEntryByTermErrors, ThrowOnError>({ url: '/v1/Glossary/{term}', ...options });
+
+/**
+ * Returns a glossary entry from a specific release by its human-readable slug.
+ *
+ * Returns a glossary entry from a specific release by its human-readable slug. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryVersionEntryByTerm = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryVersionEntryByTermData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryVersionEntryByTermResponses, GetGlossaryVersionEntryByTermErrors, ThrowOnError>({ url: '/v1/Glossary/versions/{glossaryVersion}/terms/{term}', ...options });
+
+/**
+ * Returns glossary draft metadata, optionally filtered by lifecycle status.
+ *
+ * Returns glossary draft metadata, optionally filtered by lifecycle status. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryDrafts = <ThrowOnError extends boolean = false>(options?: Options<GetGlossaryDraftsData, ThrowOnError>) => (options?.client ?? client).get<GetGlossaryDraftsResponses, unknown, ThrowOnError>({ url: '/v1/Glossary/drafts', ...options });
+
+/**
+ * Creates a new draft based on the current glossary release.
+ *
+ * Creates a new draft based on the current glossary release. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const createGlossaryDraft = <ThrowOnError extends boolean = false>(options?: Options<CreateGlossaryDraftData, ThrowOnError>) => (options?.client ?? client).post<CreateGlossaryDraftResponses, unknown, ThrowOnError>({ url: '/v1/Glossary/drafts', ...options });
+
+/**
+ * Returns a draft, its calculated draft version, and its effective terms.
+ *
+ * Returns a draft, its calculated draft version, and its effective terms. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const getGlossaryDraft = <ThrowOnError extends boolean = false>(options: Options<GetGlossaryDraftData, ThrowOnError>) => (options.client ?? client).get<GetGlossaryDraftResponses, GetGlossaryDraftErrors, ThrowOnError>({ url: '/v1/Glossary/drafts/{draftId}', ...options });
+
+/**
+ * Applies a stale draft's changes to the current glossary release.
+ *
+ * Applies a stale draft's changes to the current glossary release. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const rebaseGlossaryDraft = <ThrowOnError extends boolean = false>(options: Options<RebaseGlossaryDraftData, ThrowOnError>) => (options.client ?? client).post<RebaseGlossaryDraftResponses, RebaseGlossaryDraftErrors, ThrowOnError>({ url: '/v1/Glossary/drafts/{draftId}/rebase', ...options });
+
+/**
+ * Removes a term from a draft and records the deletion for audit.
+ *
+ * Removes a term from a draft and records the deletion for audit. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const deleteGlossaryDraftTerm = <ThrowOnError extends boolean = false>(options: Options<DeleteGlossaryDraftTermData, ThrowOnError>) => (options.client ?? client).delete<DeleteGlossaryDraftTermResponses, DeleteGlossaryDraftTermErrors, ThrowOnError>({ url: '/v1/Glossary/drafts/{draftId}/terms/{term}', ...options });
+
+/**
+ * Adds or replaces a term in a draft and records the submission for audit.
+ *
+ * Adds or replaces a term in a draft and records the submission for audit. The response contains the requested semantic data or explains why the request could not be completed.
+ */
+export const putGlossaryDraftTerm = <ThrowOnError extends boolean = false>(options: Options<PutGlossaryDraftTermData, ThrowOnError>) => (options.client ?? client).put<PutGlossaryDraftTermResponses, PutGlossaryDraftTermErrors, ThrowOnError>({
+    url: '/v1/Glossary/drafts/{draftId}/terms/{term}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});

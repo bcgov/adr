@@ -6,7 +6,7 @@ namespace Adr.Semantics
     /// <summary>
     /// The entry point for the project.
     /// </summary>
-    public static class Program
+    public class Program
     {
         /// <summary>
         /// The entry point for the class.

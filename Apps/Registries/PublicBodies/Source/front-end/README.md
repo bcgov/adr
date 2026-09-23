@@ -4,6 +4,8 @@ This directory contains an example front-end application for ingesting the B.C. 
 
 ## Developer setup
 
+See [Run locally](../../../Semantics/README.md#run-locally) for the Public Bodies API, Semantics API, and frontend startup commands, ports, and Dictionary dependency.
+
 - Install [Node.js](https://nodejs.org) using a method of your choosing. `.nvmrc` contains the Node.js major version number you should select.
 - In this directory, run `npm install` to install dependencies.
 - `npm run dev` runs the `dev` script in `package.json` to start the development server with hot reloading.

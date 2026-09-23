@@ -1,5 +1,8 @@
 ---
 title: Glossary of Terms
+glossary_id: connected-services
+glossary_version: 1.0.0
+glossary_published_at: 2026-09-09
 ---
 
 <!--

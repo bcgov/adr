@@ -149,7 +149,7 @@ namespace Adr.Semantics.Providers
                 return termId;
             }
 
-            return $"{_glossaryBaseUrl}/{termId}";
+            return $"{_glossaryBaseUrl}/id/{termId}";
         }
     }
 }

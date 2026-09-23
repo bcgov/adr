@@ -13,13 +13,30 @@ namespace Adr.Semantics.Mappers
         /// </summary>
         public GlossaryMapper()
         {
-            this.Map(m => m.StaticId).Name("StaticId");
+            this.Map(m => m.Version).Ignore();
+
+            this.Map(m => m.SourceRecordNumber).Ignore();
+
+            this.Map(m => m.BreakingChange)
+                .Name("Breaking Change")
+                .Optional()
+                .TypeConverter<OptionalBooleanFromYesNoConverter>();
+
+            this.Map(m => m.StaticId).Name("StaticId").Optional();
 
             this.Map(m => m.Name).Name("Name");
 
             this.Map(m => m.Term).Name("Term");
 
             this.Map(m => m.Definition).Name("Published Definition");
+
+            this.Map(m => m.Example).Name("Example").Optional();
+
+            this.Map(m => m.SchemaType).Name("Schema Type").Optional();
+
+            this.Map(m => m.SchemaConstraintsSource).Name("Schema Constraints").Optional();
+
+            this.Map(m => m.SchemaConstraints).Ignore();
 
             this.Map(m => m.Keywords).Name("Keywords").TypeConverter<ListStringConverter>();
 
